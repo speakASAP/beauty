@@ -1,0 +1,28 @@
+{
+  "name": "bi-service",
+  "version": "1.0.0",
+  "description": "BI Service - Aggregates, analytics, read models, business intelligence",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "pg": "^8.11.3",
+    "uuid": "^9.0.1",
+    "@beauty/event-bus": "file:../../packages/event-bus",
+    "@beauty/tenant-middleware": "file:../../packages/tenant-middleware",
+    "@beauty/logger": "file:../../packages/logger"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "jest": "^29.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+

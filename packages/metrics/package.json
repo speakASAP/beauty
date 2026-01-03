@@ -1,0 +1,16 @@
+{
+  "name": "@beauty/metrics",
+  "version": "1.0.0",
+  "description": "Metrics collection package for beauty platform (Prometheus)",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+

@@ -1,0 +1,23 @@
+{
+  "name": "@beauty/tracing",
+  "version": "1.0.0",
+  "description": "Distributed tracing package for beauty platform",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@opentelemetry/api": "^1.7.0",
+    "@opentelemetry/sdk-node": "^0.45.0",
+    "@opentelemetry/instrumentation": "^0.45.0",
+    "@opentelemetry/instrumentation-http": "^0.45.0",
+    "@opentelemetry/instrumentation-pg": "^0.36.0",
+    "@opentelemetry/exporter-jaeger": "^1.15.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+

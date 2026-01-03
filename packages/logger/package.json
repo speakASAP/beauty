@@ -1,0 +1,20 @@
+{
+  "name": "@beauty/logger",
+  "version": "1.0.0",
+  "description": "Shared logger library for beauty platform - Centralized logging via logging microservice",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+

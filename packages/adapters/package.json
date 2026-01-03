@@ -1,0 +1,20 @@
+{
+  "name": "@beauty/adapters",
+  "version": "1.0.0",
+  "description": "Shared adapters for integrating with existing microservices",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+

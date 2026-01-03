@@ -1,0 +1,349 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database (shared, RLS enabled)
+  database:
+    image: postgres:15-alpine
+    container_name: beauty-database
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-beauty_platform}
+      POSTGRES_USER: ${POSTGRES_USER:-beauty_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-beauty_password}
+    ports:
+      - "${DATABASE_PORT:-4101}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-beauty_user}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - beauty-network
+
+  # NATS Event Bus
+  nats:
+    image: nats:2.10-alpine
+    container_name: beauty-nats
+    ports:
+      - "${NATS_PORT:-4102}:4222"
+      - "${NATS_HTTP_PORT:-4103}:8222"
+    command: ["-js", "-m", "8222"]
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8222/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - beauty-network
+
+  # API Gateway
+  api-gateway:
+    build:
+      context: .
+      dockerfile: ./services/api-gateway/Dockerfile
+    container_name: beauty-api-gateway
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: ${API_GATEWAY_PORT:-4100}
+      JWT_SECRET: ${JWT_SECRET:-}
+      AUTH_SERVICE_URL: ${AUTH_SERVICE_URL:-http://auth-microservice:3367}
+      CORS_ORIGIN: ${CORS_ORIGIN:-*}
+      BOOKING_SERVICE_URL: ${BOOKING_SERVICE_URL:-http://booking-service:4110}
+      POS_SERVICE_URL: ${POS_SERVICE_URL:-http://beauty-pos-service:4111}
+      PAYMENTS_SERVICE_URL: ${PAYMENTS_SERVICE_URL:-http://payments-service:4112}
+      INVENTORY_SERVICE_URL: ${INVENTORY_SERVICE_URL:-http://inventory-service:4113}
+      CUSTOMER_SERVICE_URL: ${CUSTOMER_SERVICE_URL:-http://customer-service:4114}
+      BI_SERVICE_URL: ${BI_SERVICE_URL:-http://bi-service:4115}
+      INTEGRATION_HUB_SERVICE_URL: ${INTEGRATION_HUB_SERVICE_URL:-http://integration-hub-service:4116}
+      STAFF_SERVICE_URL: ${STAFF_SERVICE_URL:-http://staff-service:4117}
+      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:3367}
+      SERVICE_NAME: api-gateway
+    ports:
+      - "${API_GATEWAY_PORT:-4100}:4100"
+    depends_on:
+      - booking-service
+      - beauty-pos-service
+      - payments-service
+      - inventory-service
+      - customer-service
+      - staff-service
+      - bi-service
+      - integration-hub-service
+    networks:
+      - beauty-network
+      - nginx-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4100/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Booking Service
+  booking-service:
+    build:
+      context: .
+      dockerfile: ./services/booking-service/Dockerfile
+    container_name: beauty-booking-service
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: ${BOOKING_SERVICE_PORT:-4110}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-beauty_user}:${POSTGRES_PASSWORD:-beauty_password}@database:5432/${POSTGRES_DB:-beauty_platform}
+      NATS_URL: nats://nats:4222
+      CUSTOMER_SERVICE_URL: ${CUSTOMER_SERVICE_URL:-http://customer-service:4114}
+      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:3367}
+      SERVICE_NAME: booking-service
+    ports:
+      - "${BOOKING_SERVICE_PORT:-4110}:4110"
+    depends_on:
+      database:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    networks:
+      - beauty-network
+      - nginx-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4110/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Beauty POS Service
+  beauty-pos-service:
+    build:
+      context: .
+      dockerfile: ./services/beauty-pos-service/Dockerfile
+    container_name: beauty-pos-service
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: ${POS_SERVICE_PORT:-4111}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-beauty_user}:${POSTGRES_PASSWORD:-beauty_password}@database:5432/${POSTGRES_DB:-beauty_platform}
+      NATS_URL: nats://nats:4222
+      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:3367}
+      SERVICE_NAME: beauty-pos-service
+    ports:
+      - "${POS_SERVICE_PORT:-4111}:4111"
+    depends_on:
+      database:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    networks:
+      - beauty-network
+      - nginx-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4111/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Payments Service (uses existing payments-microservice via adapter)
+  payments-service:
+    build:
+      context: .
+      dockerfile: ./services/payments-service/Dockerfile
+    container_name: beauty-payments-service
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: ${PAYMENTS_SERVICE_PORT:-4112}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-beauty_user}:${POSTGRES_PASSWORD:-beauty_password}@database:5432/${POSTGRES_DB:-beauty_platform}
+      NATS_URL: nats://nats:4222
+      PAYMENTS_MICROSERVICE_URL: ${PAYMENTS_MICROSERVICE_URL:-http://payments-microservice:3367}
+      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:3367}
+      SERVICE_NAME: payments-service
+    ports:
+      - "${PAYMENTS_SERVICE_PORT:-4112}:4112"
+    depends_on:
+      database:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    networks:
+      - beauty-network
+      - nginx-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4112/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Inventory Service
+  inventory-service:
+    build:
+      context: .
+      dockerfile: ./services/inventory-service/Dockerfile
+    container_name: beauty-inventory-service
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: ${INVENTORY_SERVICE_PORT:-4113}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-beauty_user}:${POSTGRES_PASSWORD:-beauty_password}@database:5432/${POSTGRES_DB:-beauty_platform}
+      NATS_URL: nats://nats:4222
+      WAREHOUSE_MICROSERVICE_URL: ${WAREHOUSE_MICROSERVICE_URL:-http://warehouse-microservice:3367}
+      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:3367}
+      SERVICE_NAME: inventory-service
+    ports:
+      - "${INVENTORY_SERVICE_PORT:-4113}:4113"
+    depends_on:
+      database:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    networks:
+      - beauty-network
+      - nginx-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4113/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Customer Service
+  customer-service:
+    build:
+      context: .
+      dockerfile: ./services/customer-service/Dockerfile
+    container_name: beauty-customer-service
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: ${CUSTOMER_SERVICE_PORT:-4114}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-beauty_user}:${POSTGRES_PASSWORD:-beauty_password}@database:5432/${POSTGRES_DB:-beauty_platform}
+      NATS_URL: nats://nats:4222
+      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:3367}
+      SERVICE_NAME: customer-service
+    ports:
+      - "${CUSTOMER_SERVICE_PORT:-4114}:4114"
+    depends_on:
+      database:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    networks:
+      - beauty-network
+      - nginx-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4114/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Staff Service
+  staff-service:
+    build:
+      context: .
+      dockerfile: ./services/staff-service/Dockerfile
+    container_name: beauty-staff-service
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: ${STAFF_SERVICE_PORT:-4117}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-beauty_user}:${POSTGRES_PASSWORD:-beauty_password}@database:5432/${POSTGRES_DB:-beauty_platform}
+      NATS_URL: nats://nats:4222
+      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:3367}
+      SERVICE_NAME: staff-service
+    ports:
+      - "${STAFF_SERVICE_PORT:-4117}:4117"
+    depends_on:
+      database:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    networks:
+      - beauty-network
+      - nginx-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4117/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # BI Service (Read Model)
+  bi-service:
+    build:
+      context: .
+      dockerfile: ./services/bi-service/Dockerfile
+    container_name: beauty-bi-service
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: ${BI_SERVICE_PORT:-4115}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-beauty_user}:${POSTGRES_PASSWORD:-beauty_password}@database:5432/${POSTGRES_DB:-beauty_platform}
+      NATS_URL: nats://nats:4222
+      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:3367}
+      SERVICE_NAME: bi-service
+    ports:
+      - "${BI_SERVICE_PORT:-4115}:4115"
+    depends_on:
+      database:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    networks:
+      - beauty-network
+      - nginx-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4115/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Integration Hub Service
+  integration-hub-service:
+    build:
+      context: ./services/integration-hub-service
+      dockerfile: Dockerfile
+    container_name: beauty-integration-hub-service
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: ${INTEGRATION_HUB_SERVICE_PORT:-4116}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-beauty_user}:${POSTGRES_PASSWORD:-beauty_password}@database:5432/${POSTGRES_DB:-beauty_platform}
+      NATS_URL: nats://nats:4222
+      NOTIFICATIONS_MICROSERVICE_URL: ${NOTIFICATIONS_MICROSERVICE_URL:-http://notifications-microservice:3367}
+      CATALOG_MICROSERVICE_URL: ${CATALOG_MICROSERVICE_URL:-http://catalog-microservice:3367}
+      ACCOUNTING_SERVICE_URL: ${ACCOUNTING_SERVICE_URL:-http://accounting-service:3367}
+      ACCOUNTING_SYSTEM: ${ACCOUNTING_SYSTEM:-money_s3}
+      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:3367}
+      SERVICE_NAME: integration-hub-service
+    ports:
+      - "${INTEGRATION_HUB_SERVICE_PORT:-4116}:4116"
+    depends_on:
+      database:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    networks:
+      - beauty-network
+      - nginx-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4116/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Jaeger (Distributed Tracing)
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: beauty-jaeger
+    ports:
+      - "${JAEGER_UI_PORT:-16686}:16686"  # UI
+      - "${JAEGER_COLLECTOR_PORT:-14268}:14268"  # Collector HTTP
+      - "${JAEGER_AGENT_PORT:-6831}:6831/udp"  # Agent UDP
+    environment:
+      COLLECTOR_ZIPKIN_HOST_PORT: :9411
+    networks:
+      - beauty-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:16686"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+
+networks:
+  beauty-network:
+    driver: bridge
+  nginx-network:
+    external: true
+    name: nginx-network
+
