@@ -161,12 +161,11 @@ Phase 0 (Foundations)
 - Output:
   - new-city bootstrap scripts
 
-### Task Group 12: Observability & Ops
+### Task Group 12: Operations
 
 - Agents: 1
 - Output:
   - logging
-  - metrics
 
 ### Task Group 13: Security & Compliance
 

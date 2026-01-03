@@ -151,7 +151,7 @@ node scripts/validation/sync_g_validation.js
 
 ---
 
-### Event Observability ✅
+### Event Monitoring ✅
 
 - ✅ NATS event bus running
 - ✅ All services connected to NATS

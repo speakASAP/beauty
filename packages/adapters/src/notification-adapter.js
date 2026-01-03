@@ -3,12 +3,25 @@
  * Integrates with existing notifications-microservice
  */
 
+import fetch from 'node-fetch';
 import { BaseAdapter } from './base-adapter.js';
 import { AdapterError, AdapterErrorCodes } from './errors.js';
 
 export class NotificationAdapter extends BaseAdapter {
   constructor(config = {}) {
     super('notification', config);
+    // Supported SMS gateways
+    this.supportedGateways = ['bulkgate', 'gosms'];
+    // Default gateway (can be overridden per tenant)
+    this.smsGateway = config.smsGateway || process.env.SMS_GATEWAY || 'bulkgate';
+    // Gateway-specific API keys
+    this.bulkgateApiKey = config.bulkgateApiKey || process.env.BULKGATE_API_KEY;
+    this.gosmsApiKey = config.gosmsApiKey || process.env.GOSMS_API_KEY;
+    // Gateway URLs
+    this.bulkgateUrl = config.bulkgateUrl || process.env.BULKGATE_API_URL || 'https://api.bulkgate.com';
+    this.gosmsUrl = config.gosmsUrl || process.env.GOSMS_API_URL || 'https://api.gosms.cz';
+    // Fallback enabled
+    this.fallbackEnabled = config.fallbackEnabled !== false && process.env.SMS_GATEWAY_FALLBACK !== 'false';
   }
 
   /**
@@ -41,6 +54,12 @@ export class NotificationAdapter extends BaseAdapter {
     }
 
     try {
+      // Try direct gateway API if configured, otherwise use notifications-microservice
+      if (this.shouldUseDirectSmsGateway()) {
+        return await this.sendSmsDirect(phone, message, tenantId);
+      }
+
+      // Fallback to notifications-microservice
       const response = await this.request('/api/notifications/sms', {
         method: 'POST',
         body: JSON.stringify({
@@ -62,6 +81,15 @@ export class NotificationAdapter extends BaseAdapter {
         channel: 'sms'
       };
     } catch (error) {
+      // If fallback is enabled and direct gateway failed, try fallback
+      if (this.fallbackEnabled && this.shouldUseDirectSmsGateway()) {
+        try {
+          return await this.sendSmsWithFallback(phone, message, tenantId);
+        } catch (fallbackError) {
+          // If fallback also fails, throw original error
+        }
+      }
+
       if (error instanceof AdapterError) {
         throw error;
       }
@@ -272,6 +300,213 @@ export class NotificationAdapter extends BaseAdapter {
         this.adapterName,
         error,
         error.retryable || false,
+        AdapterErrorCodes.UNKNOWN_ERROR
+      );
+    }
+  }
+
+  /**
+   * Check if direct SMS gateway should be used
+   * @returns {boolean} True if direct gateway should be used
+   * @private
+   */
+  shouldUseDirectSmsGateway() {
+    return (this.smsGateway === 'bulkgate' && !!this.bulkgateApiKey) ||
+           (this.smsGateway === 'gosms' && !!this.gosmsApiKey);
+  }
+
+  /**
+   * Send SMS using direct gateway API
+   * @param {string} phone - Phone number
+   * @param {string} message - SMS message
+   * @param {string} tenantId - Tenant UUID
+   * @returns {Promise<Object>} Notification result
+   * @private
+   */
+  async sendSmsDirect(phone, message, tenantId) {
+    switch (this.smsGateway) {
+      case 'bulkgate':
+        return await this.sendSmsBulkGate(phone, message, tenantId);
+      case 'gosms':
+        return await this.sendSmsGoSMS(phone, message, tenantId);
+      default:
+        throw new AdapterError(
+          `Unsupported SMS gateway: ${this.smsGateway}`,
+          this.adapterName,
+          null,
+          false,
+          AdapterErrorCodes.CONFIGURATION_ERROR
+        );
+    }
+  }
+
+  /**
+   * Send SMS with fallback mechanism
+   * @param {string} phone - Phone number
+   * @param {string} message - SMS message
+   * @param {string} tenantId - Tenant UUID
+   * @returns {Promise<Object>} Notification result
+   * @private
+   */
+  async sendSmsWithFallback(phone, message, tenantId) {
+    const gateways = this.supportedGateways.filter(g => g !== this.smsGateway);
+    
+    for (const gateway of gateways) {
+      try {
+        const originalGateway = this.smsGateway;
+        this.smsGateway = gateway;
+        const result = await this.sendSmsDirect(phone, message, tenantId);
+        this.smsGateway = originalGateway;
+        return result;
+      } catch (error) {
+        // Try next gateway
+        continue;
+      }
+    }
+
+    throw new AdapterError(
+      'All SMS gateways failed',
+      this.adapterName,
+      null,
+      false,
+      AdapterErrorCodes.UNKNOWN_ERROR
+    );
+  }
+
+  /**
+   * Send SMS via BulkGate
+   * @param {string} phone - Phone number
+   * @param {string} message - SMS message
+   * @param {string} tenantId - Tenant UUID
+   * @returns {Promise<Object>} Notification result
+   * @private
+   */
+  async sendSmsBulkGate(phone, message, tenantId) {
+    if (!this.bulkgateApiKey) {
+      throw new AdapterError(
+        'BulkGate API key not configured',
+        this.adapterName,
+        null,
+        false,
+        AdapterErrorCodes.CONFIGURATION_ERROR
+      );
+    }
+
+    try {
+      const response = await fetch(`${this.bulkgateUrl}/api/v1/sms`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-Key': this.bulkgateApiKey
+        },
+        body: JSON.stringify({
+          number: phone,
+          text: message,
+          unicode: true
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new AdapterError(
+          `BulkGate SMS failed: ${errorData.error || response.statusText}`,
+          this.adapterName,
+          null,
+          true, // Retryable
+          AdapterErrorCodes.UNKNOWN_ERROR
+        );
+      }
+
+      const data = await response.json();
+
+      return {
+        id: data.id || data.message_id || `bulkgate_${Date.now()}`,
+        status: data.status === 'sent' ? 'sent' : 'pending',
+        sentAt: new Date(),
+        tenantId: tenantId,
+        channel: 'sms',
+        gateway: 'bulkgate',
+        externalId: data.id || data.message_id
+      };
+    } catch (error) {
+      if (error instanceof AdapterError) {
+        throw error;
+      }
+
+      throw new AdapterError(
+        `BulkGate SMS send failed: ${error.message}`,
+        this.adapterName,
+        error,
+        true,
+        AdapterErrorCodes.UNKNOWN_ERROR
+      );
+    }
+  }
+
+  /**
+   * Send SMS via GoSMS
+   * @param {string} phone - Phone number
+   * @param {string} message - SMS message
+   * @param {string} tenantId - Tenant UUID
+   * @returns {Promise<Object>} Notification result
+   * @private
+   */
+  async sendSmsGoSMS(phone, message, tenantId) {
+    if (!this.gosmsApiKey) {
+      throw new AdapterError(
+        'GoSMS API key not configured',
+        this.adapterName,
+        null,
+        false,
+        AdapterErrorCodes.CONFIGURATION_ERROR
+      );
+    }
+
+    try {
+      const response = await fetch(`${this.gosmsUrl}/api/v1/sms`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.gosmsApiKey}`
+        },
+        body: JSON.stringify({
+          phone: phone,
+          message: message
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new AdapterError(
+          `GoSMS SMS failed: ${errorData.error || response.statusText}`,
+          this.adapterName,
+          null,
+          true, // Retryable
+          AdapterErrorCodes.UNKNOWN_ERROR
+        );
+      }
+
+      const data = await response.json();
+
+      return {
+        id: data.id || data.message_id || `gosms_${Date.now()}`,
+        status: data.status === 'sent' ? 'sent' : 'pending',
+        sentAt: new Date(),
+        tenantId: tenantId,
+        channel: 'sms',
+        gateway: 'gosms',
+        externalId: data.id || data.message_id
+      };
+    } catch (error) {
+      if (error instanceof AdapterError) {
+        throw error;
+      }
+
+      throw new AdapterError(
+        `GoSMS SMS send failed: ${error.message}`,
+        this.adapterName,
+        error,
+        true,
         AdapterErrorCodes.UNKNOWN_ERROR
       );
     }

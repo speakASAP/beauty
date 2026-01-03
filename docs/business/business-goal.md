@@ -122,7 +122,7 @@ directly.
 ### Adapter-based Integrations
 
 - **Accounting**: Money S3, Pohoda, ABRA, Fakturama
-- **VAT / EET**: system must be data-ready (EET may return)
+- **VAT**: system must be data-ready
 
 ---
 

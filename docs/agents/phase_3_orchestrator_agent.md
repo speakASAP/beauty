@@ -30,7 +30,6 @@ Deliver a production-ready platform that:
 
 - Has a public-facing website for online booking
 - Has an API Gateway for tenant propagation
-- Has observability (logging, metrics, tracing)
 - Is secure and GDPR compliant
 - Integrates with Czech market systems
 
@@ -41,9 +40,9 @@ Deliver a production-ready platform that:
 P3.1 Public Website ─┐
 P3.2 API Gateway    ├──► SYNC K (Production Ready)
 
-P3.4 Observability ─┐
-P3.5 Security       ├──► SYNC L (Operational)
-P3.6 Integrations   ─┘
+P3.5 Security       ─┐
+P3.6 Integrations   ├──► SYNC L (Operational)
+                    ─┘
 
 P3.7 Hardening ─► SYNC M (SCALE READY)
 
@@ -116,22 +115,6 @@ P3.7 Hardening ─► SYNC M (SCALE READY)
 
 ---
 
-## P3.4 — Observability
-
-**Agent:** Observability Agent
-
-**Scope:**
-
-- Centralized logging
-- Metrics collection
-- Distributed tracing
-- Error tracking
-
-**Rules:**
-
-- Tenant-aware logging
-- Tenant-scoped metrics
-- Request correlation
 - Performance monitoring
 
 **Output:**
@@ -197,7 +180,6 @@ P3.7 Hardening ─► SYNC M (SCALE READY)
 
 **Criteria:**
 
-- ✅ Observability operational
 - ✅ Security & compliance implemented
 - ✅ Czech integrations working
 
@@ -270,7 +252,6 @@ P3.7 Hardening ─► SYNC M (SCALE READY)
 **Week 1-2:**
 
 1. P3.2 - API Gateway (enables production)
-2. P3.4 - Observability (enables monitoring)
 
 **Week 2-4:**
 3. P3.1 - Public Website (MVP requirement)
@@ -299,7 +280,6 @@ STOP immediately if:
 
 - Public booking website
 - API Gateway operational
-- Observability system
 - Security & compliance
 - Czech integrations
 - Scale testing complete

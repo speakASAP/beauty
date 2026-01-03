@@ -138,7 +138,7 @@ Guarantees:
 Multi-tenant safe
 Event-driven
 Backend untouched
-Ready for Phase 3 (Scaling, Observability, AI)
+Ready for Phase 3 (Scaling, AI)
 Authorization:
 Proceed to next phase.
 

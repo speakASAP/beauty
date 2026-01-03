@@ -18,20 +18,9 @@ import {
 import { createEventBus } from '@beauty/event-bus';
 import { createLogger, loggingMiddleware } from '@beauty/logger';
 import { NotificationAdapter } from '@beauty/adapters';
-import { metricsMiddleware, getMetrics } from '@beauty/metrics';
-import { initTracing, tracingMiddleware } from '@beauty/tracing';
-import {
-  initErrorTracking,
-  errorTrackingMiddleware,
-  errorHandlerMiddleware,
-  tenantContextErrorTrackingMiddleware
-} from '@beauty/error-tracking';
 
 const app = express();
 app.use(express.json());
-
-// Error tracking request handler (must be first)
-app.use(errorTrackingMiddleware());
 
 // CORS configuration for public endpoints
 app.use(cors({
@@ -68,20 +57,6 @@ const eventBus = createEventBus(process.env.NATS_URL || 'nats://nats:4222');
 
 // Logger
 const logger = createLogger(process.env.SERVICE_NAME || 'booking-service');
-
-// Initialize error tracking (must be first)
-initErrorTracking({
-  dsn: process.env.SENTRY_DSN,
-  environment: process.env.NODE_ENV,
-  release: process.env.APP_VERSION
-});
-
-// Initialize tracing
-initTracing({
-  serviceName: process.env.SERVICE_NAME || 'booking-service',
-  jaegerEndpoint: process.env.JAEGER_ENDPOINT || 'http://jaeger:14268/api/traces',
-  enabled: process.env.TRACING_ENABLED !== 'false'
-});
 
 // Notification adapter
 const notificationAdapter = new NotificationAdapter({
@@ -759,17 +734,8 @@ app.use(dbTenantContextMiddleware(db));
 // Tenant state validation middleware (for write operations)
 app.use(tenantStateValidationMiddleware(db, { allowReadOnly: false }));
 
-// Tenant context for error tracking (after tenant middleware)
-app.use(tenantContextErrorTrackingMiddleware());
-
 // Logging middleware (attaches req.logger with tenant context)
 app.use(loggingMiddleware(logger));
-
-// Tracing middleware (after tenant context)
-app.use(tracingMiddleware(process.env.SERVICE_NAME || 'booking-service'));
-
-// Metrics middleware (after tenant context)
-app.use(metricsMiddleware(process.env.SERVICE_NAME || 'booking-service'));
 
 // Helper function to publish event
 async function publishEvent(eventType, eventVersion, aggregateId, payload, tenantContext, causationId = null) {
@@ -1224,13 +1190,7 @@ app.get('/appointments', async (req, res) => {
   }
 });
 
-// Metrics endpoint
-app.get('/metrics', (req, res) => {
-  res.json(getMetrics());
-});
-
-// Error handler middleware (must be before custom error handler)
-app.use(errorHandlerMiddleware());
+// Error handler middleware
 
 // Custom error handling middleware (fallback)
 app.use(async (err, req, res, next) => {

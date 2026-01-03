@@ -319,24 +319,6 @@ services:
       timeout: 10s
       retries: 3
 
-  # Jaeger (Distributed Tracing)
-  jaeger:
-    image: jaegertracing/all-in-one:latest
-    container_name: beauty-jaeger
-    ports:
-      - "${JAEGER_UI_PORT:-16686}:16686"  # UI
-      - "${JAEGER_COLLECTOR_PORT:-14268}:14268"  # Collector HTTP
-      - "${JAEGER_AGENT_PORT:-6831}:6831/udp"  # Agent UDP
-    environment:
-      COLLECTOR_ZIPKIN_HOST_PORT: :9411
-    networks:
-      - beauty-network
-    healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:16686"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
 volumes:
   postgres_data:
 

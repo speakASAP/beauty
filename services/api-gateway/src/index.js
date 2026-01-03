@@ -213,8 +213,14 @@ async function jwtValidationMiddleware(req, res, next) {
   next();
 }
 
-// Apply JWT validation middleware
-app.use(jwtValidationMiddleware);
+// Apply JWT validation middleware (skip for public endpoints)
+app.use((req, res, next) => {
+  // Skip JWT validation for public endpoints and health check
+  if (req.path === '/health' || req.path.startsWith('/public/')) {
+    return next();
+  }
+  return jwtValidationMiddleware(req, res, next);
+});
 
 // ============================================================================
 // RATE LIMITING

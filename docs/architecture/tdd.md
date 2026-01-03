@@ -40,7 +40,6 @@ Excluded (post-MVP):
 - Payroll / HR accounting
 - Advanced loyalty & promotions
 - AI-driven optimization
-- Full fiscal automation (EET)
 
 ### 1.3 Architectural Principles
 

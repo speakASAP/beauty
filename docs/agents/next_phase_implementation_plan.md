@@ -136,7 +136,6 @@ This document provides a comprehensive analysis of what has been completed and a
 **Remaining:**
 
 - ⏳ Public Website & API Gateway
-- ⏳ Observability & Ops (logging, metrics)
 - ⏳ Security & Compliance (GDPR flows, audit logs)
 - ⏳ Franchise Bootstrap Automation
 - ⏳ Hardening & Scale (load testing, backup/restore)
@@ -184,9 +183,6 @@ This document provides a comprehensive analysis of what has been completed and a
    - Blue/green deployment
    - **Priority:** HIGH (needed for production)
 
-4. **Observability** ⚠️
-   - Tenant-aware logging
-   - Metrics collection
    - Tracing
    - **Priority:** MEDIUM (needed for operations)
 
@@ -387,59 +383,6 @@ This document provides a comprehensive analysis of what has been completed and a
 
 ---
 
-## P3.4 - Observability & Operations
-
-**Agent:** Observability Agent
-
-**Scope:**
-
-- Tenant-aware logging
-- Metrics collection
-- Distributed tracing
-- Error tracking
-- Performance monitoring
-
-**Tasks:**
-
-1. **Logging**
-   - Centralized logging (ELK or similar)
-   - Tenant-aware log aggregation
-   - Log levels and filtering
-   - Log retention policies
-
-2. **Metrics**
-   - Prometheus metrics
-   - Grafana dashboards
-   - Tenant-scoped metrics
-   - Business metrics (revenue, orders, etc.)
-
-3. **Tracing**
-   - Distributed tracing (Jaeger or similar)
-   - Request correlation
-   - Performance profiling
-   - Tenant context in traces
-
-4. **Error Tracking**
-   - Error aggregation (Sentry or similar)
-   - Alerting
-   - Error correlation
-   - Tenant context in errors
-
-**Output:**
-
-- Logging system operational
-- Metrics dashboards
-- Tracing configured
-- Error tracking enabled
-
-**Dependencies:**
-
-- All services (exist)
-- Logger package (exists)
-
-**Status:** ⏳ PENDING
-
----
 
 ## P3.5 - Security & Compliance
 
@@ -505,7 +448,6 @@ This document provides a comprehensive analysis of what has been completed and a
 - Payment providers (Stripe, GoPay, Comgate)
 - Accounting systems (Money S3, Pohoda, ABRA)
 - SMS gateways (BulkGate, GoSMS)
-- EET integration (if required)
 
 **Tasks:**
 
@@ -527,17 +469,11 @@ This document provides a comprehensive analysis of what has been completed and a
    - SMS delivery tracking
    - Fallback mechanisms
 
-4. **EET Integration** (if required)
-   - EET API integration
-   - Receipt generation
-   - Fiscal compliance
-
 **Output:**
 
 - Payment providers integrated
 - Accounting systems integrated
 - SMS gateways integrated
-- EET integration (if required)
 
 **Dependencies:**
 
@@ -632,7 +568,6 @@ This document provides a comprehensive analysis of what has been completed and a
 - ✅ Backend untouched
 - ✅ Replaceable frontend confirmed
 - ⏳ Production deployment ready
-- ⏳ Observability operational
 
 **Status:** ⏳ PENDING
 
@@ -662,13 +597,7 @@ This document provides a comprehensive analysis of what has been completed and a
 
 ### Priority 2: Production Readiness (Should Have)
 
-1. **P3.4 - Observability** 🟡 MEDIUM PRIORITY
-   - **Agent:** Observability Agent
-   - **Estimated Effort:** 1-2 weeks
-   - **Dependencies:** All services, Logger package
-   - **Output:** Logging, metrics, tracing
-
-2. **P3.5 - Security & Compliance** 🟡 MEDIUM PRIORITY
+1. **P3.5 - Security & Compliance** 🟡 MEDIUM PRIORITY
    - **Agent:** Security Agent
    - **Estimated Effort:** 1-2 weeks
    - **Dependencies:** All services, Database
@@ -698,7 +627,7 @@ This document provides a comprehensive analysis of what has been completed and a
 
 **Can Run in Parallel:**
 
-- P3.1 (Public Website) + P3.2 (API Gateway) + P3.4 (Observability)
+- P3.1 (Public Website) + P3.2 (API Gateway)
 - P3.3 (Production Deployment) + P3.5 (Security)
 - P3.6 (Integrations) + P3.7 (Testing)
 
@@ -711,7 +640,6 @@ This document provides a comprehensive analysis of what has been completed and a
 
 1. **Week 1-2:**
    - P3.2 - API Gateway (enables production routing)
-   - P3.4 - Observability (enables monitoring)
 
 2. **Week 2-4:**
    - P3.1 - Public Website (MVP requirement)
@@ -752,13 +680,6 @@ This document provides a comprehensive analysis of what has been completed and a
 - [ ] Production configuration
 - [ ] Secrets management
 
-### P3.4 - Observability
-
-- [ ] Centralized logging
-- [ ] Metrics collection
-- [ ] Distributed tracing
-- [ ] Error tracking
-
 ### P3.5 - Security & Compliance
 
 - [ ] GDPR compliance flows
@@ -771,7 +692,6 @@ This document provides a comprehensive analysis of what has been completed and a
 - [ ] Payment providers
 - [ ] Accounting systems
 - [ ] SMS gateways
-- [ ] EET integration (if required)
 
 ### P3.7 - Hardening & Scale
 
@@ -789,7 +709,6 @@ This document provides a comprehensive analysis of what has been completed and a
 1. ✅ Public website functional (online booking works)
 2. ✅ API Gateway operational (tenant propagation works)
 3. ✅ Production deployment ready
-4. ✅ Observability operational (logging, metrics, tracing)
 5. ✅ Security & compliance implemented (GDPR, audit logs)
 6. ✅ Czech integrations working (payments, accounting, SMS)
 7. ✅ Scale testing passed (100+ tenants)
@@ -814,9 +733,6 @@ This document provides a comprehensive analysis of what has been completed and a
 
 ### Medium Risk Items
 
-1. **Observability Overhead** ⚠️
-   - **Risk:** Logging/metrics may impact performance
-   - **Mitigation:** Async logging, sampling for metrics
 
 2. **Czech Integration Complexity** ⚠️
    - **Risk:** Multiple accounting systems, different APIs

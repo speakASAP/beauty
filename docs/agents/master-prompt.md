@@ -268,7 +268,7 @@ If agents disagree:
   - Preserves domain purity
   - Minimizes future refactor cost
   - Improves isolation
-  - Improves observability
+  - Improves monitoring
 
 You are allowed to:
 
