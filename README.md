@@ -163,6 +163,14 @@ docker compose ps
 node scripts/validation/sync_e_validation.js
 ```
 
+### Deployment
+
+For production deployment across multiple servers and domains:
+
+1. [Multi-Server Deployment Guide](docs/deployment/multi-server-deployment.md) - Complete deployment guide
+2. [Environment Variables Reference](docs/deployment/environment-variables.md) - All configuration variables
+3. [New Server Setup Script](scripts/setup/new-server-setup.sh) - Automated server setup
+
 ### Detailed Implementation Guidance
 
 For detailed implementation guidance, see:
