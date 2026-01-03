@@ -1,6 +1,6 @@
 # Existing Services Mapping (immutable)
 
-> Defines how existing statex.cz microservices are used in the beauty platform.
+> Defines how existing alfares.cz microservices are used in the beauty platform.
 
 ---
 
@@ -15,7 +15,7 @@
 
 ## Service Inventory
 
-### Existing Microservices (from statex.cz platform)
+### Existing Microservices (from alfares.cz platform)
 
 These services already exist and are production-ready. They must NOT be modified for the beauty domain.
 

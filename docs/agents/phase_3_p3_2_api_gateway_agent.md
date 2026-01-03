@@ -40,7 +40,7 @@ Build a production-ready API Gateway that:
 
 ### Task 1: Configure nginx-microservice
 
-**Location:** Use existing nginx-microservice at `/home/statex/nginx-microservice`
+**Location:** Use existing nginx-microservice at `/home/alfares/nginx-microservice`
 
 **Configuration:**
 - JWT validation middleware
