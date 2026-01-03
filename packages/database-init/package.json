@@ -1,0 +1,24 @@
+{
+  "name": "@beauty-platform/database-init",
+  "version": "1.0.0",
+  "description": "Database initialization utility for auto-creating databases on first start",
+  "main": "database-init.js",
+  "types": "database-init.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "database",
+    "postgresql",
+    "initialization",
+    "auto-create"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.10.9"
+  }
+}
