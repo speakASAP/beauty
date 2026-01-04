@@ -82,14 +82,30 @@ echo -e "${GREEN}✅ Found nginx-microservice at: $NGINX_MICROSERVICE_PATH${NC}"
 echo -e "${GREEN}✅ Deploying service: $SERVICE_NAME${NC}"
 echo ""
 
+# Timestamp logging function
+log_with_timestamp() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S.%3N')] $1" >&2
+}
+
 # Change to nginx-microservice directory and run deployment
+log_with_timestamp "Starting blue/green deployment..."
 echo -e "${YELLOW}Starting blue/green deployment...${NC}"
 echo ""
 
+log_with_timestamp "Changing directory to: $NGINX_MICROSERVICE_PATH"
 cd "$NGINX_MICROSERVICE_PATH"
 
-# Execute the deployment script
+log_with_timestamp "About to execute: $DEPLOY_SCRIPT $SERVICE_NAME"
+log_with_timestamp "Current directory: $(pwd)"
+log_with_timestamp "Script exists and is executable: $([ -x "$DEPLOY_SCRIPT" ] && echo 'yes' || echo 'no')"
+
+# Execute the deployment script with timestamp logging
+log_with_timestamp "Executing deployment script now..."
+START_TIME=$(date +%s)
 if "$DEPLOY_SCRIPT" "$SERVICE_NAME"; then
+    END_TIME=$(date +%s)
+    DURATION=$((END_TIME - START_TIME))
+    log_with_timestamp "Deployment script completed successfully in ${DURATION} seconds"
     echo ""
     echo -e "${GREEN}╔════════════════════════════════════════════════════════════╗${NC}"
     echo -e "${GREEN}║     ✅ Deployment completed successfully!                 ║${NC}"
@@ -101,6 +117,9 @@ if "$DEPLOY_SCRIPT" "$SERVICE_NAME"; then
     echo "  ./scripts/status-all-services.sh"
     exit 0
 else
+    END_TIME=$(date +%s)
+    DURATION=$((END_TIME - START_TIME))
+    log_with_timestamp "Deployment script failed after ${DURATION} seconds"
     echo ""
     echo -e "${RED}╔════════════════════════════════════════════════════════════╗${NC}"
     echo -e "${RED}║     ❌ Deployment failed!                                  ║${NC}"

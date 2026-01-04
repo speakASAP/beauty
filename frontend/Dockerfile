@@ -8,11 +8,11 @@ COPY package.json ./
 # Copy lock file if it exists (optional)
 COPY package-lock.json* ./
 
-# Install dependencies and wget (for health checks)
+# Install dependencies and curl (for health checks)
 # Use npm install (works with or without lock file)
 # npm ci requires lock file, npm install works either way
-# Install full wget to replace BusyBox wget (fixes localhost resolution issue)
-RUN apk add --no-cache wget && npm install
+# Install curl for health checks (preferred by deployment script, handles localhost correctly)
+RUN apk add --no-cache curl && npm install
 
 # Copy source files
 COPY . .
