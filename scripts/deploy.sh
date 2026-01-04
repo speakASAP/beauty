@@ -82,12 +82,74 @@ echo -e "${GREEN}✅ Found nginx-microservice at: $NGINX_MICROSERVICE_PATH${NC}"
 echo -e "${GREEN}✅ Deploying service: $SERVICE_NAME${NC}"
 echo ""
 
-# Timestamp logging function
+# Timing and logging functions
+get_timestamp() {
+    date '+%Y-%m-%d %H:%M:%S.%3N'
+}
+
+get_timestamp_seconds() {
+    date +%s.%N
+}
+
 log_with_timestamp() {
-    echo "[$(date '+%Y-%m-%d %H:%M:%S.%3N')] $1" >&2
+    echo "[$(get_timestamp)] $1" >&2
+}
+
+# Phase timing tracking using temp file (works in subshells)
+PHASE_TIMING_FILE=$(mktemp /tmp/deploy-phases-XXXXXX)
+trap "rm -f $PHASE_TIMING_FILE" EXIT
+
+start_phase() {
+    local phase_name="$1"
+    local timestamp=$(get_timestamp_seconds)
+    echo "$phase_name|START|$timestamp" >> "$PHASE_TIMING_FILE"
+    log_with_timestamp "⏱️  PHASE START: $phase_name"
+}
+
+end_phase() {
+    local phase_name="$1"
+    local timestamp=$(get_timestamp_seconds)
+    echo "$phase_name|END|$timestamp" >> "$PHASE_TIMING_FILE"
+    
+    # Calculate duration if we have start time
+    local start_line=$(grep "^${phase_name}|START|" "$PHASE_TIMING_FILE" | tail -1)
+    if [ -n "$start_line" ]; then
+        local start_time=$(echo "$start_line" | cut -d'|' -f3)
+        # Use awk for calculation (more portable than bc)
+        local duration=$(awk "BEGIN {printf \"%.2f\", $timestamp - $start_time}")
+        log_with_timestamp "⏱️  PHASE END: $phase_name (duration: ${duration}s)"
+    fi
+}
+
+print_phase_summary() {
+    echo ""
+    echo "════════════════════════════════════════════════════════════" >&2
+    echo "📊 DEPLOYMENT PHASE TIMING SUMMARY" >&2
+    echo "════════════════════════════════════════════════════════════" >&2
+    
+    # Process phase timings
+    local current_phase=""
+    local start_time=""
+    
+    while IFS='|' read -r phase_name event timestamp; do
+        if [ "$event" = "START" ]; then
+            current_phase="$phase_name"
+            start_time="$timestamp"
+        elif [ "$event" = "END" ] && [ -n "$start_time" ]; then
+            # Use awk for calculation (more portable than bc)
+            local duration=$(awk "BEGIN {printf \"%.2f\", $timestamp - $start_time}")
+            printf "  %-45s %10.2fs\n" "$phase_name:" "$duration" >&2
+            current_phase=""
+            start_time=""
+        fi
+    done < "$PHASE_TIMING_FILE"
+    
+    echo "════════════════════════════════════════════════════════════" >&2
+    echo "" >&2
 }
 
 # Change to nginx-microservice directory and run deployment
+start_phase "Pre-deployment Setup"
 log_with_timestamp "Starting blue/green deployment..."
 echo -e "${YELLOW}Starting blue/green deployment...${NC}"
 echo ""
@@ -98,14 +160,79 @@ cd "$NGINX_MICROSERVICE_PATH"
 log_with_timestamp "About to execute: $DEPLOY_SCRIPT $SERVICE_NAME"
 log_with_timestamp "Current directory: $(pwd)"
 log_with_timestamp "Script exists and is executable: $([ -x "$DEPLOY_SCRIPT" ] && echo 'yes' || echo 'no')"
+end_phase "Pre-deployment Setup"
 
-# Execute the deployment script with timestamp logging
+# Execute the deployment script with phase tracking
 log_with_timestamp "Executing deployment script now..."
-START_TIME=$(date +%s)
-if "$DEPLOY_SCRIPT" "$SERVICE_NAME"; then
-    END_TIME=$(date +%s)
-    DURATION=$((END_TIME - START_TIME))
-    log_with_timestamp "Deployment script completed successfully in ${DURATION} seconds"
+START_TIME=$(get_timestamp_seconds)
+
+# Create a wrapper to track phases from deployment script output
+# Use a named pipe or process substitution to track phases
+"$DEPLOY_SCRIPT" "$SERVICE_NAME" 2>&1 | {
+    local build_started=0
+    local start_containers_started=0
+    local health_check_started=0
+    
+    while IFS= read -r line; do
+        # Echo the line to stdout
+        echo "$line"
+        
+        # Track phases based on deployment script output patterns
+        if echo "$line" | grep -qE "Phase 0:.*Infrastructure"; then
+            start_phase "Phase 0: Infrastructure Check"
+        elif echo "$line" | grep -qE "Phase 0 completed|✅ Phase 0 completed"; then
+            end_phase "Phase 0: Infrastructure Check"
+        elif echo "$line" | grep -qE "Phase 1:.*Preparing|Phase 1:.*Prepare"; then
+            start_phase "Phase 1: Prepare Green Deployment"
+        elif echo "$line" | grep -qE "Phase 1 completed|✅ Phase 1 completed"; then
+            end_phase "Phase 1: Prepare Green Deployment"
+        elif echo "$line" | grep -qE "Phase 2:.*Switching|Phase 2:.*Switch"; then
+            start_phase "Phase 2: Switch Traffic to Green"
+        elif echo "$line" | grep -qE "Phase 2 completed|✅ Phase 2 completed"; then
+            end_phase "Phase 2: Switch Traffic to Green"
+        elif echo "$line" | grep -qE "Phase 3:.*Monitoring|Phase 3:.*Monitor"; then
+            start_phase "Phase 3: Monitor Health"
+        elif echo "$line" | grep -qE "Phase 3 completed|✅ Phase 3 completed"; then
+            end_phase "Phase 3: Monitor Health"
+        elif echo "$line" | grep -qE "Phase 4:.*Verifying|Phase 4:.*Verify"; then
+            start_phase "Phase 4: Verify HTTPS"
+        elif echo "$line" | grep -qE "Phase 4 completed|✅ Phase 4 completed"; then
+            end_phase "Phase 4: Verify HTTPS"
+        elif echo "$line" | grep -qE "Phase 5:.*Cleaning|Phase 5:.*Cleanup"; then
+            start_phase "Phase 5: Cleanup"
+        elif echo "$line" | grep -qE "Phase 5 completed|✅ Phase 5 completed"; then
+            end_phase "Phase 5: Cleanup"
+        elif echo "$line" | grep -qE "Building containers|Image.*Building" && [ "$build_started" -eq 0 ]; then
+            start_phase "Build Containers"
+            build_started=1
+        elif echo "$line" | grep -qE "All services built|✅ All services built" && [ "$build_started" -eq 1 ]; then
+            end_phase "Build Containers"
+            build_started=2
+        elif echo "$line" | grep -qE "Starting containers|Container.*Starting" && [ "$start_containers_started" -eq 0 ]; then
+            start_phase "Start Containers"
+            start_containers_started=1
+        elif echo "$line" | grep -qE "Container.*Started|Waiting.*services to start" && [ "$start_containers_started" -eq 1 ]; then
+            end_phase "Start Containers"
+            start_containers_started=2
+        elif echo "$line" | grep -qE "Checking.*health|Health check" && [ "$health_check_started" -eq 0 ]; then
+            start_phase "Health Checks"
+            health_check_started=1
+        elif echo "$line" | grep -qE "health check passed|✅.*health" && [ "$health_check_started" -eq 1 ]; then
+            end_phase "Health Checks"
+            health_check_started=2
+        fi
+    done
+    exit ${PIPESTATUS[0]}
+}
+
+DEPLOY_EXIT_CODE=$?
+END_TIME=$(get_timestamp_seconds)
+TOTAL_DURATION=$(awk "BEGIN {printf \"%.2f\", $END_TIME - $START_TIME}")
+
+if [ $DEPLOY_EXIT_CODE -eq 0 ]; then
+    TOTAL_DURATION_FORMATTED=$(awk "BEGIN {printf \"%.2f\", $TOTAL_DURATION}")
+    log_with_timestamp "✅ Deployment script completed successfully in ${TOTAL_DURATION_FORMATTED}s"
+    print_phase_summary
     echo ""
     echo -e "${GREEN}╔════════════════════════════════════════════════════════════╗${NC}"
     echo -e "${GREEN}║     ✅ Deployment completed successfully!                 ║${NC}"
@@ -117,9 +244,9 @@ if "$DEPLOY_SCRIPT" "$SERVICE_NAME"; then
     echo "  ./scripts/status-all-services.sh"
     exit 0
 else
-    END_TIME=$(date +%s)
-    DURATION=$((END_TIME - START_TIME))
-    log_with_timestamp "Deployment script failed after ${DURATION} seconds"
+    TOTAL_DURATION_FORMATTED=$(awk "BEGIN {printf \"%.2f\", $TOTAL_DURATION}")
+    log_with_timestamp "❌ Deployment script failed after ${TOTAL_DURATION_FORMATTED}s"
+    print_phase_summary
     echo ""
     echo -e "${RED}╔════════════════════════════════════════════════════════════╗${NC}"
     echo -e "${RED}║     ❌ Deployment failed!                                  ║${NC}"
