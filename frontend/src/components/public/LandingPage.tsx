@@ -37,6 +37,7 @@ interface SalonInfo {
   phone?: string;
   email?: string;
   description?: string;
+  businessHours?: string;
 }
 
 /**
@@ -75,10 +76,11 @@ export function LandingPage() {
       // TODO: Replace with actual API call when tenant info endpoint is ready
       const mockSalonInfo: SalonInfo = {
         id,
-        name: 'Salon #1',
-        address: '123 Main Street, Prague',
-        phone: '+420123456789',
-        email: 'salon1@beauty.cz',
+        name: 'Yara Space & Hair Spa',
+        address: 'Križná 169/8, Kroměříž',
+        phone: '+420 776 886 466',
+        email: 'office@yaraspace.cz',
+        businessHours: 'Po–Pá: 09:00–19:00, So: 10:00–16:00',
         description: 'Yara Space & Hair Spa – to je vaše dobrá nálada, sebevědomí a ten pocit, že jste to vy, jen ještě krásnější. Odvážné mikádo, nová energie, dokonalé svatební fotografie. První rande, na kterém se citíte jako královna. Účes, který vám opravdu sluší!',
       };
       setSalonInfo(mockSalonInfo);
@@ -403,29 +405,71 @@ function SalonLandingPage({ salonInfo }: { salonInfo: SalonInfo }) {
       </Box>
 
       {/* Contact Info Bar */}
-      {(salonInfo.phone || salonInfo.email || salonInfo.address) && (
-        <Box sx={{ bgcolor: 'primary.main', color: 'white', py: 2 }}>
+      {(salonInfo.phone || salonInfo.email || salonInfo.address || salonInfo.businessHours) && (
+        <Box sx={{ bgcolor: 'primary.main', color: 'white', py: 3 }}>
           <Container maxWidth="lg">
-            <Stack direction={{ xs: 'column', md: 'row' }} spacing={3} justifyContent="center" alignItems="center">
+            <Grid container spacing={3} justifyContent="center" alignItems="center">
               {salonInfo.phone && (
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <Phone fontSize="small" />
-                  <Typography>{salonInfo.phone}</Typography>
-                </Stack>
+                <Grid item xs={12} sm={6} md={3}>
+                  <Stack direction="row" spacing={1} alignItems="center" justifyContent={{ xs: 'center', md: 'flex-start' }}>
+                    <Phone fontSize="small" />
+                    <Box>
+                      <Typography variant="caption" sx={{ opacity: 0.9, display: 'block' }}>
+                        Telefonní číslo
+                      </Typography>
+                      <Typography variant="body2" fontWeight={500}>
+                        {salonInfo.phone}
+                      </Typography>
+                    </Box>
+                  </Stack>
+                </Grid>
               )}
               {salonInfo.email && (
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <Email fontSize="small" />
-                  <Typography>{salonInfo.email}</Typography>
-                </Stack>
+                <Grid item xs={12} sm={6} md={3}>
+                  <Stack direction="row" spacing={1} alignItems="center" justifyContent={{ xs: 'center', md: 'flex-start' }}>
+                    <Email fontSize="small" />
+                    <Box>
+                      <Typography variant="caption" sx={{ opacity: 0.9, display: 'block' }}>
+                        E-mail
+                      </Typography>
+                      <Typography variant="body2" fontWeight={500}>
+                        {salonInfo.email}
+                      </Typography>
+                    </Box>
+                  </Stack>
+                </Grid>
+              )}
+              {salonInfo.businessHours && (
+                <Grid item xs={12} sm={6} md={3}>
+                  <Stack direction="row" spacing={1} alignItems="center" justifyContent={{ xs: 'center', md: 'flex-start' }}>
+                    <CalendarToday fontSize="small" />
+                    <Box>
+                      <Typography variant="caption" sx={{ opacity: 0.9, display: 'block' }}>
+                        Otevírací doba
+                      </Typography>
+                      <Typography variant="body2" fontWeight={500}>
+                        {salonInfo.businessHours}
+                      </Typography>
+                    </Box>
+                  </Stack>
+                </Grid>
               )}
               {salonInfo.address && (
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <LocationOn fontSize="small" />
-                  <Typography>{salonInfo.address}</Typography>
-                </Stack>
+                <Grid item xs={12} sm={6} md={3}>
+                  <Stack direction="row" spacing={1} alignItems="center" justifyContent={{ xs: 'center', md: 'flex-start' }}>
+                    <LocationOn fontSize="small" />
+                    <Box>
+                      <Typography variant="caption" sx={{ opacity: 0.9, display: 'block' }}>
+                        Adresa
+                      </Typography>
+                      <Typography variant="body2" fontWeight={500}>
+                        {salonInfo.address}
+                      </Typography>
+                    </Box>
+                  </Stack>
+                </Grid>
               )}
-            </Stack>
+            </Grid>
           </Container>
         </Box>
       )}
