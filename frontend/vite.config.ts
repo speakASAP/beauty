@@ -38,6 +38,7 @@ export default defineConfig({
             if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
               return 'react-vendor';
             }
+            // Keep MUI and Emotion together (MUI depends on Emotion)
             if (id.includes('@mui') || id.includes('@emotion')) {
               return 'mui-vendor';
             }
@@ -68,6 +69,13 @@ export default defineConfig({
       },
     },
     chunkSizeWarningLimit: 300,
+    // Use esbuild for minification (default, handles circular deps better)
+    minify: 'esbuild',
+    // Ensure proper module format
+    target: 'esnext',
+    modulePreload: {
+      polyfill: true,
+    },
   },
 })
 
