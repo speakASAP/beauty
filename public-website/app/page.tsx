@@ -3,445 +3,233 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import './globals.css'
-import { getTenantId, getTenantInfo } from '../lib/api'
+import './franchise.css'
 
-interface TenantInfo {
-  id: string;
-  name: string;
-  address?: string;
-  phone?: string;
-  email?: string;
-  state: string;
-  design: string;
-}
+// Dynamically import salon page to avoid loading when not needed
+const SalonPage = dynamic(() => import('./salon/page'), { ssr: false })
 
 export default function Home() {
   const searchParams = useSearchParams()
-  const [tenantInfo, setTenantInfo] = useState<TenantInfo | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const tenantId = searchParams.get('tenant_id')
+  const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
-    async function loadTenant() {
-      try {
-        const tenantId = getTenantId()
-        
-        if (!tenantId) {
-          setError('Tenant ID is required. Please add ?tenant_id=... to the URL.')
-          setLoading(false)
-          return
-        }
+    setIsClient(true)
+  }, [])
 
-        const tenant = await getTenantInfo(tenantId)
-        if (!tenant) {
-          setError('Tenant not found or not active.')
-          setLoading(false)
-          return
-        }
-
-        setTenantInfo(tenant)
-        setLoading(false)
-      } catch (err: any) {
-        setError(err.message || 'Failed to load tenant information.')
-        setLoading(false)
-      }
-    }
-
-    loadTenant()
-  }, [searchParams])
-
-  // Load tenant-specific CSS based on design
-  useEffect(() => {
-    if (!tenantInfo?.design) return
-
-    // Remove any existing tenant CSS
-    const existingLink = document.getElementById('tenant-css')
-    if (existingLink) {
-      existingLink.remove()
-    }
-
-    // Load tenant-specific CSS
-    const link = document.createElement('link')
-    link.id = 'tenant-css'
-    link.rel = 'stylesheet'
-    link.href = `/${tenantInfo.design}/${tenantInfo.design}.css`
-    document.head.appendChild(link)
-
-    // Also add a class to body for tenant-specific styling
-    document.body.className = `tenant-${tenantInfo.design}`
-
-    return () => {
-      const linkToRemove = document.getElementById('tenant-css')
-      if (linkToRemove) {
-        linkToRemove.remove()
-      }
-    }
-  }, [tenantInfo?.design])
-
-  if (loading) {
-    return (
-      <div style={{ padding: '40px', textAlign: 'center' }}>
-        <p>Loading...</p>
-      </div>
-    )
+  // If tenant_id is present, show the salon page directly (no redirect - URL stays as /?tenant_id=...)
+  if (tenantId && isClient) {
+    return <SalonPage />
   }
 
-  if (error) {
-    return (
-      <div style={{ padding: '40px', textAlign: 'center' }}>
-        <h1>Error</h1>
-        <p>{error}</p>
-        <p style={{ marginTop: '20px', fontSize: '0.9rem', color: '#666' }}>
-          Example URL: <code>?tenant_id=af8ad504-0077-4da0-b3c0-7b903f15d944</code>
-        </p>
-      </div>
-    )
-  }
-
-  if (!tenantInfo) {
-    return (
-      <div style={{ padding: '40px', textAlign: 'center' }}>
-        <h1>Tenant Not Found</h1>
-        <p>The requested tenant could not be found or is not active.</p>
-      </div>
-    )
-  }
-
-  // Render tenant-specific page based on design
-  // For now, we'll use dynamic import based on design
-  // Each design should have its own component in the app directory
-  const TenantPage = getTenantPageComponent(tenantInfo.design)
-
-  return <TenantPage tenantInfo={tenantInfo} />
-}
-
-// Get the appropriate page component based on design
-function getTenantPageComponent(design: string) {
-  // Dynamic import based on design
-  // Each design has its own directory with page.tsx
-  switch (design) {
-    case 'salon1':
-      return Salon1Page
-    case 'salon2':
-      return Salon2Page
-    case 'salon3':
-      return Salon3Page
-    case 'yaraspace':
-      return YaraSpacePage
-    default:
-      return DefaultPage
-  }
-}
-
-// Default page component
-function DefaultPage({ tenantInfo }: { tenantInfo: TenantInfo }) {
+  // Otherwise, show the franchise landing page
   return (
-    <div>
-      <header className="header">
-        <div className="container">
-          <h1>{tenantInfo.name}</h1>
+    <div className="franchise-landing">
+      {/* Hero Section */}
+      <section className="hero">
+        <div className="hero-background">
+          <div className="hero-overlay"></div>
         </div>
-      </header>
-
-      <main className="main">
         <div className="container">
-          <h2>Welcome to {tenantInfo.name}</h2>
-          <p>Book your appointment online easily and quickly.</p>
-
-          {tenantInfo.phone && (
-            <p>Phone: <a href={`tel:${tenantInfo.phone}`}>{tenantInfo.phone}</a></p>
-          )}
-          {tenantInfo.email && (
-            <p>Email: <a href={`mailto:${tenantInfo.email}`}>{tenantInfo.email}</a></p>
-          )}
-          {tenantInfo.address && (
-            <p>Address: {tenantInfo.address}</p>
-          )}
-
-          <div style={{ marginTop: '40px' }}>
-            <Link href={`/book?tenant_id=${tenantInfo.id}`} className="button">
-              Book Appointment
-            </Link>
-          </div>
-
-          <div style={{ marginTop: '40px' }}>
-            <Link href={`/availability?tenant_id=${tenantInfo.id}`}>
-              Check Availability
-            </Link>
+          <div className="hero-content">
+            <h1 className="hero-title">
+              Vlastní Beauty Salon?
+              <br />
+              <span className="hero-title-accent">Začněte ještě dnes</span>
+            </h1>
+            <p className="hero-subtitle">
+              Kompletní IT platforma pro váš beauty salon. Vše, co potřebujete pro úspěšný start a růst vašeho podnikání.
+            </p>
+            <div className="hero-cta">
+              <Link href="#franchise-form" className="btn btn-primary">
+                Chci vlastní salon
+              </Link>
+              <Link href="#features" className="btn btn-secondary">
+                Zjistit více
+              </Link>
+            </div>
           </div>
         </div>
-      </main>
+      </section>
 
-      <footer className="footer">
+      {/* Features Overview */}
+      <section id="features" className="features-overview">
         <div className="container">
-          <p>&copy; 2024 {tenantInfo.name}. All rights reserved.</p>
+          <h2 className="section-title">Vše, co potřebujete v jednom systému</h2>
+          <p className="section-subtitle">
+            Moderní platforma navržená speciálně pro beauty salony v České republice
+          </p>
+          
+          <div className="features-grid">
+            <Link href="/features/pos" className="feature-card">
+              <div className="feature-icon">💳</div>
+              <h3>POS Systém</h3>
+              <p>Prodej služeb a produktů, rychlé platby, tisk účtenek</p>
+            </Link>
+
+            <Link href="/features/crm" className="feature-card">
+              <div className="feature-icon">👥</div>
+              <h3>CRM & Klienti</h3>
+              <p>Správa klientů, historie návštěv, GDPR souhlas</p>
+            </Link>
+
+            <Link href="/features/booking" className="feature-card">
+              <div className="feature-icon">📅</div>
+              <h3>Online Rezervace</h3>
+              <p>Online i offline rezervace, kalendář, notifikace</p>
+            </Link>
+
+            <Link href="/features/inventory" className="feature-card">
+              <div className="feature-icon">📦</div>
+              <h3>Sklad & Inventura</h3>
+              <p>Správa zásob, automatické upozornění, reporty</p>
+            </Link>
+
+            <Link href="/features/analytics" className="feature-card">
+              <div className="feature-icon">📊</div>
+              <h3>Analytika & Reporty</h3>
+              <p>Real-time metriky, tržby, využití kapacit, LTV klientů</p>
+            </Link>
+
+            <Link href="/features/platform" className="feature-card">
+              <div className="feature-icon">🏢</div>
+              <h3>Franchise Platforma</h3>
+              <p>Multi-tenant systém, centralizovaná správa, rychlý start</p>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Section */}
+      <section className="benefits">
+        <div className="container">
+          <h2 className="section-title">Proč zvolit naši platformu?</h2>
+          <div className="benefits-list">
+            <div className="benefit-item">
+              <div className="benefit-number">01</div>
+              <h3>Rychlý Start</h3>
+              <p>Váš salon může začít fungovat během několika dní. Vše je připraveno "out of the box".</p>
+            </div>
+            <div className="benefit-item">
+              <div className="benefit-number">02</div>
+              <h3>Kompletní Řešení</h3>
+              <p>Všechny nástroje, které potřebujete, v jednom systému. Žádné další integrace.</p>
+            </div>
+            <div className="benefit-item">
+              <div className="benefit-number">03</div>
+              <h3>Moderní Technologie</h3>
+              <p>Event-driven architektura, multi-tenant systém, škálovatelné řešení.</p>
+            </div>
+            <div className="benefit-item">
+              <div className="benefit-number">04</div>
+              <h3>Podpora & Školení</h3>
+              <p>Kompletní podpora při startu a průběžné školení vašeho týmu.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Franchise Form Section */}
+      <section id="franchise-form" className="franchise-form-section">
+        <div className="container">
+          <div className="form-container">
+            <h2 className="section-title">Zaujala vás naše platforma?</h2>
+            <p className="section-subtitle">
+              Vyplňte formulář a my vás kontaktujeme s detaily o franchize
+            </p>
+            <FranchiseForm />
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="franchise-footer">
+        <div className="container">
+          <p>&copy; 2024 Beauty Franchise Platform. Všechna práva vyhrazena.</p>
         </div>
       </footer>
     </div>
   )
 }
 
-// Import tenant-specific pages
-function Salon1Page({ tenantInfo }: { tenantInfo: TenantInfo }) {
-  // This will be handled by the CSS and the actual salon1 page component
-  // For now, redirect to the salon1 route or render inline
-  return <DefaultPage tenantInfo={tenantInfo} />
-}
+// Franchise Form Component
+function FranchiseForm() {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      city: formData.get('city'),
+      message: formData.get('message'),
+    }
 
-function Salon2Page({ tenantInfo }: { tenantInfo: TenantInfo }) {
-  return <DefaultPage tenantInfo={tenantInfo} />
-}
+    // TODO: Send to backend API
+    console.log('Franchise inquiry:', data)
+    alert('Děkujeme za váš zájem! Brzy vás budeme kontaktovat.')
+    e.currentTarget.reset()
+  }
 
-function Salon3Page({ tenantInfo }: { tenantInfo: TenantInfo }) {
-  return <DefaultPage tenantInfo={tenantInfo} />
-}
-
-function YaraSpacePage({ tenantInfo }: { tenantInfo: TenantInfo }) {
-  // Import and render the yaraspace page
-  // For Next.js, we need to use dynamic import or create a separate route
-  // For now, we'll render the yaraspace content inline
   return (
-    <div className="salon-landing salon-yaraspace">
-      {/* Navigation */}
-      <nav className="salon-nav">
-        <div className="container">
-          <a href={`/?tenant_id=${tenantInfo.id}`} className="nav-logo">{tenantInfo.name}</a>
-          <div className="nav-links">
-            <a href="#about">O nás</a>
-            <a href="#blog">Blog</a>
-            <a href="#services">Služby</a>
-            <a href="#pricing">Ceník</a>
-            <a href="#testimonials">Zkušenosti</a>
-            <a href="#contact">Kontakty</a>
-            <a href={`/book?tenant_id=${tenantInfo.id}`} className="btn-booking">Vytvořit rezervaci</a>
-          </div>
-          {tenantInfo.phone && (
-            <div className="nav-contact">
-              <a href={`tel:${tenantInfo.phone}`} className="nav-phone">{tenantInfo.phone}</a>
-            </div>
-          )}
+    <form className="franchise-form" onSubmit={handleSubmit}>
+      <div className="form-row">
+        <div className="form-group">
+          <label htmlFor="name">Jméno a příjmení *</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            placeholder="Vaše jméno"
+          />
         </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section className="hero">
-        <div className="hero-background">
-          <img src="https://yaraspace.cz/wp-content/uploads/2025/05/yaraspace_intro.webp" alt={tenantInfo.name} className="hero-image" />
+        <div className="form-group">
+          <label htmlFor="email">Email *</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder="vas@email.cz"
+          />
         </div>
-        <div className="container">
-          <div className="hero-content">
-            <div className="hero-badge">KOSMETICKÝ SALON</div>
-            <h1 className="hero-title">
-              Yara
-              <br />
-              <span className="hero-title-line2">Hair</span>
-            </h1>
-            <div className="hero-subtitle-section">
-              <h2 className="hero-subtitle-title">
-                Space &
-                <br />
-                Spa
-              </h2>
-              <div className="hero-subtitle-badge">Vlasový Wellness</div>
-            </div>
-            <p className="hero-description">
-              Yara Space & Hair Spa – to je vaše dobrá nálada, sebevědomí a ten pocit, že jste to vy, jen ještě krásnější. Odvážné mikádo, nová energie, dokonalé svatební fotografie. První rande, na kterém se citíte jako královna. Účes, který vám opravdu sluší! Za tím vším stojí lidé, kteří milují svou práci a dělají ji srdcem. Jsem tým profesionálů, který vidí krásu v každém a ví, jak ji zvýraznit. Vaše krása si zaslouží zazářit. My víme, jak na to.
-            </p>
-          </div>
+      </div>
+      <div className="form-row">
+        <div className="form-group">
+          <label htmlFor="phone">Telefon *</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            required
+            placeholder="+420 123 456 789"
+          />
         </div>
-      </section>
-
-      {/* Newsletter Section */}
-      <section className="newsletter-section">
-        <div className="container">
-          <h2 className="newsletter-title">Sledujte novinky a propagační akce!</h2>
-          <button className="newsletter-btn">Přihlaste se k odběru newsletteru</button>
+        <div className="form-group">
+          <label htmlFor="city">Město</label>
+          <input
+            type="text"
+            id="city"
+            name="city"
+            placeholder="Kde chcete otevřít salon?"
+          />
         </div>
-      </section>
-
-      {/* Services Section */}
-      <section id="services" className="services-section">
-        <div className="container">
-          {/* Zasvětlující techniky */}
-          <div className="services-category">
-            <a href="#services" className="category-link">
-              <h2 className="category-title">Zasvětlujicí techniky</h2>
-            </a>
-            <div className="services-grid">
-              <div className="service-card">
-                <div className="service-image">
-                  <img src="https://yaraspace.cz/wp-content/uploads/2025/05/brazilian-bleach.webp" alt="Brazilian bleach" />
-                </div>
-                <div className="service-content">
-                  <h3>Brazilian bleach</h3>
-                  <p>Technika Brazilian Bleach je jedinečný způsob, jak vytvořit jemný kontrast mezi tmavšími a světlejšími prameny. Diky harmonickému propojení odstín: například tmavě blond a světle karamelové vzniká přírozený, plynulý přechod barev. Tento styl barvení je vhodný pro světlé i tmavé vlasy, podtrhuje hloubku základního tónua vytváří efekt přirozené hry světla po...</p>
-                  <a href="#services" className="service-link">Go to Brazilian bleach</a>
-                </div>
-              </div>
-              <div className="service-card">
-                <div className="service-image">
-                  <img src="https://yaraspace.cz/wp-content/uploads/2025/05/airtouch.webp" alt="Airtouch" />
-                </div>
-                <div className="service-content">
-                  <h3>Airtouch</h3>
-                  <p>Tato moderní technika přínáší maximálně přirozený výsledek: vlasy získávají jas, optický objem a lehkost. Přechody odstínů jsou jemné, měkké a naprosto plynulé. Kadeřník vybere odstín, který dokonale ladí s vaším přirozeným tónem a zvýrazní krásu vašich vlasů. Šetrné složení jemně zesvětluje prameny, nepoškozuje jejich strukturu a zachovává pružnost i přirozený...</p>
-                  <a href="#services" className="service-link">Go to Airtouch</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Péče */}
-          <div className="services-category">
-            <a href="#services" className="category-link">
-              <h2 className="category-title">Péče</h2>
-            </a>
-            <div className="services-grid">
-              <div className="service-card">
-                <div className="service-image">
-                  <img src="https://yaraspace.cz/wp-content/uploads/2025/05/laminovani.webp" alt="Laminování vlasů" />
-                </div>
-                <div className="service-content">
-                  <h3>Laminování vlasů</h3>
-                  <p>Hebké, lesklé, hydratované a posílené vlasy, přesně takový efekt přináší profesionální ošetření! Bez peroxidu, amoniaku a jiných agresivních látek vytváří na každém vlasu hladký a průhledný film, který mu dodává neuvěřitelný lesk a zdravý vzhled. Přípravek je univerzální a vhodný pro všechny typy vlasů. Přírodní, naprosto bezpečné složení pro laminaci...</p>
-                  <a href="#services" className="service-link">Go to Laminování vlasů</a>
-                </div>
-              </div>
-              <div className="service-card">
-                <div className="service-image">
-                  <img src="https://yaraspace.cz/wp-content/uploads/2025/05/rekonstrukce.webp" alt="Rekonstrukce vlasů" />
-                </div>
-                <div className="service-content">
-                  <h3>Rekonstrukce vlasů</h3>
-                  <p>Rekonstrukce vrací vlasům zdraví, pružnost a vitalitu. Díky vylepšenému a naprosto bezpečnému složení profesionální péče Philip Martin's se stav vlasů viditelně zlepší už po první aplikaci! Tato produkce je ideální pro zesvětlené i poškozené vlasy. Unikátní receptura obsahuje přírodní rostlinné keratiny, které jsou účinné pro vlasy a jsou šetrné nejen...</p>
-                  <a href="#services" className="service-link">Go to Rekonstrukce vlasů</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section id="testimonials" className="testimonials-section">
-        <div className="container">
-          <h2 className="section-title">Zkušenosti zákazníků</h2>
-          <div className="testimonials-grid">
-            <div className="testimonial-card">
-              <div className="testimonial-avatar"></div>
-              <p className="testimonial-text">Děkuji za skvělý servis. Skvělá kadeřnice, velmi milá a přátelská, profesionálka ve svém oboru. Ostrihala mě velmi pečlivě a krásně, přesně jak jsem chtěla. Vřele doporučuji.</p>
-              <p className="testimonial-author">Tatiana Titorenko</p>
-            </div>
-            <div className="testimonial-card">
-              <div className="testimonial-avatar"></div>
-              <p className="testimonial-text">Nejednou jsem využila služby "Yara Spase & Hair Spa Vlasový Welness" a jsem velmi spokojená!!! Kvalita produktů a úroveň provedení práce je vždy na vysoké úrovni!!! Kadeřnice vždy chápe potřeby a přání zákazníka, je v dobré náladě a má pozitivní přístup ke každému klientovi. Vždy poradí, podpoří a udělá vše co nejlépe.Široký výběr procedur pro péči o vlasy, regenerace poškozených vlasů, používají se pouze přírodní složky.Salon je snadno dostupný, nachází se v prvním patře, je přístupný i pro kočárky, což usnadňuje návštěvu maminkám s malými dětmi. Vřele doporučuji!</p>
-              <p className="testimonial-author">Tatiana Kravčuk</p>
-              <a href="#" className="testimonial-read-more">Читать далее</a>
-            </div>
-            <div className="testimonial-card">
-              <div className="testimonial-avatar"></div>
-              <p className="testimonial-text">Děkuji kadeřnici za skvělou práci! Je to velmi příjemná a laskavá dívka. Vřele ji doporučuji!</p>
-              <p className="testimonial-author">Tatiana Dudčenko</p>
-            </div>
-            <div className="testimonial-card">
-              <div className="testimonial-avatar"></div>
-              <p className="testimonial-text">Dnes jsem byla v tomto salonu, kadeřnice byla velmi příjemná 🥰. Všechno se mi moc líbilo 😍, výsledek je skvělý 👍. Pokud chcete krásnou barvu vlasů, střih nebo péči, doporučuji 🤗!</p>
-              <p className="testimonial-author">Sofie</p>
-              <a href="#" className="testimonial-read-more">Читать далее</a>
-            </div>
-            <div className="testimonial-card">
-              <div className="testimonial-avatar"></div>
-              <p className="testimonial-text">Chci zanechat recenzi na tento úžasný kadeřnický salon a zejména na kadeřnici! Práce byla provedena na nejvyšší úrovni – velmi pečlivě, kvalitně a s důrazem na detaily. Je vidět, že tato osoba miluje svou profesi a vkládá do své práce srdce. Výsledek předčil všechna očekávání!Také bych chtěla vyzdvihnout dostupné ceny, které dělají návštěvu této kadeřnice ještě příjemnější. Pokud hledáte profesionála, kterému můžete svěřit svůj účes, vřele doporučuji! Určitě budete spokojeni!</p>
-              <p className="testimonial-author">Marina Vološko</p>
-              <a href="#" className="testimonial-read-more">Читать далее</a>
-            </div>
-            <div className="testimonial-card">
-              <div className="testimonial-avatar"></div>
-              <p className="testimonial-text">Velmi dobrá kadeřnice, milá a přátelská dívka, která odvedla skvělou práci.</p>
-              <p className="testimonial-author">Lesja Sochanič</p>
-            </div>
-            <div className="testimonial-card">
-              <div className="testimonial-avatar"></div>
-              <p className="testimonial-text">Pomohli mi vybrat domácí péči, která se mi moc líbila.</p>
-              <p className="testimonial-author">Ilona Trubina</p>
-            </div>
-            <div className="testimonial-card">
-              <div className="testimonial-avatar"></div>
-              <p className="testimonial-text">Mír a lásku všem! Nechali jsme ostříhat naše dva syny, 9 a 19 let. Kadeřnice Jaroslava odvedla skvělou práci a proměnila sny chlapců ve skutečnost. Děkujeme vám za váš profesionalismus!!! Příště určitě znovu využijeme vašich služeb!</p>
-              <p className="testimonial-author">Alexandr Andrievskij</p>
-              <a href="#" className="testimonial-read-more">Читать далее</a>
-            </div>
-            <div className="testimonial-card">
-              <div className="testimonial-avatar"></div>
-              <p className="testimonial-text">Nabarvila jsem si své dlouhé vlasy s šedinami barvou Filip Martin. Příjemně mě překvapila barva a lesk. Vlasy se vyživily oleji, zhoustly a změkly. Objem copu se znatelně zvětšil. Navíc při růstu kořínků není přechod viditelný (vybrali jsme odstín barvy podle mého přirozeného tónu vlasů). Celkově jsem velmi spokojená a chci to zopakovat. Vlasy vypadají zdravě a upraveně, a kadeřnice Jaroslava byla pozorná a snažila se dosáhnout co nejlepšího výsledku. Všem doporučuji tento nový kadeřnický salon!</p>
-              <p className="testimonial-author">Zel</p>
-              <a href="#" className="testimonial-read-more">Читать далее</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us Section */}
-      <section className="why-choose-section">
-        <div className="container">
-          <h2 className="section-title">Proč si vybrat právě nás?</h2>
-          <div className="why-grid">
-            <div className="why-item">
-              <h3>Bezpečí</h3>
-              <p>Profesionalita začíná u detailů: dokonale čisté nástroje, bezpečné produkty a ohleduplný přístup. Náš salon je mistem, kde se můžete uvolnit a vychutnat si příjemnou atmosférus jistotou, že vaše krása je v dobrých rukou.</p>
-            </div>
-            <div className="why-item">
-              <h3>Otevřenost</h3>
-              <p>Každá služba ať už jde o líčení, střih nebo regeneraci vlasů začíná konzultaci. Vysvětlíme vám postup, cenu i složení používané kosmetiky, poradíme, jak si účes upravit doma, a doporučíme produkty, které vám péči usnadní. Jsme tu, abychom naslouchali vašim přáním a podpořili i ty nejodvážnější nápady.</p>
-            </div>
-            <div className="why-item">
-              <h3>Sebevědomí</h3>
-              <p>Víme, že krása je v jedinečnosti. Pomůžeme vám objevit svůj styl, zdůraznit vaše přednosti a cítit se skvěle ve své kůži. Ať už hledáte nový střih, barvu, slavnostní účes nebo svatební make-up naši stylisté se postarají o to, abyste zářili sebejistotou.</p>
-            </div>
-            <div className="why-item">
-              <h3>Atmosféra</h3>
-              <p>Yara Space & Hair Spa není jen salon krásy, ale místo, kde se zastaví čas. Příjemná hudbag vůně čaje, teplé úsměvy a pohodová konverzace - každý detail vytváří atmosféru, do které se budete chtit vracet.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="salon-footer">
-        <div className="container">
-          <div className="footer-content">
-            <div className="footer-logo">
-              <img src="https://yaraspace.cz/wp-content/uploads/2025/05/yaraspace_logo.webp" alt={tenantInfo.name} />
-            </div>
-            <div className="footer-social">
-              <a href="https://www.instagram.com/yaraspace_hairspa" target="_blank" rel="noopener noreferrer">
-                <img src="/instagram-icon.svg" alt="Instagram" />
-              </a>
-              <a href="https://www.facebook.com/people/Yara-Space-Hair-Spa/61566509807038/" target="_blank" rel="noopener noreferrer">
-                <img src="/facebook-icon.svg" alt="Facebook" />
-              </a>
-              <a href={`http://wa.me/${tenantInfo.phone?.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer">
-                <img src="/whatsapp-icon.svg" alt="WhatsApp" />
-              </a>
-            </div>
-            <nav className="footer-nav">
-              <a href="#about">O nás</a>
-              <a href="#blog">Blog</a>
-              <a href="#services">Služby</a>
-              <a href="#pricing">Ceník</a>
-              <a href="#testimonials">Zkušenosti</a>
-              <a href="#contact">Kontakty</a>
-            </nav>
-            <div className="footer-bottom">
-              <p>{tenantInfo.name} © 2026</p>
-              <p>Všechna práva vyhrazena</p>
-              <p>Vývoj a podpora - <a href="https://twox.pro/" target="_blank" rel="noopener noreferrer">TwoX</a></p>
-              <a href="/privacy/">Zásady ochrany osobních údajů</a>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
+      </div>
+      <div className="form-group">
+        <label htmlFor="message">Vaše zpráva</label>
+        <textarea
+          id="message"
+          name="message"
+          rows={4}
+          placeholder="Napište nám o vašich plánech nebo otázkách..."
+        ></textarea>
+      </div>
+      <button type="submit" className="btn btn-primary btn-large">
+        Odeslat žádost
+      </button>
+    </form>
   )
 }

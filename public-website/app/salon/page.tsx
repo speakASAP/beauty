@@ -15,7 +15,7 @@ interface TenantInfo {
   phone?: string
   email?: string
   state: string
-  design_theme: 'salon1' | 'salon2' | 'salon3'
+  design_theme: string
 }
 
 export default function SalonPage() {
@@ -89,16 +89,20 @@ export default function SalonPage() {
   }
 
   // Render the appropriate design based on design_theme
+  // Map database values to component names
   const renderSalonDesign = () => {
-    switch (tenantInfo.design_theme) {
-      case 'salon1':
-        return <Salon1 tenantInfo={tenantInfo} />
-      case 'salon2':
-        return <Salon2 tenantInfo={tenantInfo} />
-      case 'salon3':
-        return <Salon3 tenantInfo={tenantInfo} />
-      default:
-        return <Salon1 tenantInfo={tenantInfo} />
+    const theme = tenantInfo.design_theme
+    
+    // Map various theme values to our 3 designs
+    if (theme === 'salon1' || theme === 'luna') {
+      return <Salon1 tenantInfo={tenantInfo} />
+    } else if (theme === 'salon2' || theme === 'aurora') {
+      return <Salon2 tenantInfo={tenantInfo} />
+    } else if (theme === 'salon3' || theme === 'serenity') {
+      return <Salon3 tenantInfo={tenantInfo} />
+    } else {
+      // Default to salon1
+      return <Salon1 tenantInfo={tenantInfo} />
     }
   }
 

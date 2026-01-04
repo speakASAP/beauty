@@ -135,7 +135,7 @@ export function LandingPage() {
   };
 
   // Helper function to get mock salon info by slug (for MVP)
-  const getMockSalonInfoBySlug = (slug: string): SalonInfo | null => {
+  const getMockSalonInfoBySlug = (slug: string): SalonInfo => {
     // Map known slugs to mock data
     const mockSalons: Record<string, SalonInfo> = {
       'yaraspace': {
@@ -264,10 +264,10 @@ export function LandingPage() {
       <Container maxWidth="lg" sx={{ position: 'relative', py: 8 }}>
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
             minHeight: '80vh',
           }}
         >
@@ -284,8 +284,8 @@ export function LandingPage() {
                 textShadow: '0 2px 20px rgba(0,0,0,0.2)',
               }}
             >
-              Beauty Franchise Platform
-            </Typography>
+          Beauty Franchise Platform
+        </Typography>
             <Typography
               variant="h5"
               sx={{
@@ -294,8 +294,8 @@ export function LandingPage() {
                 fontWeight: 300,
               }}
             >
-              Book your appointment online
-            </Typography>
+          Book your appointment online
+        </Typography>
           </Box>
 
           {/* Salon Selection Card */}
@@ -310,48 +310,48 @@ export function LandingPage() {
               backdropFilter: 'blur(10px)',
             }}
           >
-            <CardContent>
+          <CardContent>
               <Box sx={{ textAlign: 'center', mb: 3 }}>
                 <Spa sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
                 <Typography variant="h4" component="h2" gutterBottom fontWeight={600}>
-                  Select Your Salon
-                </Typography>
+              Select Your Salon
+            </Typography>
                 <Typography variant="body1" color="text.secondary">
-                  Enter your salon ID to continue with online booking
-                </Typography>
+              Enter your salon ID to continue with online booking
+            </Typography>
               </Box>
 
-              <Box sx={{ mb: 3 }}>
-                <TextField
-                  fullWidth
-                  label="Salon ID"
+            <Box sx={{ mb: 3 }}>
+              <TextField
+                fullWidth
+                label="Salon ID"
                   value={salonId}
-                  onChange={(e) => {
+                onChange={(e) => {
                     setSalonId(e.target.value);
-                    setError('');
-                  }}
-                  placeholder="Enter salon UUID"
-                  error={!!error}
-                  helperText={error || 'Enter the unique identifier for your salon'}
+                  setError('');
+                }}
+                placeholder="Enter salon UUID"
+                error={!!error}
+                helperText={error || 'Enter the unique identifier for your salon'}
                   sx={{
                     '& .MuiOutlinedInput-root': {
                       borderRadius: 2,
                     },
                   }}
-                />
-              </Box>
+              />
+            </Box>
 
-              {error && (
+            {error && (
                 <Alert severity="error" sx={{ mb: 2, borderRadius: 2 }}>
-                  {error}
-                </Alert>
-              )}
+                {error}
+              </Alert>
+            )}
 
-              <Button
-                fullWidth
-                variant="contained"
-                size="large"
-                onClick={handleStartBooking}
+            <Button
+              fullWidth
+              variant="contained"
+              size="large"
+              onClick={handleStartBooking}
                 disabled={!salonId.trim()}
                 sx={{
                   py: 1.5,
@@ -365,19 +365,19 @@ export function LandingPage() {
                   },
                 }}
                 startIcon={<CalendarToday />}
-              >
-                Start Booking
-              </Button>
-            </CardContent>
-          </Card>
+            >
+              Start Booking
+            </Button>
+          </CardContent>
+        </Card>
 
-          <Box sx={{ mt: 6, textAlign: 'center' }}>
+        <Box sx={{ mt: 6, textAlign: 'center' }}>
             <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.8)' }}>
-              Need help? Contact your salon directly.
-            </Typography>
-          </Box>
+            Need help? Contact your salon directly.
+          </Typography>
         </Box>
-      </Container>
+      </Box>
+    </Container>
     </Box>
   );
 }
