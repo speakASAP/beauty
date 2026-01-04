@@ -189,6 +189,215 @@ body:has(.salon-yaraspace) .main-nav.salon-page-hidden {
   margin-top: 30px;
 }
 
+/* About Section - Using same styling as hero section */
+.about-section {
+  padding: 80px 0;
+  background: var(--yaraspace-cream, #fcf2eb);
+}
+
+.about-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  margin-bottom: 100px;
+}
+
+.about-hero-image {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-hero-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.about-hero-content {
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.about-hero-title {
+  margin-bottom: 20px;
+}
+
+.about-title-line1 {
+  display: block;
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #000;
+}
+
+.about-title-line2 {
+  display: block;
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #000;
+}
+
+.about-hero-subtitle {
+  margin: 20px 0 30px;
+}
+
+.about-subtitle-line1 {
+  display: block;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--yaraspace-brown, #be845f);
+}
+
+.about-subtitle-line2 {
+  display: block;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--yaraspace-brown, #be845f);
+}
+
+.about-hero-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+  margin-top: 30px;
+}
+
+.about-hero-text p {
+  margin-bottom: 20px;
+}
+
+/* Founder Section */
+.founder-section {
+  display: flex;
+  gap: 60px;
+  align-items: start;
+  margin-bottom: 100px;
+  padding: 60px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.founder-image {
+  flex: 0 0 400px;
+  width: 400px;
+  overflow: hidden;
+}
+
+.founder-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.founder-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.founder-label {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.founder-name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 30px;
+  line-height: 1.1;
+}
+
+.founder-text {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #333;
+}
+
+.founder-text p {
+  margin-bottom: 20px;
+}
+
+.founder-text a {
+  color: var(--yaraspace-brown, #be845f);
+  text-decoration: none;
+}
+
+.founder-text a:hover {
+  text-decoration: underline;
+}
+
+/* Employees Section */
+.employees-section {
+  padding: 60px 0;
+}
+
+.employee-card {
+  display: flex;
+  gap: 40px;
+  align-items: start;
+  margin-top: 40px;
+}
+
+.employee-badge {
+  position: absolute;
+  font-size: 0.85rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.employee-image {
+  flex: 0 0 300px;
+  width: 300px;
+  overflow: hidden;
+}
+
+.employee-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.employee-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-top: 0;
+}
+
+.employee-name {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+
+.employee-text {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #333;
+}
+
+.employee-text p {
+  margin-bottom: 15px;
+}
+
 /* Newsletter Section */
 .newsletter-section {
   padding: 60px 0;
@@ -499,6 +708,40 @@ body:has(.salon-yaraspace) .main-nav.salon-page-hidden {
   }
 }
 
+@media (max-width: 968px) {
+  .about-hero {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .founder-section {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .founder-image {
+    flex: 1;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .employee-card {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .employee-image {
+    flex: 1;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .employee-badge {
+    position: static;
+    margin-bottom: 10px;
+  }
+}
+
 @media (max-width: 768px) {
   .hero-title {
     font-size: 2.5rem;
@@ -518,5 +761,23 @@ body:has(.salon-yaraspace) .main-nav.salon-page-hidden {
 
   .salon-nav .container {
     flex-wrap: wrap;
+  }
+
+  .about-title-line1,
+  .about-title-line2 {
+    font-size: 3rem;
+  }
+
+  .about-subtitle-line1,
+  .about-subtitle-line2 {
+    font-size: 2.5rem;
+  }
+
+  .founder-name {
+    font-size: 2rem;
+  }
+
+  .employee-name {
+    font-size: 1.5rem;
   }
 }

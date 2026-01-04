@@ -64,6 +64,66 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
         </div>
       </section>
 
+      {/* About Section */}
+      <section id="about" className="about-section">
+        <div className="container">
+          <div className="about-hero">
+            <div className="about-hero-image">
+              <img src="https://yaraspace.cz/wp-content/uploads/2025/02/dsc_6608-scaled.jpeg" alt="Yara Space & Hair Spa - profesionální kadeřnický salon" />
+            </div>
+            <div className="about-hero-content">
+              <div className="about-hero-title">
+                <span className="about-title-line1">Yara</span>
+                <span className="about-title-line2">Hair</span>
+              </div>
+              <div className="about-hero-subtitle">
+                <span className="about-subtitle-line1">Space &</span>
+                <span className="about-subtitle-line2">Spa</span>
+              </div>
+              <div className="about-hero-text">
+                <p>Yara Space & Hair Spa není jen obyčejný salon krásy. Je to místo, kde se setkávají talentovaní odborníci, kteří svou práci dělají s láskou a péčí. Skuteční profesionálové nikdy nepracují podle šablony. Náš tým tvoří s citem pro detail a hledá individuální řešení pro každého klienta podle struktury vlasů, tónu pleti i osobního stylu.</p>
+                <p>Naše filozofie stojí na respektu k vaší jedinečné kráse a zdraví. Používáme bezpečné a účinné produkty, moderní techniky a spolupracujeme pouze s certifikovanými odborníky, kteří přesně vědí, jak dosáhnout vašeho vysněného výsledku a vykouzlit vám úsměv na tváři. Každá návštěva Yara Space & Hair Spa je jako malé prázdniny pro duši a proměna, která vám dodá novou energii.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Founder Section */}
+          <div className="founder-section">
+            <div className="founder-image">
+              <img src="https://yaraspace.cz/wp-content/uploads/2025/09/vlasova-.jpeg-scaled.jpg" alt="Yaroslava Vlasova - founder of Yara Space & Hair Spa" />
+            </div>
+            <div className="founder-content">
+              <div className="founder-label">Zakladatelka salónu krásy Yara Space & Hair SPA</div>
+              <h2 className="founder-name">Ing. Yaroslava Vlasová</h2>
+              <div className="founder-text">
+                <p>Yaroslava Vlasova (<a href="https://www.instagram.com/yaroslava_vlasova" target="_blank" rel="noopener noreferrer">@yaroslava_vlasova</a>) je stylistka, kadeřnice a vizážistka, která stojí za konceptem salonů Yara Space & Hair SPA a pro kterou je práce s individualitou každého člověka něco víc. Yaroslava je člověk s velkým srdcem, pro kterého je klid klienta na prvním místě.</p>
+                <p>Yara Space & Hair SPA je salon, kde se snoubí profesionalita, ekologické produkty a individuální přístup ke každému klientovi. Celý tým se neustále zdokonaluje tím, že navštěvuje odborné kurzy a učí se nové vlasové techniky, používání nových produktů a nové techniky barvení.</p>
+                <p>Náš salon je nejen krásný, ale vytvořili jsme pro vás také útulné a příjemné prostředí. Každému klientovi věnujeme zvláštní pozornost a individuální přístup s péčí a pozorností.</p>
+                <p>✨ Yara Space & Hair SPA je místem, kde vládne harmonie a krása.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Key Employees Section */}
+          <div className="employees-section">
+            <h2 className="section-title">Klíčoví zaměstnanci</h2>
+            <div className="employee-card">
+              <div className="employee-badge">Top Stylist</div>
+              <div className="employee-image">
+                <img src="https://yaraspace.cz/wp-content/uploads/2025/09/anna-bulatko-scaled.jpg" alt="Anna Bulatko - Top Stylist of Yara Space & Hair Spa" />
+              </div>
+              <div className="employee-content">
+                <h3 className="employee-name">Anna Bulatko</h3>
+                <div className="employee-text">
+                  <p>Anna Bulatko — Top Stylist salonu Yara Space & Hair SPA, pro kterou je práce s vlasy uměním a způsobem, jak zdůraznit individualitu každého klienta. Vyznačuje se jemným smyslem pro styl, smyslem pro detail a schopností vytvářet harmonické obrazy, které zdůrazňují přirozenou krásu.</p>
+                  <p>Anna neustále zlepšuje své dovednosti, učí se novým technikám stříhání a barvení a také pracuje s moderními produkty, aby klienti vždy dosáhli výsledku prémiové úrovně.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Newsletter Section */}
       <section className="newsletter-section">
         <div className="container">
