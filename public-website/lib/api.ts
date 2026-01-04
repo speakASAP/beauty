@@ -95,23 +95,23 @@ export async function getBookingByToken(token: string) {
 }
 
 // Get tenant information by tenant_id (public endpoint)
+// Uses the local Next.js API route instead of API Gateway
 export async function getTenantInfo(tenantId: string) {
-  const API_GATEWAY_URL = process.env.API_GATEWAY_URL || process.env.NEXT_PUBLIC_API_GATEWAY_URL || 'http://localhost:4100';
-  
-  const client = axios.create({
-    baseURL: API_GATEWAY_URL,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-
   try {
-    const response = await client.get(`/public/tenant/${tenantId}`);
-    return response.data.data;
-  } catch (error: any) {
-    if (error.response?.status === 404) {
-      return null;
+    // Use relative path to use Next.js API route
+    const response = await fetch(`/api/tenant?tenant_id=${tenantId}`);
+    
+    if (!response.ok) {
+      if (response.status === 404) {
+        return null;
+      }
+      throw new Error(`Failed to fetch tenant: ${response.status}`);
     }
+    
+    const data = await response.json();
+    return data.success ? data.data : null;
+  } catch (error: any) {
+    console.error('Error fetching tenant info:', error);
     throw error;
   }
 }
