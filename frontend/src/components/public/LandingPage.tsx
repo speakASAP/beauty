@@ -288,18 +288,21 @@ function SalonLandingPage({ salonInfo }: { salonInfo: SalonInfo }) {
   const services = [
     {
       title: 'Brazilian Bleach',
-      description: 'Technika Brazilian Bleach je jedinečný způsob, jak vytvořit jemný kontrast mezi tmavšími a světlejšími prameny.',
+      description: 'Technika Brazilian Bleach je jedinečný způsob, jak vytvořit jemný kontrast mezi tmavšími a světlejšími prameny. Diky harmonickému propojení odstín: například tmavě blond a světle karamelové vzniká přírozený, plynulý přechod barev.',
       icon: <Brush />,
+      image: 'https://yaraspace.cz/wp-content/uploads/2025/05/brazilian-bleach.webp',
     },
     {
       title: 'Airtouch',
-      description: 'Tato moderní technika přínáší maximálně přirozený výsledek: vlasy získávají jas, optický objem a lehkost.',
+      description: 'Tato moderní technika přínáší maximálně přirozený výsledek: vlasy získávají jas, optický objem a lehkost. Přechody odstínů jsou jemné, měkké a naprosto plynulé.',
       icon: <Face />,
+      image: 'https://yaraspace.cz/wp-content/uploads/2025/05/airtouch.webp',
     },
     {
       title: 'Laminování vlasů',
-      description: 'Hebké, lesklé, hydratované a posílené vlasy, přesně takový efekt přináší profesionální ošetření!',
+      description: 'Hebké, lesklé, hydratované a posílené vlasy, přesně takový efekt přináší profesionální ošetření! Bez peroxidu, amoniaku a jiných agresivních látek vytváří na každém vlasu hladký a průhledný film.',
       icon: <LocalFlorist />,
+      image: 'https://yaraspace.cz/wp-content/uploads/2025/05/laminovani-vlasu.webp',
     },
   ];
 
@@ -346,18 +349,46 @@ function SalonLandingPage({ salonInfo }: { salonInfo: SalonInfo }) {
 
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
-      {/* Hero Section */}
+      {/* Hero Section with Background Image */}
       <Box
         sx={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          color: 'white',
-          py: { xs: 8, md: 12 },
           position: 'relative',
+          minHeight: { xs: '60vh', md: '80vh' },
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           overflow: 'hidden',
         }}
       >
-        <Container maxWidth="lg">
-          <Box sx={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
+        {/* Background Image */}
+        <Box
+          component="img"
+          src="https://yaraspace.cz/wp-content/uploads/2025/05/yaraspace_intro.webp"
+          alt={salonInfo.name}
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 0,
+          }}
+        />
+        {/* Overlay */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.85) 0%, rgba(118, 75, 162, 0.85) 100%)',
+            zIndex: 1,
+          }}
+        />
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
+          <Box sx={{ textAlign: 'center', color: 'white' }}>
             <Typography
               variant="h1"
               component="h1"
@@ -492,12 +523,30 @@ function SalonLandingPage({ salonInfo }: { salonInfo: SalonInfo }) {
                     borderRadius: 3,
                     boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
                     transition: 'transform 0.3s, box-shadow 0.3s',
+                    overflow: 'hidden',
                     '&:hover': {
                       transform: 'translateY(-8px)',
                       boxShadow: '0 8px 30px rgba(0,0,0,0.15)',
                     },
                   }}
                 >
+                  {service.image && (
+                    <Box
+                      component="img"
+                      src={service.image}
+                      alt={service.title}
+                      sx={{
+                        width: '100%',
+                        height: 200,
+                        objectFit: 'cover',
+                        display: 'block',
+                      }}
+                      onError={(e) => {
+                        // Fallback if image fails to load
+                        e.currentTarget.style.display = 'none';
+                      }}
+                    />
+                  )}
                   <CardContent sx={{ p: 4 }}>
                     <Box sx={{ color: 'primary.main', mb: 2, fontSize: 40 }}>
                       {service.icon}
@@ -553,18 +602,35 @@ function SalonLandingPage({ salonInfo }: { salonInfo: SalonInfo }) {
                     borderRadius: 3,
                     height: '100%',
                     boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                    display: 'flex',
+                    flexDirection: 'column',
                   }}
                 >
-                  <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} sx={{ color: 'warning.main', fontSize: 20 }} />
-                    ))}
-                  </Stack>
-                  <Typography variant="body1" sx={{ mb: 2, fontStyle: 'italic' }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                    <Avatar
+                      sx={{
+                        width: 56,
+                        height: 56,
+                        mr: 2,
+                        bgcolor: 'primary.main',
+                        fontSize: '1.5rem',
+                      }}
+                    >
+                      {testimonial.name.charAt(0)}
+                    </Avatar>
+                    <Box>
+                      <Typography variant="body2" fontWeight={600}>
+                        {testimonial.name}
+                      </Typography>
+                      <Stack direction="row" spacing={0.5}>
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star key={i} sx={{ color: 'warning.main', fontSize: 16 }} />
+                        ))}
+                      </Stack>
+                    </Box>
+                  </Box>
+                  <Typography variant="body1" sx={{ flexGrow: 1, fontStyle: 'italic', color: 'text.secondary' }}>
                     "{testimonial.text}"
-                  </Typography>
-                  <Typography variant="body2" fontWeight={600} color="text.secondary">
-                    {testimonial.name}
                   </Typography>
                 </Paper>
               </Grid>
