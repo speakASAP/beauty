@@ -19,8 +19,5 @@ RUN npm run build
 # Expose port (beauty application uses 41xx range)
 EXPOSE 4102
 
-# Set PORT environment variable
-ENV PORT=4102
-
 # Start the Next.js production server
-CMD ["node", ".next/standalone/server.js"]
+CMD ["npm", "start"]
