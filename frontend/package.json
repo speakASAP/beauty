@@ -37,6 +37,8 @@
   },
   "overrides": {
     "rimraf": "^5.0.0",
-    "glob": "^11.0.0"
+    "glob": "^11.0.0",
+    "@humanwhocodes/object-schema": "npm:@eslint/object-schema@^2.1.0",
+    "@humanwhocodes/config-array": "npm:@eslint/config-array@^0.18.0"
   }
 }
