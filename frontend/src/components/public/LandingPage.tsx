@@ -122,7 +122,7 @@ export function LandingPage() {
     <Box
       sx={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: 'linear-gradient(135deg, #d4a574 0%, #f5c6cb 100%)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -375,7 +375,7 @@ function SalonLandingPage({ salonInfo }: { salonInfo: SalonInfo }) {
             zIndex: 0,
           }}
         />
-        {/* Overlay */}
+        {/* Overlay with warm colors */}
         <Box
           sx={{
             position: 'absolute',
@@ -383,7 +383,7 @@ function SalonLandingPage({ salonInfo }: { salonInfo: SalonInfo }) {
             left: 0,
             width: '100%',
             height: '100%',
-            background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.85) 0%, rgba(118, 75, 162, 0.85) 100%)',
+            background: 'linear-gradient(135deg, rgba(212, 165, 116, 0.75) 0%, rgba(245, 198, 203, 0.75) 100%)',
             zIndex: 1,
           }}
         />
@@ -437,7 +437,7 @@ function SalonLandingPage({ salonInfo }: { salonInfo: SalonInfo }) {
 
       {/* Contact Info Bar */}
       {(salonInfo.phone || salonInfo.email || salonInfo.address || salonInfo.businessHours) && (
-        <Box sx={{ bgcolor: 'primary.main', color: 'white', py: 3 }}>
+        <Box sx={{ bgcolor: '#d4a574', color: 'white', py: 3 }}>
           <Container maxWidth="lg">
             <Grid container spacing={3} justifyContent="center" alignItems="center">
               {salonInfo.phone && (
@@ -646,7 +646,7 @@ function SalonLandingPage({ salonInfo }: { salonInfo: SalonInfo }) {
             color: 'white',
             borderRadius: 4,
             p: 6,
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            background: 'linear-gradient(135deg, #d4a574 0%, #f5c6cb 100%)',
           }}
         >
           <Typography variant="h4" component="h2" gutterBottom fontWeight={600}>
