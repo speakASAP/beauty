@@ -112,7 +112,9 @@ function SalonPageContent() {
     }
     
     // Map various theme values to our designs
-    if (theme === 'salon1' || theme === 'luna' || theme === 'yaraspace') {
+    if (theme === 'yaraspace') {
+      return <YaraSpaceDesign tenant={tenant} />
+    } else if (theme === 'salon1' || theme === 'luna') {
       return <Salon1Design tenant={tenant} />
     } else if (theme === 'salon2' || theme === 'aurora') {
       return <Salon2Design tenant={tenant} />

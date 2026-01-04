@@ -9,6 +9,16 @@ const nextConfig = {
   generateBuildId: async () => {
     return 'build-' + Date.now()
   },
+  // Allow external images from yaraspace.cz
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'yaraspace.cz',
+        pathname: '/wp-content/uploads/**',
+      },
+    ],
+  },
 }
 
 module.exports = nextConfig

@@ -90,7 +90,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
             <div className="services-grid">
               <div className="service-card">
                 <div className="service-image">
-                  <img src="https://yaraspace.cz/wp-content/uploads/2025/05/brazilian-bleach.webp" alt="Brazilian bleach" />
+                  <img src="https://yaraspace.cz/wp-content/uploads/2025/10/bleach-768x1024.webp" alt="Brazilian bleach" />
                 </div>
                 <div className="service-content">
                   <h3>Brazilian bleach</h3>
@@ -100,7 +100,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               </div>
               <div className="service-card">
                 <div className="service-image">
-                  <img src="https://yaraspace.cz/wp-content/uploads/2025/05/airtouch.webp" alt="Airtouch" />
+                  <img src="https://yaraspace.cz/wp-content/uploads/2025/10/bleach-768x1024.webp" alt="Airtouch" />
                 </div>
                 <div className="service-content">
                   <h3>Airtouch</h3>
@@ -119,7 +119,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
             <div className="services-grid">
               <div className="service-card">
                 <div className="service-image">
-                  <img src="https://yaraspace.cz/wp-content/uploads/2025/05/laminovani.webp" alt="Laminování vlasů" />
+                  <img src="https://yaraspace.cz/wp-content/uploads/2025/02/laminace-vlasu.webp" alt="Laminování vlasů" />
                 </div>
                 <div className="service-content">
                   <h3>Laminování vlasů</h3>
@@ -129,7 +129,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               </div>
               <div className="service-card">
                 <div className="service-image">
-                  <img src="https://yaraspace.cz/wp-content/uploads/2025/05/rekonstrukce.webp" alt="Rekonstrukce vlasů" />
+                  <img src="https://yaraspace.cz/wp-content/uploads/2025/02/laminace-vlasu.webp" alt="Rekonstrukce vlasů" />
                 </div>
                 <div className="service-content">
                   <h3>Rekonstrukce vlasů</h3>
