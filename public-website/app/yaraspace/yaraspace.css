@@ -52,6 +52,18 @@ body:has(.salon-yaraspace) .main-nav.salon-page-hidden {
   color: #000;
   text-decoration: none;
   letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo-img {
+  height: 40px;
+  width: auto;
+}
+
+.nav-logo-text {
+  display: inline-block;
 }
 
 .nav-links {
@@ -434,6 +446,23 @@ body:has(.salon-yaraspace) .main-nav.salon-page-hidden {
   background: #fff;
 }
 
+.services-main-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.services-description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 60px;
+}
+
 .services-category {
   margin-bottom: 80px;
 }
@@ -505,6 +534,36 @@ body:has(.salon-yaraspace) .main-nav.salon-page-hidden {
   margin-bottom: 15px;
 }
 
+.service-content h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #000;
+  margin: 25px 0 15px;
+}
+
+.service-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0 20px;
+}
+
+.service-benefits li {
+  color: #666;
+  line-height: 1.8;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.service-benefits li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--yaraspace-brown, #be845f);
+  font-weight: bold;
+}
+
 .service-link {
   color: #000;
   text-decoration: none;
@@ -519,10 +578,171 @@ body:has(.salon-yaraspace) .main-nav.salon-page-hidden {
   text-decoration: underline;
 }
 
+/* Pricing Section */
+.pricing-section {
+  padding: 80px 0;
+  background: #fff;
+}
+
+.pricing-main-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.pricing-description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 60px;
+}
+
+.pricing-category {
+  margin-bottom: 60px;
+}
+
+.pricing-category-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--yaraspace-brown, #be845f);
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.pricing-table-wrapper {
+  overflow-x: auto;
+  margin-bottom: 40px;
+}
+
+.pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.pricing-table thead {
+  background: var(--yaraspace-cream, #fcf2eb);
+}
+
+.pricing-table th {
+  padding: 15px 20px;
+  text-align: left;
+  font-weight: 600;
+  color: #000;
+  font-size: 1rem;
+  border-bottom: 2px solid var(--yaraspace-brown, #be845f);
+}
+
+.pricing-table td {
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: #333;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.pricing-table tbody tr:hover {
+  background: var(--yaraspace-cream, #fcf2eb);
+  transition: background 0.2s ease;
+}
+
+.pricing-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.pricing-table td:first-child {
+  font-weight: 500;
+  color: #000;
+}
+
+.pricing-table td:last-child {
+  font-weight: 600;
+  color: var(--yaraspace-brown, #be845f);
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Responsive pricing tables */
+@media (max-width: 768px) {
+  .pricing-table {
+    font-size: 0.85rem;
+  }
+
+  .pricing-table th,
+  .pricing-table td {
+    padding: 10px 12px;
+  }
+
+  .pricing-category-title {
+    font-size: 1.5rem;
+  }
+}
+
 /* Testimonials Section */
 .testimonials-section {
   padding: 80px 0;
   background: var(--yaraspace-light-beige, #ede1dc);
+}
+
+.testimonials-main-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.testimonials-intro {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 40px;
+}
+
+.testimonials-comment-btn {
+  display: block;
+  margin: 0 auto 50px;
+  padding: 15px 40px;
+  background: var(--yaraspace-brown, #be845f);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.testimonials-comment-btn:hover {
+  background: var(--yaraspace-dark-brown, #a6734f);
+}
+
+.testimonials-load-more-btn {
+  display: block;
+  margin: 50px auto 0;
+  padding: 15px 40px;
+  background: transparent;
+  color: var(--yaraspace-brown, #be845f);
+  border: 2px solid var(--yaraspace-brown, #be845f);
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.testimonials-load-more-btn:hover {
+  background: var(--yaraspace-brown, #be845f);
+  color: #fff;
 }
 
 .section-title {
@@ -608,6 +828,87 @@ body:has(.salon-yaraspace) .main-nav.salon-page-hidden {
   font-size: 1rem;
 }
 
+/* Contact Section */
+.contact-section {
+  padding: 80px 0;
+  background: var(--yaraspace-cream, #fcf2eb);
+}
+
+.contact-main-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.contact-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.contact-item {
+  text-align: center;
+  padding: 30px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.contact-item-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--yaraspace-brown, #be845f);
+  margin-bottom: 15px;
+}
+
+.contact-item-value {
+  font-size: 1.1rem;
+  color: #333;
+  line-height: 1.6;
+  text-decoration: none;
+  display: block;
+}
+
+.contact-item-value:hover {
+  color: var(--yaraspace-brown, #be845f);
+  text-decoration: underline;
+}
+
+.contact-item p.contact-item-value {
+  margin: 0;
+}
+
+.contact-item p.contact-item-value:hover {
+  text-decoration: none;
+  color: #333;
+}
+
+/* Responsive contact section */
+@media (max-width: 768px) {
+  .contact-main-title {
+    font-size: 2rem;
+  }
+
+  .contact-item {
+    padding: 20px;
+  }
+
+  .contact-item-title {
+    font-size: 1rem;
+  }
+
+  .contact-item-value {
+    font-size: 1rem;
+  }
+}
+
 /* Footer */
 .salon-footer {
   background: #fff;
@@ -637,7 +938,20 @@ body:has(.salon-yaraspace) .main-nav.salon-page-hidden {
 }
 
 .footer-social a {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+  color: #666;
+}
+
+.footer-social a svg {
+  width: 24px;
+  height: 24px;
   width: 40px;
   height: 40px;
 }

@@ -27,7 +27,10 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       {/* Navigation */}
       <nav className="salon-nav">
         <div className="container">
-          <a href={`/salon?tenant_id=${tenantId}`} className="nav-logo">{salonName}</a>
+          <a href={`/salon?tenant_id=${tenantId}`} className="nav-logo">
+            <img src="https://yaraspace.cz/wp-content/uploads/2025/01/logo.svg" alt="Yara Space & Hair Spa Logo" className="nav-logo-img" />
+            <span className="nav-logo-text">{salonName}</span>
+          </a>
           <div className="nav-links">
             <a href="#about">O nás</a>
             <a href="#blog">Blog</a>
@@ -135,11 +138,14 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       {/* Services Section */}
       <section id="services" className="services-section">
         <div className="container">
+          <h1 className="services-main-title">Služby</h1>
+          <p className="services-description">
+            Ať už toužíte po čerstvé manikúře, moderním barvení, svatebním účesu nebo jen potřebujete upravit konečky, u nás si můžete vybrat jakoukoli službu bez obav o kvalitu a bezpečnost. Používáme šetrné produkty, ověřené techniky a naši stylisté neustále zdokonalují své dovednosti, aby byl výsledek vždy přesně takový, jaký si přejete.
+          </p>
+
           {/* Zasvětlující techniky */}
           <div className="services-category">
-            <a href="#services" className="category-link">
-              <h2 className="category-title">Zasvětlujicí techniky</h2>
-            </a>
+            <h2 className="category-title">Zasvětlujicí techniky</h2>
             <div className="services-grid">
               <div className="service-card">
                 <div className="service-image">
@@ -147,8 +153,9 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
                 </div>
                 <div className="service-content">
                   <h3>Brazilian bleach</h3>
-                  <p>Technika Brazilian Bleach je jedinečný způsob, jak vytvořit jemný kontrast mezi tmavšími a světlejšími prameny. Diky harmonickému propojení odstín: například tmavě blond a světle karamelové vzniká přírozený, plynulý přechod barev. Tento styl barvení je vhodný pro světlé i tmavé vlasy, podtrhuje hloubku základního tónua vytváří efekt přirozené hry světla po...</p>
-                  <a href="#services" className="service-link">Go to Brazilian bleach</a>
+                  <p>Technika Brazilian Bleach je jedinečný způsob, jak vytvořit jemný kontrast mezi tmavšími a světlejšími prameny. Diky harmonickému propojení odstín: například tmavě blond a světle karamelové vzniká přírozený, plynulý přechod barev.</p>
+                  <p>Tento styl barvení je vhodný pro světlé i tmavé vlasy, podtrhuje hloubku základního tónua vytváří efekt přirozené hry světla po celé délce vlasů. Ve výsledku získáte plynulé přechody od sytých tónů ke světlým odleskům, které působí elegantně, luxusně a naprosto přirozeně.</p>
+                  <p>Jednou z hlavních výhod Brazilian Bleach je jeho šetrnost k vlasům. Navíc tato technika nevyžaduje časté korekce a provádí se rychleji než většina jiných zesvětlujících meto. Tato technika je ideální volba pro ty, kdo oceňují přirozenost, kvalitu a svůj čas.</p>
                 </div>
               </div>
               <div className="service-card">
@@ -157,8 +164,12 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
                 </div>
                 <div className="service-content">
                   <h3>Airtouch</h3>
-                  <p>Tato moderní technika přínáší maximálně přirozený výsledek: vlasy získávají jas, optický objem a lehkost. Přechody odstínů jsou jemné, měkké a naprosto plynulé. Kadeřník vybere odstín, který dokonale ladí s vaším přirozeným tónem a zvýrazní krásu vašich vlasů. Šetrné složení jemně zesvětluje prameny, nepoškozuje jejich strukturu a zachovává pružnost i přirozený...</p>
-                  <a href="#services" className="service-link">Go to Airtouch</a>
+                  <p>Tato moderní technika přínáší maximálně přirozený výsledek: vlasy získávají jas, optický objem a lehkost. Přechody odstínů jsou jemné, měkké a naprosto plynulé.</p>
+                  <p>Kadeřník vybere odstín, který dokonale ladí s vaším přirozeným tónem a zvýrazní krásu vašich vlasů. Šetrné složení jemně zesvětluje prameny, nepoškozuje jejich strukturu a zachovává pružnost i přirozený lesk.</p>
+                  <p>S technikou Airtouch vytvoříte jedinečný, přirozený a svěží vzhled a bez ztráty své osobitosti.</p>
+                  <h4>V čem je Airtouch výjimečný?</h4>
+                  <p>Barvení v této technice zaručuje plynulý přechod mezi odstíny, takže vlasy působí naprosto přirozeně. Výhodou je, že korekce je nutná jen jednou za několik měsíců!</p>
+                  <p>Metoda je ideální i pro jemné ztmavení vlasů – v takovém případě kadeřník zvolí hlubší, a víc přirozené tóny, které zjemní příliš světlý blond a dodají barvě bohatý a přirozený odstín.</p>
                 </div>
               </div>
             </div>
@@ -166,9 +177,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
 
           {/* Péče */}
           <div className="services-category">
-            <a href="#services" className="category-link">
-              <h2 className="category-title">Péče</h2>
-            </a>
+            <h2 className="category-title">Péče</h2>
             <div className="services-grid">
               <div className="service-card">
                 <div className="service-image">
@@ -176,20 +185,597 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
                 </div>
                 <div className="service-content">
                   <h3>Laminování vlasů</h3>
-                  <p>Hebké, lesklé, hydratované a posílené vlasy, přesně takový efekt přináší profesionální ošetření! Bez peroxidu, amoniaku a jiných agresivních látek vytváří na každém vlasu hladký a průhledný film, který mu dodává neuvěřitelný lesk a zdravý vzhled. Přípravek je univerzální a vhodný pro všechny typy vlasů. Přírodní, naprosto bezpečné složení pro laminaci...</p>
-                  <a href="#services" className="service-link">Go to Laminování vlasů</a>
+                  <p>Hebké, lesklé, hydratované a posílené vlasy, přesně takový efekt přináší profesionální ošetření!</p>
+                  <p>Bez peroxidu, amoniaku a jiných agresivních látek vytváří na každém vlasu hladký a průhledný film, který mu dodává neuvěřitelný lesk a zdravý vzhled. Přípravek je univerzální a vhodný pro všechny typy vlasů.</p>
+                  <p>Přírodní, naprosto bezpečné složení pro laminaci obalí šetrně vlasy, čímž chrání jejich sílu a zanechává je odolné vůči vnějším vlivům až na 4 týdny.</p>
+                  <h4>Výsledek, který získáte:</h4>
+                  <ul className="service-benefits">
+                    <li>zářívý, živý lesk a dokonale hladké, zdravé vlasy až na 4 týdny;</li>
+                    <li>ochranu před vnějšími vlivy a UV zářením;</li>
+                    <li>posílení jemných a poškozených vlasů;</li>
+                    <li>vlasy se přestanou lámat;</li>
+                    <li>ochranu před nadměrnou ztrátou vlhkostis;</li>
+                    <li>sytější barvu, která vydrží déle mezi barveními.</li>
+                  </ul>
+                  <p>Vrať'te svým vlasům přirozený lesk a hebkost!</p>
                 </div>
               </div>
               <div className="service-card">
                 <div className="service-image">
-                  <img src="https://yaraspace.cz/wp-content/uploads/2025/02/rekonstrukce-vlasu.webp" alt="Rekonstrukce vlasů" />
+                  <img src="https://yaraspace.cz/wp-content/uploads/2025/02/rekonstrukce-vlasu-odbarvene-a-zesvetlene-vlasy.webp" alt="Rekonstrukce vlasů" />
                 </div>
                 <div className="service-content">
                   <h3>Rekonstrukce vlasů</h3>
-                  <p>Rekonstrukce vrací vlasům zdraví, pružnost a vitalitu. Díky vylepšenému a naprosto bezpečnému složení profesionální péče Philip Martin's se stav vlasů viditelně zlepší už po první aplikaci! Tato produkce je ideální pro zesvětlené i poškozené vlasy. Unikátní receptura obsahuje přírodní rostlinné keratiny, které jsou účinné pro vlasy a jsou šetrné nejen...</p>
-                  <a href="#services" className="service-link">Go to Rekonstrukce vlasů</a>
+                  <p>Rekonstrukce vrací vlasům zdraví, pružnost a vitalitu. Díky vylepšenému a naprosto bezpečnému složení profesionální péče Philip Martin's se stav vlasů viditelně zlepší už po první aplikaci! Tato produkce je ideální pro zesvětlené i poškozené vlasy.</p>
+                  <p>Unikátní receptura obsahuje přírodní rostlinné keratiny, které jsou účinné pro vlasy a jsou šetrné nejen k člověku a i přírodě.</p>
+                  <h4>Výsledek, který získáte:</h4>
+                  <ul className="service-benefits">
+                    <li>zdravé vlasy bez viditelných poškození;</li>
+                    <li>ochranu před lámáním a roztřepenými konečky při každodenním česání;</li>
+                    <li>vizuálně hustší a pevnější vlasy;</li>
+                    <li>snazší úpravu, vlasy se lépe rozčesávají, nelámou a krásně drží tvari;</li>
+                    <li>vlasy začnou hezky růst i při pravidelném zesvětlování a stylingu.</li>
+                  </ul>
+                  <p>Dopřejte svým vlasům novou sílu a krásu!</p>
                 </div>
               </div>
+              <div className="service-card">
+                <div className="service-image">
+                  <img src="https://yaraspace.cz/wp-content/uploads/2025/02/detoxikace-vlasu.webp" alt="Detoxikace vlasů" />
+                </div>
+                <div className="service-content">
+                  <h3>Detoxikace vlasů</h3>
+                  <p>Lehké, zářivé a plné energie: zamilujete si své vlasy znovu díky výsledkům profesionální detoxikace!</p>
+                  <p>Speciální složení účinně odstraňuje těžké kovy a zbytky chemických látek, které se ve vlasech hromadí po barvení, po použití stylingových přípravků nebo vlivem znečištěného ovzduší. Profesionální přípravky jsou k vlasům i pokožce hlavy maximálně šetrné nevysušují ani nedráždí.</p>
+                  <h4>Výsledek, který získáte:</h4>
+                  <ul className="service-benefits">
+                    <li>hloubkové vyčištění vlasů od odolných chemických nečistot;</li>
+                    <li>obnovený přirozený lesk;</li>
+                    <li>jemné čištění pokožky hlavy, úlevu od suchosti a svědění;</li>
+                    <li>pocit svěžesti a lehkosti každého pramínku;</li>
+                    <li>šetrnou péči vhodnou pro všechny typy vlasů.</li>
+                  </ul>
+                  <p>Zažijte pocit čistoty a zdraví svých vlasů už po první návštěvě!</p>
+                </div>
+              </div>
+              <div className="service-card">
+                <div className="service-image">
+                  <img src="https://yaraspace.cz/wp-content/uploads/2025/02/hloubkova-hydratace-vlasu.webp" alt="Hloubková hydratace vlasů" />
+                </div>
+                <div className="service-content">
+                  <h3>Hloubková hydratace vlasů</h3>
+                  <p>Suché vlasy velice snadno ztrácí vlhkost i lesk, stávají se křehkými a lámavými. Procedura hloubkové hydratace intenzivně vyživí vaše vlasy a naplní je vlhkostí, čímž Jim vrátí pružnost, hebkost a zdravý přírozený lesk. Výsledek je viditelný už po první aplikaci as pravidelnou péčí se jen dál zlepšuje.</p>
+                  <p>Jemné, hypoalergenní složení je zcela bezpečné pro vlasy i pokožku hlavy.</p>
+                  <h4>Výsledek, který získáte:</h4>
+                  <ul className="service-benefits">
+                    <li>obnovený lesk, hydrataci a vitalitu vlasů</li>
+                    <li>prevenci lámání a vypadávání</li>
+                    <li>zlepšení struktury a celkového zdraví vlasů, bez použití škodlivých chemických látek.</li>
+                  </ul>
+                  <p>Nechte své vlasy znovu zazářit!</p>
+                </div>
+              </div>
+              <div className="service-card">
+                <div className="service-image">
+                  <img src="https://yaraspace.cz/wp-content/uploads/2025/02/pece-proti-vypadavani-vlasu.webp" alt="Péče proti vypadávání vlasů" />
+                </div>
+                <div className="service-content">
+                  <h3>Péče proti vypadávání vlasů</h3>
+                  <p>V dnešní uspěchané době plné stresu a znečištěného ovzduší trápí vypadávání vlasů stále více žen imužů.</p>
+                  <p>Profesionální komplex proti vypadávání vlasů od Philip Martin's přináší účinné řešení zaměřené na prevenci nadměrné ztráty vlasů,</p>
+                  <p>Unikátní látky s přírodními aktivními složkami stimulují vlasové folikuly, zlepšují mikrocirkulaci pokožky hlavy a zajišťují intenzivní výživu každého vlasu.</p>
+                  <p>Obsažené živiny posilují kořínky, zlepšují stav pokožky hlavy a podporují přirozené obnovení hustoty vlasů.</p>
+                  <h4>Výsledek, který získáte:</h4>
+                  <ul className="service-benefits">
+                    <li>viditelné snížení vypadávání a posílení vlasové struktury;</li>
+                    <li>stimulace růstu nových, zdravých vlasů;</li>
+                    <li>výživu a aktivaci vlasových folikulů;</li>
+                    <li>zlepšení stavu pokožky hlavy a obnovení pH rovnováhy;</li>
+                    <li>prodloužení anagenní fáze; období aktivního růstu vlasů, kdy získávají maximum živin (až 4 roky u mužů a až 6 let u žen).</li>
+                  </ul>
+                  <h4>Procedura zahrnuje čtyři kroky:</h4>
+                  <ul className="service-benefits">
+                    <li>Detoxikace: odstranění nahromaděných nečistot a toxinů;</li>
+                    <li>Očištění: příprava pokožky hlavy na další kroky ošetření;</li>
+                    <li>Hydratace: hloubková výživa a obnova struktury vlasů;</li>
+                    <li>Výživa a stimulace růstu: posílení kořínků a aktivace nového růstu.</li>
+                  </ul>
+                  <p>Získejte zpět husté, silné a zdravě zářící vlasy.</p>
+                </div>
+              </div>
+              <div className="service-card">
+                <div className="service-image">
+                  <img src="https://yaraspace.cz/wp-content/uploads/2025/02/cisteni-peeling-pokozky-hlavy.webp" alt="Čištění (peeling) pokožky hlavy" />
+                </div>
+                <div className="service-content">
+                  <h3>Čištění (peeling) pokožky hlavy</h3>
+                  <p>Čistá pokožka hlavy je základem zdravých, hustých a krásných vlasů.</p>
+                  <p>Peeling je důležitou součástí péče o pokožku hlavy. Přináší pocit svěžesti, odstraňuje nepříjemné pocity a zároveň probouzí vlasové folikuly. Vlasy jsou po něm lehčí, čistší a působí svěže.</p>
+                  <p>Tento typ ošetření je vhodný pro všechny typy vlasů a lze jej kombinovat s většinou dalších procedur.</p>
+                  <h4>Výsledek, který získáte:</h4>
+                  <ul className="service-benefits">
+                    <li>šetrné vyčištění pokožky od odumřelých buněk, přebytečného mazu a nečistot;</li>
+                    <li>lepší prokrvení, které podporuje výživu a okysličení pokožky;</li>
+                    <li>pocit komfortu bez svědění, suchosti a napětí;</li>
+                    <li>stimulaci růstu vlasů a jejich posílení.</li>
+                  </ul>
+                  <p>Dejte své pokožce i vlasům nový dech a přirozený lesk.</p>
+                </div>
+              </div>
+              <div className="service-card">
+                <div className="service-image">
+                  <img src="https://yaraspace.cz/wp-content/uploads/2025/02/hloubkova-pece-o-vlasy.webp" alt="Hloubková péče o vlasy" />
+                </div>
+                <div className="service-content">
+                  <h3>Hloubková péče o vlasy</h3>
+                  <p>Inovativní složení našich produktů zajišťuje intenzivní regeneraci a výživu, působí jak uvnitř, tak na povrchu každého vlasu. Diky multimolekulárnímu složení pečující přípravky vyplňují poškozená místa ve vlasovém vláknu, doplňují ztracený keratin i vlhkost a dodávají vlasům zdravý lesk, pružnost a hebkost.</p>
+                  <p>Tato péče dokáže zachránit i velmi poškozené vlasy – po zesvětlení, častém barvení či jiných náročných úpravách.</p>
+                  <h4>Výsledek, který získáte:</h4>
+                  <ul className="service-benefits">
+                    <li>hloubkovou regeneraci a výživu vlasů po celé délce;</li>
+                    <li>odstranění lámavosti a poréznostis;</li>
+                    <li>pružné, lesklé a snadno upravitelné vlasy;</li>
+                    <li>ochranu před vnějšími vlivy a ztrátou vlhkosti.</li>
+                  </ul>
+                  <h4>Procedura zahrnuje:</h4>
+                  <ul className="service-benefits">
+                    <li>keratinový krém s regeneračními účinky;</li>
+                    <li>čistý keratin obohacený o vitaminy a přírodní extrakty;</li>
+                    <li>výživný komplex přírodních olejů;</li>
+                    <li>pečující fluid s fytokomponenty, aminokyselinami a vitaminy.</li>
+                  </ul>
+                  <p>Kadeřník zvolí přípravky individuálně podle typu a stavu vašich vlasů, aby jim vrátil zdravý lesk, sílu a přirozenou krásu,</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section id="pricing" className="pricing-section">
+        <div className="container">
+          <h1 className="pricing-main-title">Ceník</h1>
+          <p className="pricing-description">
+            Naše transparentní cenová politika a otevřený ceník vám umožní snadno si naplánovat rozpočet na vaši oblíbenou péči i nové beauty zážitky. Pokud uvažujete o více procedurách nebo chcete využít naše zvýhodněné balíčky, zavolejte nắm nebo nám napište přímo zde na webu - rádi vám poradíme.
+          </p>
+
+          {/* Krátké vlasy do 10 cm */}
+          <div className="pricing-category">
+            <h2 className="pricing-category-title">Krátké vlasy do 10 cm</h2>
+            <div className="pricing-table-wrapper">
+              <table className="pricing-table">
+                <thead>
+                  <tr>
+                    <th>Služba</th>
+                    <th>Popis</th>
+                    <th>Čas</th>
+                    <th>Cena</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Foukání (vodová), mytí</td>
+                    <td></td>
+                    <td></td>
+                    <td>580 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Kompletní střih +komplet péče</td>
+                    <td></td>
+                    <td></td>
+                    <td>680 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Barvení, odrostu do 2 cm, (trvalá ondulace, přeliv)</td>
+                    <td></td>
+                    <td></td>
+                    <td>1730 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Melír doplnění odrostu, střih, konečná úprava</td>
+                    <td></td>
+                    <td></td>
+                    <td>1830 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Nový melír, kombinace, barev, technik, střih, konečná úprava</td>
+                    <td></td>
+                    <td></td>
+                    <td>1930 Kč</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Polodlouhé vlasy */}
+          <div className="pricing-category">
+            <h2 className="pricing-category-title">Polodlouhé vlasy (max. na ramena, mikádo)</h2>
+            <div className="pricing-table-wrapper">
+              <table className="pricing-table">
+                <thead>
+                  <tr>
+                    <th>Služba</th>
+                    <th>Popis</th>
+                    <th>Čas</th>
+                    <th>Cena</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Foukání + mytí</td>
+                    <td></td>
+                    <td></td>
+                    <td>780 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Úprava stávajícího střihu + péče + konečná úprava</td>
+                    <td></td>
+                    <td></td>
+                    <td>980 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Barvení odrostů (do 2 cm) + střih + péče + konečná úprava</td>
+                    <td></td>
+                    <td></td>
+                    <td>1930 Kč / 2230 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Melír (doplnění odrostů) + střih + péče + konečná úprava</td>
+                    <td></td>
+                    <td></td>
+                    <td>2230 Kč / 2730 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Kombinace barvení + melírování nebo nový melír + střih + péče + konečná úprava</td>
+                    <td></td>
+                    <td></td>
+                    <td>2430 Kč / 2990 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Po foukání lokny, vlny, přežehlení</td>
+                    <td></td>
+                    <td></td>
+                    <td>500 Kč</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Dlouhé vlasy */}
+          <div className="pricing-category">
+            <h2 className="pricing-category-title">Dlouhé vlasy (od ramen)</h2>
+            <div className="pricing-table-wrapper">
+              <table className="pricing-table">
+                <thead>
+                  <tr>
+                    <th>Služba</th>
+                    <th>Popis</th>
+                    <th>Čas</th>
+                    <th>Cena</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Foukání + mytí</td>
+                    <td></td>
+                    <td></td>
+                    <td>980 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Úprava stávajícího střihu + péče + konečná úprava</td>
+                    <td></td>
+                    <td></td>
+                    <td>1280 Kč / 1680 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Barvení odrostů (do 2 cm) / přeliv / tónování + péče + střih + konečná úprava</td>
+                    <td></td>
+                    <td></td>
+                    <td>2230 Kč / 3180 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Melír (doplnění odrostů) + péče + střih + konečná úprava</td>
+                    <td></td>
+                    <td></td>
+                    <td>3630 Kč / 4080 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Kombinace technik (barva + melír) nebo nový melír / změna barvy + péče + střih + konečná úprava</td>
+                    <td></td>
+                    <td></td>
+                    <td>2890 Kč / 4550 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Přežehlení vlasů, vlny, lokny</td>
+                    <td></td>
+                    <td></td>
+                    <td>800 Kč</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Pánské a dětské střihy */}
+          <div className="pricing-category">
+            <h2 className="pricing-category-title">Pánské a dětské střihy</h2>
+            <div className="pricing-table-wrapper">
+              <table className="pricing-table">
+                <thead>
+                  <tr>
+                    <th>Služba</th>
+                    <th>Popis</th>
+                    <th>Čas</th>
+                    <th>Cena</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Základní střih</td>
+                    <td></td>
+                    <td></td>
+                    <td>250 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Náročný střih na čas a provedení</td>
+                    <td></td>
+                    <td></td>
+                    <td>od 350 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Střih pouze strojkem</td>
+                    <td></td>
+                    <td></td>
+                    <td>200 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Ofina, ornament, vousy</td>
+                    <td></td>
+                    <td></td>
+                    <td>100 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Dětský střih (dle náročnosti)</td>
+                    <td></td>
+                    <td></td>
+                    <td>od 350 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Kompletní střih + mytí + péče + konečná úprava + styling</td>
+                    <td></td>
+                    <td></td>
+                    <td>450 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Masáž hlavy</td>
+                    <td></td>
+                    <td></td>
+                    <td>50 Kč</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Svatební a společenské úpravy */}
+          <div className="pricing-category">
+            <h2 className="pricing-category-title">Svatební a společenské úpravy vlasů</h2>
+            <div className="pricing-table-wrapper">
+              <table className="pricing-table">
+                <thead>
+                  <tr>
+                    <th>Služba</th>
+                    <th>Popis</th>
+                    <th>Čas</th>
+                    <th>Cena</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Společenský účes + péče (bez střihu)</td>
+                    <td></td>
+                    <td></td>
+                    <td>980 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Vlny, lokny, výčes (dle délky a hustoty vlasů, bez střihu)</td>
+                    <td></td>
+                    <td></td>
+                    <td>1200 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Zkouška nevěsty + konzultace účesu (bez mytí a konečné úpravy, max. 2 pokusy / 1,5 hod.)</td>
+                    <td></td>
+                    <td></td>
+                    <td>1500 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Svatební účes (bez předchozí zkoušky, v salonu)</td>
+                    <td></td>
+                    <td></td>
+                    <td>1800 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Svatební balíček (účes v salonu včetně zkoušky předem nebo náročnější bez zkoušky)</td>
+                    <td></td>
+                    <td></td>
+                    <td>2800 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Úprava svatebčana (bez mytí, styling)</td>
+                    <td></td>
+                    <td></td>
+                    <td>480 Kč</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Péče */}
+          <div className="pricing-category">
+            <h2 className="pricing-category-title">Péče</h2>
+            <div className="pricing-table-wrapper">
+              <table className="pricing-table">
+                <thead>
+                  <tr>
+                    <th>Služba</th>
+                    <th>Popis</th>
+                    <th>Čas</th>
+                    <th>Cena</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Laminace vlasů</td>
+                    <td></td>
+                    <td></td>
+                    <td>1150 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Rekonstrukce vlasů</td>
+                    <td></td>
+                    <td></td>
+                    <td>1200 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Detoxikace vlasů</td>
+                    <td></td>
+                    <td></td>
+                    <td>780 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Hloubková hydratace</td>
+                    <td></td>
+                    <td></td>
+                    <td>580 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Vypadávání vlasů</td>
+                    <td></td>
+                    <td></td>
+                    <td>1430 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Peeling vlasové pokožky</td>
+                    <td></td>
+                    <td></td>
+                    <td>780 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Hloubková péče</td>
+                    <td></td>
+                    <td></td>
+                    <td>880 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Péče o pokožku</td>
+                    <td></td>
+                    <td></td>
+                    <td>690 Kč</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Rituály */}
+          <div className="pricing-category">
+            <h2 className="pricing-category-title">Rituály</h2>
+            <div className="pricing-table-wrapper">
+              <table className="pricing-table">
+                <thead>
+                  <tr>
+                    <th>Služba</th>
+                    <th>Popis</th>
+                    <th>Čas</th>
+                    <th>Cena</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Suchá pokožka</td>
+                    <td>Ošetření pro suchou a matnou pokožku hlavy</td>
+                    <td>15 min</td>
+                    <td>750 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Mastná pokožka</td>
+                    <td>Ideální ošetření pokožky hlavy s přebytečným mazem a hyperhidrozou</td>
+                    <td>15 min</td>
+                    <td>750 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Pokožka a lupy</td>
+                    <td>Ideální ošetření pokožky hlavy s odlupováním nebo lupy</td>
+                    <td>15 min</td>
+                    <td>750 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Svědění</td>
+                    <td>Ideální ošetření pokožky hlavy se zarudnutím a / nebo svěděním</td>
+                    <td>15 min</td>
+                    <td>750 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>PICASSO mastná pokožka</td>
+                    <td>Ritual pokožky hlavy regulující kožní maz</td>
+                    <td>90 min</td>
+                    <td>2000 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>HAIR LOSS TREATMENTT VÝPADAVANÍ SUCHÁ/NORMALNÍ</td>
+                    <td>Ideální léčba k prevenci a / nebo zpomalení sezonního vypadávání</td>
+                    <td>60 min</td>
+                    <td>2200 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>HAIR LOSS TREATMENTT VÝPADAVANÍ (MASTNÁ POKOŽKA)</td>
+                    <td>Ideální ošetření pro prevenci a / nebo zpomalení sezonního vypadávání</td>
+                    <td>60 min</td>
+                    <td>2200 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Jemné vlasy / Mechanické poškození</td>
+                    <td>Ideální ošetření pro obnovení objemu tenkých vlasů</td>
+                    <td>20 min</td>
+                    <td>950 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Kudrnaté vlasy</td>
+                    <td>Ideální ošetření pro obnovení elasticity a definování kadeře</td>
+                    <td>20 min</td>
+                    <td>700 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Suché vlasy</td>
+                    <td>Ideální kůra pro obnovení hydratace a lesku suchých vlasů</td>
+                    <td>20 min</td>
+                    <td>950 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>SŤEDNĚ POŠKOZENÉ VLASY</td>
+                    <td>Ideální kůra pro vlasy poškozené chemickým ošetřením nebo nadměrným a nesprávným používáním žehliček a fénu</td>
+                    <td>90 min</td>
+                    <td>2700 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>SILNĚ POŠKOZENÉ VLASY A SLABÝ VLAS</td>
+                    <td>Ideální kůra pro vlasy poškozené chemickým ošetřením nebo nadměrným a nesprávným používáním žehliček a fénu</td>
+                    <td>90 min</td>
+                    <td>2750 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>UNDER CONTROL Ošetření proti krepatění</td>
+                    <td>Osvěžující fluid pro suché a rozcuchané vlasy. Poskytuje lesk a hebkost. Pomáhá udržovat vlasy v kondici, chrání je před zdroji tepla ( fén, žehlička) a vlhkosti. Nezanechává žádné zbytky, nemastí a nezatěžuje vlasy.</td>
+                    <td>150 min</td>
+                    <td>3850 Kč</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -198,7 +784,11 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       {/* Testimonials Section */}
       <section id="testimonials" className="testimonials-section">
         <div className="container">
-          <h2 className="section-title">Zkušenosti zákazníků</h2>
+          <h1 className="testimonials-main-title">Zkušenosti</h1>
+          <p className="testimonials-intro">
+            Každý spokojený klient je pro nás malým úspěchem, který pro nás znamená víc než jakékoli ocenění. Děkujeme, že nám důvěřujete a umožňujete naší práci podtrhnout vaši přirozenou krásu. Vaše zpětná vazba je pro nás každodenní inspirací a hnací silou, proč to děláme.
+          </p>
+          <button className="testimonials-comment-btn">Zanechat komentář</button>
           <div className="testimonials-grid">
             <div className="testimonial-card">
               <div className="testimonial-avatar"></div>
@@ -248,9 +838,14 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               <div className="testimonial-avatar"></div>
               <p className="testimonial-text">Nabarvila jsem si své dlouhé vlasy s šedinami barvou Filip Martin. Příjemně mě překvapila barva a lesk. Vlasy se vyživily oleji, zhoustly a změkly. Objem copu se znatelně zvětšil. Navíc při růstu kořínků není přechod viditelný (vybrali jsme odstín barvy podle mého přirozeného tónu vlasů). Celkově jsem velmi spokojená a chci to zopakovat. Vlasy vypadají zdravě a upraveně, a kadeřnice Jaroslava byla pozorná a snažila se dosáhnout co nejlepšího výsledku. Všem doporučuji tento nový kadeřnický salon!</p>
               <p className="testimonial-author">Zel</p>
-              <a href="#" className="testimonial-read-more">Читать далее</a>
+            </div>
+            <div className="testimonial-card">
+              <div className="testimonial-avatar"></div>
+              <p className="testimonial-text">Skvělá práce a opravdu šikovná kadeřnice! Je vidět, že má zkušenosti a dělá to s citem. Moc doporučuji!</p>
+              <p className="testimonial-author">Kate Prokopenko</p>
             </div>
           </div>
+          <button className="testimonials-load-more-btn">Stáhnout více</button>
         </div>
       </section>
 
@@ -279,6 +874,33 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
         </div>
       </section>
 
+      {/* Contact Section */}
+      <section id="contact" className="contact-section">
+        <div className="container">
+          <h1 className="contact-main-title">Kontakty</h1>
+          <div className="contact-content">
+            <div className="contact-info">
+              <div className="contact-item">
+                <h3 className="contact-item-title">E-mail</h3>
+                <a href="mailto:office@yaraspace.cz" className="contact-item-value">office@yaraspace.cz</a>
+              </div>
+              <div className="contact-item">
+                <h3 className="contact-item-title">Telefonní číslo</h3>
+                <a href={`tel:${phone.replace(/\s/g, '')}`} className="contact-item-value">{phone}</a>
+              </div>
+              <div className="contact-item">
+                <h3 className="contact-item-title">Otevírací doba</h3>
+                <p className="contact-item-value">Po–Pá: 09:00–19:00, So: 10:00–16:00</p>
+              </div>
+              <div className="contact-item">
+                <h3 className="contact-item-title">Adresa</h3>
+                <p className="contact-item-value">Križná 169/8, Kroměříž</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="salon-footer">
         <div className="container">
@@ -287,14 +909,20 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               <img src="https://yaraspace.cz/wp-content/uploads/2025/05/yaraspace_logo.webp" alt="Yara Space & Hair Spa Logo" />
             </div>
             <div className="footer-social">
-              <a href="https://www.instagram.com/yaraspace_hairspa" target="_blank" rel="noopener noreferrer">
-                <img src="/instagram-icon.svg" alt="Instagram" />
+              <a href="https://www.instagram.com/yaraspace_hairspa" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
               </a>
-              <a href="https://www.facebook.com/people/Yara-Space-Hair-Spa/61566509807038/" target="_blank" rel="noopener noreferrer">
-                <img src="/facebook-icon.svg" alt="Facebook" />
+              <a href="https://www.facebook.com/people/Yara-Space-Hair-Spa/61566509807038/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
               </a>
-              <a href="http://wa.me/420776886466" target="_blank" rel="noopener noreferrer">
-                <img src="/whatsapp-icon.svg" alt="WhatsApp" />
+              <a href="http://wa.me/420776886466" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
               </a>
             </div>
             <nav className="footer-nav">
@@ -311,7 +939,6 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
             <div className="footer-bottom">
               <p>Yara Space & Hair Spa © 2026</p>
               <p>Všechna práva vyhrazena</p>
-              <p>Vývoj a podpora - <a href="https://twox.pro/" target="_blank" rel="noopener noreferrer">TwoX</a></p>
               <a href="/privacy/">Zásady ochrany osobních údajů</a>
             </div>
           </div>
