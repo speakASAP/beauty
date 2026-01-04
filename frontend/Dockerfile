@@ -5,10 +5,13 @@ WORKDIR /app
 
 # Copy package files
 COPY package.json ./
+# Copy lock file if it exists (optional)
 COPY package-lock.json* ./
 
 # Install dependencies
-RUN npm ci
+# Use npm install (works with or without lock file)
+# npm ci requires lock file, npm install works either way
+RUN npm install
 
 # Copy source files
 COPY . .
