@@ -1,14 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
+import { useRouter } from 'next/navigation'
 import './globals.css'
 import './franchise.css'
-
-// Dynamically import salon page to avoid loading when not needed
-const SalonPage = dynamic(() => import('./salon/page'), { ssr: false })
 
 interface Tenant {
   id: string
@@ -21,18 +18,23 @@ interface Tenant {
   state: string
 }
 
-export default function Home() {
+function HomeContent() {
   const searchParams = useSearchParams()
+  const router = useRouter()
   const tenantId = searchParams.get('tenant_id')
-  const [isClient, setIsClient] = useState(false)
   const [tenants, setTenants] = useState<Tenant[]>([])
   const [tenantsLoading, setTenantsLoading] = useState(true)
 
   useEffect(() => {
-    setIsClient(true)
+    // If tenant_id is present, redirect to /salon page
+    if (tenantId) {
+      router.push(`/salon?tenant_id=${tenantId}`)
+      return
+    }
+    
     // Fetch all active tenants
     fetchTenants()
-  }, [])
+  }, [tenantId, router])
 
   const fetchTenants = async () => {
     try {
@@ -50,12 +52,7 @@ export default function Home() {
     }
   }
 
-  // If tenant_id is present, show the salon page directly (no redirect - URL stays as /?tenant_id=...)
-  if (tenantId && isClient) {
-    return <SalonPage />
-  }
-
-  // Otherwise, show the franchise landing page
+  // Show the franchise landing page
   return (
     <div className="franchise-landing">
       {/* Hero Section */}
@@ -300,5 +297,17 @@ function FranchiseForm() {
         Odeslat žádost
       </button>
     </form>
+  )
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={
+      <div style={{ padding: '40px', textAlign: 'center' }}>
+        <p>Loading...</p>
+      </div>
+    }>
+      <HomeContent />
+    </Suspense>
   )
 }
