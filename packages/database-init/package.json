@@ -4,9 +4,6 @@
   "description": "Database initialization utility for auto-creating databases on first start",
   "main": "database-init.js",
   "types": "database-init.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
     "database",
     "postgresql",
