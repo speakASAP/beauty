@@ -33,15 +33,15 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          // Vendor chunks
+          // Vendor chunks - let Vite handle MUI automatically to avoid circular deps
           if (id.includes('node_modules')) {
             if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
               return 'react-vendor';
             }
-            // Keep MUI and Emotion together (MUI depends on Emotion)
-            if (id.includes('@mui') || id.includes('@emotion')) {
-              return 'mui-vendor';
-            }
+            // Don't manually chunk MUI/Emotion - let Vite handle it to avoid initialization issues
+            // if (id.includes('@mui') || id.includes('@emotion')) {
+            //   return 'mui-vendor';
+            // }
             if (id.includes('@tanstack')) {
               return 'query-vendor';
             }
@@ -49,7 +49,7 @@ export default defineConfig({
             if (id.includes('axios') || id.includes('date-fns')) {
               return 'utils-vendor';
             }
-            // All other node_modules
+            // All other node_modules (including MUI/Emotion) go to vendor
             return 'vendor';
           }
           // Feature-based chunks for our components
