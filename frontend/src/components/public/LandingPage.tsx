@@ -1,42 +1,83 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate, useParams } from 'react-router-dom';
-import {
-  Box,
-  Container,
-  Typography,
-  Button,
-  Card,
-  CardContent,
-  TextField,
-  Alert,
-  Grid,
-  Paper,
-  Avatar,
-  Stack,
-} from '@mui/material';
-import {
-  Spa,
-  Favorite,
-  Star,
-  CheckCircle,
-  Phone,
-  Email,
-  LocationOn,
-  CalendarToday,
-  Brush,
-  Face,
-  LocalFlorist,
-} from '@mui/icons-material';
 import { publicApi, type SalonInfo } from '../../api/public';
 import { LoadingSpinner } from '../common/LoadingSpinner';
 
+// Simple SVG Icons
+const SpaIcon = () => (
+  <svg className="w-12 h-12 md:w-16 md:h-16" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+  </svg>
+);
+
+const CalendarIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+  </svg>
+);
+
+const PhoneIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+  </svg>
+);
+
+const EmailIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+  </svg>
+);
+
+const LocationIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+  </svg>
+);
+
+const BrushIcon = () => (
+  <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M20.71 4.63l-1.34-1.34c-.39-.39-1.02-.39-1.41 0L9 12l2 2 6.37-6.37c.39-.39.39-1.02 0-1.41zM5 16l-1 5 5-1-1-1-3 3-3-3 3-3-1-1z"/>
+  </svg>
+);
+
+const FaceIcon = () => (
+  <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+  </svg>
+);
+
+const FlowerIcon = () => (
+  <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+  </svg>
+);
+
+const HeartIcon = () => (
+  <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+  </svg>
+);
+
+const StarIcon = () => (
+  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+  </svg>
+);
+
 /**
  * Modern Public Landing Page Component
- * 
+ *
  * Beautiful landing page inspired by Yara Space design.
  * Shows salon-specific content when tenant_id is provided,
  * otherwise shows salon selection form.
- * 
+ *
  * Rules:
  * - No authentication required
  * - Tenant selection explicit
@@ -47,7 +88,7 @@ export function LandingPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const tenantId = searchParams.get('tenant_id');
-  
+
   const [salonId, setSalonId] = useState('');
   const [error, setError] = useState('');
   const [salonInfo, setSalonInfo] = useState<SalonInfo | null>(null);
@@ -200,158 +241,86 @@ export function LandingPage() {
 
   // Otherwise show salon selection form (beautiful version)
   return (
-    <Box
-      sx={{
-        minHeight: '100vh',
-        background: 'linear-gradient(135deg, #d4a574 0%, #f5c6cb 100%)',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-accent via-accent to-[#f5c6cb]">
       {/* Decorative background elements */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: -100,
-          right: -100,
-          width: 400,
-          height: 400,
-          borderRadius: '50%',
-          background: 'rgba(255, 255, 255, 0.1)',
-          filter: 'blur(60px)',
-        }}
-      />
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: -150,
-          left: -150,
-          width: 500,
-          height: 500,
-          borderRadius: '50%',
-          background: 'rgba(255, 255, 255, 0.1)',
-          filter: 'blur(80px)',
-        }}
-      />
+      <div className="absolute -top-[100px] -right-[100px] w-[400px] h-[400px] rounded-full bg-white/10 blur-[60px]" />
+      <div className="absolute -bottom-[150px] -left-[150px] w-[500px] h-[500px] rounded-full bg-white/10 blur-[80px]" />
 
-      <Container maxWidth="lg" sx={{ position: 'relative', py: 8 }}>
-        <Box
-          sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-            minHeight: '80vh',
-          }}
-        >
+      <div className="container relative py-section-mobile md:py-section-desktop">
+        <div className="flex flex-col items-center justify-center min-h-[80vh]">
           {/* Hero Section */}
-          <Box sx={{ textAlign: 'center', mb: 6, maxWidth: 800 }}>
-            <Typography
-              variant="h1"
-              component="h1"
-              sx={{
-                fontSize: { xs: '2.5rem', md: '4rem' },
-                fontWeight: 700,
-                color: 'white',
-                mb: 2,
-                textShadow: '0 2px 20px rgba(0,0,0,0.2)',
-              }}
-            >
-          Beauty Franchise Platform
-        </Typography>
-            <Typography
-              variant="h5"
-              sx={{
-                color: 'rgba(255, 255, 255, 0.9)',
-                mb: 4,
-                fontWeight: 300,
-              }}
-            >
-          Book your appointment online
-        </Typography>
-          </Box>
+          <div className="text-center mb-12 max-w-3xl">
+            <h1 className="text-h1-mobile md:text-h1-desktop font-heading font-bold text-white mb-4 drop-shadow-lg">
+              Beauty Franchise Platform
+            </h1>
+            <p className="text-body-mobile md:text-body-desktop font-poppins text-white/90 mb-8">
+              Book your appointment online
+            </p>
+          </div>
 
           {/* Salon Selection Card */}
-          <Card
-            sx={{
-              maxWidth: 600,
-              width: '100%',
-              p: 4,
-              borderRadius: 4,
-              boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
-              background: 'rgba(255, 255, 255, 0.95)',
-              backdropFilter: 'blur(10px)',
-            }}
-          >
-          <CardContent>
-              <Box sx={{ textAlign: 'center', mb: 3 }}>
-                <Spa sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
-                <Typography variant="h4" component="h2" gutterBottom fontWeight={600}>
-              Select Your Salon
-            </Typography>
-                <Typography variant="body1" color="text.secondary">
-              Enter your salon ID to continue with online booking
-            </Typography>
-              </Box>
+          <div className="max-w-[600px] w-full p-8 md:p-12 rounded-2xl shadow-2xl bg-white/95 backdrop-blur-sm">
+            <div className="text-center mb-6">
+              <div className="inline-flex items-center justify-center mb-4 text-accent">
+                <SpaIcon />
+              </div>
+              <h2 className="text-h2-mobile md:text-h2-desktop font-heading font-semibold text-dark mb-2">
+                Select Your Salon
+              </h2>
+              <p className="text-body-mobile md:text-body-desktop font-poppins text-soft">
+                Enter your salon ID to continue with online booking
+              </p>
+            </div>
 
-            <Box sx={{ mb: 3 }}>
-              <TextField
-                fullWidth
-                label="Salon ID"
-                  value={salonId}
+            <div className="mb-6">
+              <label className="block text-body-mobile md:text-body-desktop font-body font-semibold text-dark mb-2">
+                Salon ID
+              </label>
+              <input
+                type="text"
+                value={salonId}
                 onChange={(e) => {
-                    setSalonId(e.target.value);
+                  setSalonId(e.target.value);
                   setError('');
                 }}
                 placeholder="Enter salon UUID"
-                error={!!error}
-                helperText={error || 'Enter the unique identifier for your salon'}
-                  sx={{
-                    '& .MuiOutlinedInput-root': {
-                      borderRadius: 2,
-                    },
-                  }}
+                className={`w-full px-4 py-3 rounded-button border ${
+                  error ? 'border-red-500' : 'border-borderLight'
+                } bg-base text-dark text-body-mobile md:text-body-desktop font-body focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent`}
               />
-            </Box>
+              {error ? (
+                <p className="mt-2 text-body-mobile md:text-body-desktop font-body text-red-600">{error}</p>
+              ) : (
+                <p className="mt-2 text-body-mobile md:text-body-desktop font-body text-soft">
+                  Enter the unique identifier for your salon
+                </p>
+              )}
+            </div>
 
             {error && (
-                <Alert severity="error" sx={{ mb: 2, borderRadius: 2 }}>
+              <div className="mb-6 p-4 rounded-button bg-red-50 border border-red-200 text-red-800 text-body-mobile md:text-body-desktop font-body">
                 {error}
-              </Alert>
+              </div>
             )}
 
-            <Button
-              fullWidth
-              variant="contained"
-              size="large"
+            <button
               onClick={handleStartBooking}
-                disabled={!salonId.trim()}
-                sx={{
-                  py: 1.5,
-                  borderRadius: 2,
-                  fontSize: '1.1rem',
-                  fontWeight: 600,
-                  textTransform: 'none',
-                  boxShadow: '0 4px 14px rgba(0,0,0,0.2)',
-                  '&:hover': {
-                    boxShadow: '0 6px 20px rgba(0,0,0,0.3)',
-                  },
-                }}
-                startIcon={<CalendarToday />}
+              disabled={!salonId.trim()}
+              className="btn btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
+              <CalendarIcon />
               Start Booking
-            </Button>
-          </CardContent>
-        </Card>
+            </button>
+          </div>
 
-        <Box sx={{ mt: 6, textAlign: 'center' }}>
-            <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.8)' }}>
-            Need help? Contact your salon directly.
-          </Typography>
-        </Box>
-      </Box>
-    </Container>
-    </Box>
+          <div className="mt-12 text-center">
+            <p className="text-body-mobile md:text-body-desktop font-body text-white/80">
+              Need help? Contact your salon directly.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -370,19 +339,19 @@ function SalonLandingPage({ salonInfo }: { salonInfo: SalonInfo }) {
     {
       title: 'Brazilian Bleach',
       description: 'Technika Brazilian Bleach je jedinečný způsob, jak vytvořit jemný kontrast mezi tmavšími a světlejšími prameny. Diky harmonickému propojení odstín: například tmavě blond a světle karamelové vzniká přírozený, plynulý přechod barev.',
-      icon: <Brush />,
+      icon: <BrushIcon />,
       image: 'https://yaraspace.cz/wp-content/uploads/2025/05/brazilian-bleach.webp',
     },
     {
       title: 'Airtouch',
       description: 'Tato moderní technika přínáší maximálně přirozený výsledek: vlasy získávají jas, optický objem a lehkost. Přechody odstínů jsou jemné, měkké a naprosto plynulé.',
-      icon: <Face />,
+      icon: <FaceIcon />,
       image: 'https://yaraspace.cz/wp-content/uploads/2025/05/airtouch.webp',
     },
     {
       title: 'Laminování vlasů',
       description: 'Hebké, lesklé, hydratované a posílené vlasy, přesně takový efekt přináší profesionální ošetření! Bez peroxidu, amoniaku a jiných agresivních látek vytváří na každém vlasu hladký a průhledný film.',
-      icon: <LocalFlorist />,
+      icon: <FlowerIcon />,
       image: 'https://yaraspace.cz/wp-content/uploads/2025/05/laminovani-vlasu.webp',
     },
   ];
@@ -409,356 +378,228 @@ function SalonLandingPage({ salonInfo }: { salonInfo: SalonInfo }) {
     {
       title: 'Bezpečí',
       description: 'Profesionalita začíná u detailů: dokonale čisté nástroje, bezpečné produkty a ohleduplný přístup.',
-      icon: <CheckCircle />,
+      icon: <CheckIcon />,
     },
     {
       title: 'Otevřenost',
       description: 'Každá služba začíná konzultací. Vysvětlíme vám postup, cenu i složení používané kosmetiky.',
-      icon: <Favorite />,
+      icon: <HeartIcon />,
     },
     {
       title: 'Sebevědomí',
       description: 'Víme, že krása je v jedinečnosti. Pomůžeme vám objevit svůj styl a zdůraznit vaše přednosti.',
-      icon: <Star />,
+      icon: <StarIcon />,
     },
     {
       title: 'Atmosféra',
       description: 'Příjemná hudba, vůně čaje, teplé úsměvy a pohodová konverzace - každý detail vytváří atmosféru.',
-      icon: <Spa />,
+      icon: <SpaIcon />,
     },
   ];
 
   return (
-    <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
+    <div className="bg-light min-h-screen">
       {/* Hero Section with Background Image */}
-      <Box
-        sx={{
-          position: 'relative',
-          minHeight: { xs: '60vh', md: '80vh' },
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          overflow: 'hidden',
-        }}
-      >
+      <div className="relative min-h-[60vh] md:min-h-[80vh] flex items-center justify-center overflow-hidden">
         {/* Background Image */}
-        <Box
-          component="img"
+        <img
           src="https://yaraspace.cz/wp-content/uploads/2025/05/yaraspace_intro.webp"
           alt={salonInfo.name}
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            zIndex: 0,
-          }}
+          className="absolute top-0 left-0 w-full h-full object-cover z-0"
         />
         {/* Overlay with warm colors */}
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            background: 'linear-gradient(135deg, rgba(212, 165, 116, 0.75) 0%, rgba(245, 198, 203, 0.75) 100%)',
-            zIndex: 1,
-          }}
-        />
-        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
-          <Box sx={{ textAlign: 'center', color: 'white' }}>
-            <Typography
-              variant="h1"
-              component="h1"
-              sx={{
-                fontSize: { xs: '2.5rem', md: '4rem' },
-                fontWeight: 700,
-                mb: 2,
-                textShadow: '0 2px 20px rgba(0,0,0,0.2)',
-              }}
-            >
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-accent/75 to-[#f5c6cb]/75 z-10" />
+        <div className="container relative z-20">
+          <div className="text-center text-white">
+            <h1 className="text-h1-mobile md:text-h1-desktop font-heading font-bold mb-4 drop-shadow-lg">
               {salonInfo.name}
-            </Typography>
-            <Typography
-              variant="h5"
-              sx={{
-                mb: 4,
-                fontWeight: 300,
-                opacity: 0.95,
-              }}
-            >
+            </h1>
+            <p className="text-body-mobile md:text-body-desktop font-poppins mb-8 opacity-95">
               {salonInfo.description || 'Vaše krása si zaslouží zazářit. My víme, jak na to.'}
-            </Typography>
-            <Button
-              variant="contained"
-              size="large"
+            </p>
+            <button
               onClick={handleBookNow}
-              sx={{
-                px: 4,
-                py: 1.5,
-                fontSize: '1.1rem',
-                fontWeight: 600,
-                textTransform: 'none',
-                borderRadius: 3,
-                boxShadow: '0 4px 14px rgba(0,0,0,0.2)',
-                '&:hover': {
-                  boxShadow: '0 6px 20px rgba(0,0,0,0.3)',
-                },
-              }}
-              startIcon={<CalendarToday />}
+              className="btn btn-primary flex items-center gap-2 mx-auto"
             >
+              <CalendarIcon />
               Vytvořit rezervaci
-            </Button>
-          </Box>
-        </Container>
-      </Box>
+            </button>
+          </div>
+        </div>
+      </div>
 
       {/* Contact Info Bar */}
       {(salonInfo.phone || salonInfo.email || salonInfo.address || salonInfo.businessHours) && (
-        <Box sx={{ bgcolor: '#d4a574', color: 'white', py: 3 }}>
-          <Container maxWidth="lg">
-            <Grid container spacing={3} justifyContent="center" alignItems="center">
+        <div className="bg-accent text-white py-section-mobile md:py-6">
+          <div className="container">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
               {salonInfo.phone && (
-                <Grid item xs={12} sm={6} md={3}>
-                  <Stack direction="row" spacing={1} alignItems="center" justifyContent={{ xs: 'center', md: 'flex-start' }}>
-                    <Phone fontSize="small" />
-                    <Box>
-                      <Typography variant="caption" sx={{ opacity: 0.9, display: 'block' }}>
-                        Telefonní číslo
-                      </Typography>
-                      <Typography variant="body2" fontWeight={500}>
-                        {salonInfo.phone}
-                      </Typography>
-                    </Box>
-                  </Stack>
-                </Grid>
+                <div className="flex items-center gap-3 justify-center md:justify-start">
+                  <PhoneIcon />
+                  <div>
+                    <p className="text-body-mobile md:text-body-desktop font-body opacity-90 text-sm">
+                      Telefonní číslo
+                    </p>
+                    <p className="text-body-mobile md:text-body-desktop font-body font-semibold">
+                      {salonInfo.phone}
+                    </p>
+                  </div>
+                </div>
               )}
               {salonInfo.email && (
-                <Grid item xs={12} sm={6} md={3}>
-                  <Stack direction="row" spacing={1} alignItems="center" justifyContent={{ xs: 'center', md: 'flex-start' }}>
-                    <Email fontSize="small" />
-                    <Box>
-                      <Typography variant="caption" sx={{ opacity: 0.9, display: 'block' }}>
-                        E-mail
-                      </Typography>
-                      <Typography variant="body2" fontWeight={500}>
-                        {salonInfo.email}
-                      </Typography>
-                    </Box>
-                  </Stack>
-                </Grid>
+                <div className="flex items-center gap-3 justify-center md:justify-start">
+                  <EmailIcon />
+                  <div>
+                    <p className="text-body-mobile md:text-body-desktop font-body opacity-90 text-sm">
+                      E-mail
+                    </p>
+                    <p className="text-body-mobile md:text-body-desktop font-body font-semibold">
+                      {salonInfo.email}
+                    </p>
+                  </div>
+                </div>
               )}
               {salonInfo.businessHours && (
-                <Grid item xs={12} sm={6} md={3}>
-                  <Stack direction="row" spacing={1} alignItems="center" justifyContent={{ xs: 'center', md: 'flex-start' }}>
-                    <CalendarToday fontSize="small" />
-                    <Box>
-                      <Typography variant="caption" sx={{ opacity: 0.9, display: 'block' }}>
-                        Otevírací doba
-                      </Typography>
-                      <Typography variant="body2" fontWeight={500}>
-                        {salonInfo.businessHours}
-                      </Typography>
-                    </Box>
-                  </Stack>
-                </Grid>
+                <div className="flex items-center gap-3 justify-center md:justify-start">
+                  <CalendarIcon />
+                  <div>
+                    <p className="text-body-mobile md:text-body-desktop font-body opacity-90 text-sm">
+                      Otevírací doba
+                    </p>
+                    <p className="text-body-mobile md:text-body-desktop font-body font-semibold">
+                      {salonInfo.businessHours}
+                    </p>
+                  </div>
+                </div>
               )}
               {salonInfo.address && (
-                <Grid item xs={12} sm={6} md={3}>
-                  <Stack direction="row" spacing={1} alignItems="center" justifyContent={{ xs: 'center', md: 'flex-start' }}>
-                    <LocationOn fontSize="small" />
-                    <Box>
-                      <Typography variant="caption" sx={{ opacity: 0.9, display: 'block' }}>
-                        Adresa
-                      </Typography>
-                      <Typography variant="body2" fontWeight={500}>
-                        {salonInfo.address}
-                      </Typography>
-                    </Box>
-                  </Stack>
-                </Grid>
+                <div className="flex items-center gap-3 justify-center md:justify-start">
+                  <LocationIcon />
+                  <div>
+                    <p className="text-body-mobile md:text-body-desktop font-body opacity-90 text-sm">
+                      Adresa
+                    </p>
+                    <p className="text-body-mobile md:text-body-desktop font-body font-semibold">
+                      {salonInfo.address}
+                    </p>
+                  </div>
+                </div>
               )}
-            </Grid>
-          </Container>
-        </Box>
+            </div>
+          </div>
+        </div>
       )}
 
-      <Container maxWidth="lg" sx={{ py: 8 }}>
+      <div className="container py-section-mobile md:py-section-desktop">
         {/* Services Section */}
-        <Box sx={{ mb: 10 }}>
-          <Typography variant="h3" component="h2" align="center" gutterBottom fontWeight={600}>
+        <div className="mb-20 md:mb-24">
+          <h2 className="text-h2-mobile md:text-h2-desktop font-heading font-semibold text-dark text-center mb-4">
             Zasvětlujicí techniky
-          </Typography>
-          <Typography variant="body1" align="center" color="text.secondary" sx={{ mb: 6 }}>
+          </h2>
+          <p className="text-body-mobile md:text-body-desktop font-poppins text-soft text-center mb-12">
             Profesionální služby pro vaši krásu
-          </Typography>
-          <Grid container spacing={4}>
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {services.map((service, index) => (
-              <Grid item xs={12} md={4} key={index}>
-                <Card
-                  sx={{
-                    height: '100%',
-                    borderRadius: 3,
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-                    transition: 'transform 0.3s, box-shadow 0.3s',
-                    overflow: 'hidden',
-                    '&:hover': {
-                      transform: 'translateY(-8px)',
-                      boxShadow: '0 8px 30px rgba(0,0,0,0.15)',
-                    },
-                  }}
-                >
-                  {service.image && (
-                    <Box
-                      component="img"
-                      src={service.image}
-                      alt={service.title}
-                      sx={{
-                        width: '100%',
-                        height: 200,
-                        objectFit: 'cover',
-                        display: 'block',
-                      }}
-                      onError={(e) => {
-                        // Fallback if image fails to load
-                        e.currentTarget.style.display = 'none';
-                      }}
-                    />
-                  )}
-                  <CardContent sx={{ p: 4 }}>
-                    <Box sx={{ color: 'primary.main', mb: 2, fontSize: 40 }}>
-                      {service.icon}
-                    </Box>
-                    <Typography variant="h5" component="h3" gutterBottom fontWeight={600}>
-                      {service.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {service.description}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
+              <div
+                key={index}
+                className="h-full rounded-2xl shadow-lg transition-transform duration-300 overflow-hidden hover:-translate-y-2 hover:shadow-xl"
+              >
+                {service.image && (
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-[200px] object-cover block"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                )}
+                <div className="p-6 md:p-8">
+                  <div className="text-accent mb-4">{service.icon}</div>
+                  <h3 className="text-h3-mobile md:text-h3-desktop font-heading font-semibold text-dark mb-3">
+                    {service.title}
+                  </h3>
+                  <p className="text-body-mobile md:text-body-desktop font-poppins text-soft">
+                    {service.description}
+                  </p>
+                </div>
+              </div>
             ))}
-          </Grid>
-        </Box>
+          </div>
+        </div>
 
         {/* Why Choose Us Section */}
-        <Box sx={{ mb: 10, bgcolor: 'grey.50', borderRadius: 4, p: 6 }}>
-          <Typography variant="h3" component="h2" align="center" gutterBottom fontWeight={600}>
+        <div className="mb-20 md:mb-24 bg-base border border-borderLight rounded-2xl p-8 md:p-12">
+          <h2 className="text-h2-mobile md:text-h2-desktop font-heading font-semibold text-dark text-center mb-8">
             Proč si vybrat právě nás?
-          </Typography>
-          <Grid container spacing={4} sx={{ mt: 2 }}>
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mt-4">
             {whyChooseUs.map((item, index) => (
-              <Grid item xs={12} sm={6} md={3} key={index}>
-                <Box sx={{ textAlign: 'center' }}>
-                  <Box sx={{ color: 'primary.main', mb: 2, fontSize: 48 }}>
-                    {item.icon}
-                  </Box>
-                  <Typography variant="h6" component="h3" gutterBottom fontWeight={600}>
-                    {item.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {item.description}
-                  </Typography>
-                </Box>
-              </Grid>
+              <div key={index} className="text-center">
+                <div className="text-accent mb-4 flex justify-center">{item.icon}</div>
+                <h3 className="text-h3-mobile md:text-h3-desktop font-heading font-semibold text-dark mb-3">
+                  {item.title}
+                </h3>
+                <p className="text-body-mobile md:text-body-desktop font-poppins text-soft">
+                  {item.description}
+                </p>
+              </div>
             ))}
-          </Grid>
-        </Box>
+          </div>
+        </div>
 
         {/* Testimonials Section */}
-        <Box sx={{ mb: 10 }}>
-          <Typography variant="h3" component="h2" align="center" gutterBottom fontWeight={600}>
+        <div className="mb-20 md:mb-24">
+          <h2 className="text-h2-mobile md:text-h2-desktop font-heading font-semibold text-dark text-center mb-8">
             Zkušenosti zákazníků
-          </Typography>
-          <Grid container spacing={4} sx={{ mt: 2 }}>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
             {testimonials.map((testimonial, index) => (
-              <Grid item xs={12} md={4} key={index}>
-                <Paper
-                  sx={{
-                    p: 4,
-                    borderRadius: 3,
-                    height: '100%',
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                  }}
-                >
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                    <Avatar
-                      sx={{
-                        width: 56,
-                        height: 56,
-                        mr: 2,
-                        bgcolor: 'primary.main',
-                        fontSize: '1.5rem',
-                      }}
-                    >
-                      {testimonial.name.charAt(0)}
-                    </Avatar>
-                    <Box>
-                      <Typography variant="body2" fontWeight={600}>
-                        {testimonial.name}
-                      </Typography>
-                      <Stack direction="row" spacing={0.5}>
-                        {[...Array(testimonial.rating)].map((_, i) => (
-                          <Star key={i} sx={{ color: 'warning.main', fontSize: 16 }} />
-                        ))}
-                      </Stack>
-                    </Box>
-                  </Box>
-                  <Typography variant="body1" sx={{ flexGrow: 1, fontStyle: 'italic', color: 'text.secondary' }}>
-                    "{testimonial.text}"
-                  </Typography>
-                </Paper>
-              </Grid>
+              <div
+                key={index}
+                className="p-6 md:p-8 rounded-2xl h-full shadow-lg bg-base border border-borderLight flex flex-col"
+              >
+                <div className="flex items-center mb-4">
+                  <div className="w-14 h-14 rounded-full bg-accent flex items-center justify-center text-white text-xl font-semibold mr-4">
+                    {testimonial.name.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="text-body-mobile md:text-body-desktop font-body font-semibold text-dark">
+                      {testimonial.name}
+                    </p>
+                    <div className="flex gap-1">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <StarIcon key={i} />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <p className="text-body-mobile md:text-body-desktop font-body italic text-soft flex-grow">
+                  "{testimonial.text}"
+                </p>
+              </div>
             ))}
-          </Grid>
-        </Box>
+          </div>
+        </div>
 
         {/* CTA Section */}
-        <Box
-          sx={{
-            textAlign: 'center',
-            bgcolor: 'primary.main',
-            color: 'white',
-            borderRadius: 4,
-            p: 6,
-            background: 'linear-gradient(135deg, #d4a574 0%, #f5c6cb 100%)',
-          }}
-        >
-          <Typography variant="h4" component="h2" gutterBottom fontWeight={600}>
+        <div className="text-center bg-gradient-to-br from-accent to-[#f5c6cb] rounded-2xl p-8 md:p-12 text-white">
+          <h2 className="text-h2-mobile md:text-h2-desktop font-heading font-semibold text-white mb-4">
             Připraveni začít?
-          </Typography>
-          <Typography variant="body1" sx={{ mb: 4, opacity: 0.9 }}>
+          </h2>
+          <p className="text-body-mobile md:text-body-desktop font-poppins mb-8 opacity-90">
             Rezervujte si termín ještě dnes a objevte svou krásu
-          </Typography>
-          <Button
-            variant="contained"
-            size="large"
+          </p>
+          <button
             onClick={handleBookNow}
-            sx={{
-              bgcolor: 'white',
-              color: 'primary.main',
-              px: 4,
-              py: 1.5,
-              fontSize: '1.1rem',
-              fontWeight: 600,
-              textTransform: 'none',
-              borderRadius: 3,
-              '&:hover': {
-                bgcolor: 'grey.100',
-              },
-            }}
-            startIcon={<CalendarToday />}
+            className="btn bg-white text-accent hover:bg-light flex items-center gap-2 mx-auto"
           >
+            <CalendarIcon />
             Vytvořit rezervaci
-          </Button>
-        </Box>
-      </Container>
-    </Box>
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }

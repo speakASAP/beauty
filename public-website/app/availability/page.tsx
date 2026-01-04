@@ -27,53 +27,72 @@ export default function AvailabilityPage() {
   }
 
   return (
-    <div>
-      <header className="header">
+    <div className="min-h-screen bg-light">
+      <header className="bg-base border-b border-borderLight py-section-mobile md:py-section-desktop">
         <div className="container">
-          <h1>Check Availability</h1>
+          <h1 className="text-h1-mobile md:text-h1-desktop font-heading font-bold text-dark">Check Availability</h1>
         </div>
       </header>
 
-      <main className="main">
+      <main className="py-section-mobile md:py-section-desktop">
         <div className="container">
-          <form onSubmit={handleSubmit} style={{ marginBottom: '40px' }}>
-            <div className="form-group">
-              <label>Date *</label>
+          <form onSubmit={handleSubmit} className="mb-10">
+            <div className="mb-6">
+              <label className="block text-body-mobile md:text-body-desktop font-body font-semibold text-dark mb-2">
+                Date *
+              </label>
               <input
                 type="date"
                 required
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
                 min={new Date().toISOString().split('T')[0]}
+                className="w-full px-4 py-3 rounded-button border border-borderLight bg-base text-dark text-body-mobile md:text-body-desktop font-body focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
               />
             </div>
 
-            <div className="form-group">
-              <label>Master ID (Optional)</label>
+            <div className="mb-6">
+              <label className="block text-body-mobile md:text-body-desktop font-body font-semibold text-dark mb-2">
+                Master ID (Optional)
+              </label>
               <input
                 type="text"
                 value={masterId}
                 onChange={(e) => setMasterId(e.target.value)}
                 placeholder="Enter master UUID to filter"
+                className="w-full px-4 py-3 rounded-button border border-borderLight bg-base text-dark text-body-mobile md:text-body-desktop font-body focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
               />
             </div>
 
-            <button type="submit" className="button" disabled={loading}>
+            <button
+              type="submit"
+              className="btn btn-primary w-full"
+              disabled={loading}
+            >
               {loading ? 'Loading...' : 'Check Availability'}
             </button>
           </form>
 
-          {error && <div className="error">{error}</div>}
+          {error && (
+            <div className="mb-6 p-4 rounded-button bg-red-50 border border-red-200 text-red-800 text-body-mobile md:text-body-desktop font-body">
+              {error}
+            </div>
+          )}
 
           {slots.length > 0 && (
-            <div className="slots-container">
-              <h2>Available Slots</h2>
+            <div className="space-y-6">
+              <h2 className="text-h2-mobile md:text-h2-desktop font-heading font-semibold text-dark">Available Slots</h2>
               {slots.map((masterSlot, idx) => (
-                <div key={idx} className="master-slot">
-                  <h3>{masterSlot.master_name}</h3>
-                  <div className="slots-list">
+                <div key={idx} className="bg-base border border-borderLight rounded-button p-6">
+                  <h3 className="text-h3-mobile md:text-h3-desktop font-heading font-semibold text-dark mb-4">
+                    {masterSlot.master_name}
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                     {masterSlot.available_slots.map((slot: any, slotIdx: number) => (
-                      <div key={slotIdx} className="slot-item">
+                      <div
+                        key={slotIdx}
+                        className="px-4 py-3 bg-light border border-borderLight rounded-button text-body-mobile md:text-body-desktop font-body text-dark text-center"
+                      >
                         {slot.start_time} - {slot.end_time}
                       </div>
                     ))}
@@ -84,7 +103,9 @@ export default function AvailabilityPage() {
           )}
 
           {!loading && slots.length === 0 && date && !error && (
-            <div className="no-slots">No available slots found for this date.</div>
+            <div className="text-center py-12 text-body-mobile md:text-body-desktop font-body text-soft">
+              No available slots found for this date.
+            </div>
           )}
         </div>
       </main>

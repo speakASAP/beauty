@@ -1,20 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
-import {
-  Box,
-  Typography,
-  Grid,
-  Card,
-  CardContent,
-  TextField,
-  MenuItem,
-  Alert,
-  Chip,
-} from '@mui/material';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { publicApi } from '../../api/public';
 import type { AvailabilitySlot } from '../../api/public';
 import { LoadingSpinner } from '../common/LoadingSpinner';
+import { ErrorAlert } from '../common/ErrorAlert';
 
 /**
  * Availability Checker Component
@@ -78,95 +68,87 @@ export function AvailabilityChecker() {
 
   if (!tenantId || !serviceId) {
     return (
-      <Alert severity="error">
-        Missing required information. Please go back and select a service.
-      </Alert>
+      <ErrorAlert message="Missing required information. Please go back and select a service." />
     );
   }
 
   return (
-    <Box>
-      <Typography variant="h4" gutterBottom>
-        Select Date & Time
-      </Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-        Choose when you'd like your appointment
-      </Typography>
+    <div>
+      <h1 className="mb-2">Select Date & Time</h1>
+      <p className="text-soft mb-6">Choose when you'd like your appointment</p>
 
-      <Grid container spacing={3} sx={{ mb: 3 }}>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+        <div>
+          <label htmlFor="date" className="block mb-2 font-semibold text-dark">
+            Select Date
+          </label>
+          <input
+            id="date"
             type="date"
-            label="Select Date"
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}
-            InputLabelProps={{ shrink: true }}
-            inputProps={{ min: format(new Date(), 'yyyy-MM-dd') }}
+            min={format(new Date(), 'yyyy-MM-dd')}
+            className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
           />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            select
-            label="Select Master (Optional)"
+        </div>
+        <div>
+          <label htmlFor="master" className="block mb-2 font-semibold text-dark">
+            Select Master (Optional)
+          </label>
+          <select
+            id="master"
             value={masterId}
             onChange={(e) => setMasterId(e.target.value)}
+            className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
           >
-            <MenuItem value="">Any Master</MenuItem>
+            <option value="">Any Master</option>
             {/* Masters would come from API - placeholder for now */}
-          </TextField>
-        </Grid>
-      </Grid>
+          </select>
+        </div>
+      </div>
 
-      {error && (
-        <Alert severity="error" sx={{ mb: 2 }}>
-          {error}
-        </Alert>
-      )}
+      {error && <ErrorAlert message={error} />}
 
       {isLoading ? (
         <LoadingSpinner />
       ) : (
-        <Grid container spacing={2}>
+        <div>
           {slots.length === 0 ? (
-            <Grid item xs={12}>
-              <Alert severity="info">
-                No available slots for this date. Please try another date.
-              </Alert>
-            </Grid>
+            <div className="bg-blue-50 border-l-4 border-blue-500 p-4">
+              <p className="text-blue-700">No available slots for this date. Please try another date.</p>
+            </div>
           ) : (
-            slots.map((slot, index) => (
-              <Grid item xs={6} sm={4} md={3} key={index}>
-                <Card
-                  sx={{
-                    cursor: slot.available ? 'pointer' : 'not-allowed',
-                    opacity: slot.available ? 1 : 0.5,
-                  }}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {slots.map((slot, index) => (
+                <div
+                  key={index}
                   onClick={() => handleSelectSlot(slot)}
+                  className={`bg-base p-4 rounded-xl border-2 transition-all cursor-pointer ${
+                    slot.available
+                      ? 'border-borderLight hover:border-accent hover:shadow-lg'
+                      : 'border-borderLight opacity-50 cursor-not-allowed'
+                  }`}
                 >
-                  <CardContent>
-                    <Typography variant="h6" align="center">
-                      {format(new Date(slot.starts_at), 'HH:mm')}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" align="center">
-                      {slot.master_name}
-                    </Typography>
-                    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
-                      <Chip
-                        label={slot.available ? 'Available' : 'Unavailable'}
-                        color={slot.available ? 'success' : 'default'}
-                        size="small"
-                      />
-                    </Box>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))
+                  <p className="text-center text-xl font-semibold text-dark mb-2">
+                    {format(new Date(slot.starts_at), 'HH:mm')}
+                  </p>
+                  <p className="text-center text-soft mb-3">{slot.master_name}</p>
+                  <div className="flex justify-center">
+                    <span className={`px-2 py-1 rounded-button text-xs font-semibold ${
+                      slot.available
+                        ? 'bg-green-100 text-green-800 border-green-500'
+                        : 'bg-gray-100 text-gray-800 border-gray-500'
+                    } border`}>
+                      {slot.available ? 'Available' : 'Unavailable'}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
           )}
-        </Grid>
+        </div>
       )}
-    </Box>
+    </div>
   );
 }
 

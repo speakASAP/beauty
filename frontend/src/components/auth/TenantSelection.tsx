@@ -1,20 +1,9 @@
 import { useState, useEffect } from 'react';
-import {
-  Box,
-  Paper,
-  Typography,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Container,
-  CircularProgress,
-  Alert,
-} from '@mui/material';
 import { useTenantContext } from '../../contexts/TenantContext';
 import { useNavigate } from 'react-router-dom';
 import { authApi } from '../../api/auth';
 import { LoadingSpinner } from '../common/LoadingSpinner';
+import { ErrorAlert } from '../common/ErrorAlert';
 
 /**
  * Tenant Selection Component
@@ -100,61 +89,51 @@ export function TenantSelection() {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box
-        sx={{
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Paper sx={{ p: 4, width: '100%' }}>
-          <Typography variant="h4" gutterBottom align="center">
-            Select Tenant
-          </Typography>
-          <Typography variant="body2" color="text.secondary" align="center" mb={3}>
+    <div className="min-h-screen flex items-center justify-center bg-light py-section-mobile md:py-section-desktop">
+      <div className="container max-w-md">
+        <div className="bg-base p-8 rounded-2xl shadow-lg border border-borderLight">
+          <h1 className="text-center mb-2">Select Tenant</h1>
+          <p className="text-center text-soft mb-8">
             You have access to multiple tenants. Please select one to continue.
-          </Typography>
+          </p>
 
-          {error && (
-            <Alert severity="error" sx={{ mb: 2 }}>
-              {error}
-            </Alert>
-          )}
+          {error && <ErrorAlert message={error} />}
 
           {isLoading ? (
             <LoadingSpinner />
           ) : (
-            <List>
+            <div className="space-y-2">
               {tenants.map((tenant) => (
-                <ListItem key={tenant.id} disablePadding>
-                  <ListItemButton
-                    onClick={() => handleSelectTenant(tenant.id)}
-                    selected={selectedTenantId === tenant.id}
-                    disabled={isSwitching}
-                  >
-                    <ListItemText
-                      primary={tenant.name}
-                      secondary={`ID: ${tenant.id.substring(0, 8)}...`}
-                    />
+                <button
+                  key={tenant.id}
+                  onClick={() => handleSelectTenant(tenant.id)}
+                  disabled={isSwitching}
+                  className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
+                    selectedTenantId === tenant.id
+                      ? 'border-accent bg-accent/10'
+                      : 'border-borderLight hover:border-accent hover:bg-light'
+                  } ${isSwitching ? 'opacity-50 cursor-not-allowed' : ''}`}
+                >
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <div className="font-semibold text-dark">{tenant.name}</div>
+                      <div className="text-sm text-soft">ID: {tenant.id.substring(0, 8)}...</div>
+                    </div>
                     {isSwitching && selectedTenantId === tenant.id && (
-                      <CircularProgress size={20} sx={{ ml: 2 }} />
+                      <span className="border-2 border-accent border-t-transparent rounded-full w-5 h-5 animate-spin" />
                     )}
-                  </ListItemButton>
-                </ListItem>
+                  </div>
+                </button>
               ))}
-            </List>
+            </div>
           )}
 
           {!isLoading && tenants.length === 0 && (
-            <Typography variant="body2" color="text.secondary" align="center" py={4}>
-              No tenants available
-            </Typography>
+            <p className="text-center text-soft py-8">No tenants available</p>
           )}
-        </Paper>
-      </Box>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 }
 

@@ -1,11 +1,10 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { CssBaseline, Box, CircularProgress } from '@mui/material';
 import { TenantProvider } from '../contexts/TenantContext';
 import { ProtectedRoute } from './ProtectedRoute';
 import { Navigation } from '../components/common/Navigation';
+import { LoadingSpinner } from '../components/common/LoadingSpinner';
 
 // Lazy load auth components
 const Login = lazy(() => import('../components/auth/Login').then(m => ({ default: m.Login })));
@@ -48,32 +47,8 @@ const queryClient = new QueryClient({
   },
 });
 
-// Create MUI theme with warm colors for beauty salon
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#d4a574', // Warm terracotta/beige
-      light: '#e8b4b8', // Soft rose
-      dark: '#c8966a', // Deeper terracotta
-    },
-    secondary: {
-      main: '#f5c6cb', // Soft pink
-      light: '#f8d7da', // Light pink
-      dark: '#e8b4b8', // Rose
-    },
-    background: {
-      default: '#faf8f5', // Warm off-white
-      paper: '#ffffff',
-    },
-  },
-});
-
 // Loading fallback component
-const PageLoader = () => (
-  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '200px' }}>
-    <CircularProgress />
-  </Box>
-);
+const PageLoader = () => <LoadingSpinner />;
 
 /**
  * App Routes Component
@@ -89,10 +64,8 @@ const PageLoader = () => (
 export function AppRoutes() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <TenantProvider>
-          <BrowserRouter>
+      <TenantProvider>
+        <BrowserRouter>
             <Routes>
               {/* Public Routes (No Authentication Required) */}
               <Route
@@ -116,11 +89,9 @@ export function AppRoutes() {
                 path="/booking"
                 element={
                   <Suspense fallback={<PageLoader />}>
-                    <Box>
-                      <Box sx={{ p: 3 }}>
-                        <ServiceCatalog />
-                      </Box>
-                    </Box>
+                    <div className="p-6">
+                      <ServiceCatalog />
+                    </div>
                   </Suspense>
                 }
               />
@@ -128,11 +99,9 @@ export function AppRoutes() {
                 path="/booking/availability"
                 element={
                   <Suspense fallback={<PageLoader />}>
-                    <Box>
-                      <Box sx={{ p: 3 }}>
-                        <AvailabilityChecker />
-                      </Box>
-                    </Box>
+                    <div className="p-6">
+                      <AvailabilityChecker />
+                    </div>
                   </Suspense>
                 }
               />
@@ -140,11 +109,9 @@ export function AppRoutes() {
                 path="/booking/form"
                 element={
                   <Suspense fallback={<PageLoader />}>
-                    <Box>
-                      <Box sx={{ p: 3 }}>
-                        <BookingForm />
-                      </Box>
-                    </Box>
+                    <div className="p-6">
+                      <BookingForm />
+                    </div>
                   </Suspense>
                 }
               />
@@ -152,11 +119,9 @@ export function AppRoutes() {
                 path="/booking/confirm/:token"
                 element={
                   <Suspense fallback={<PageLoader />}>
-                    <Box>
-                      <Box sx={{ p: 3 }}>
-                        <BookingConfirmation />
-                      </Box>
-                    </Box>
+                    <div className="p-6">
+                      <BookingConfirmation />
+                    </div>
                   </Suspense>
                 }
               />
@@ -164,11 +129,9 @@ export function AppRoutes() {
                 path="/booking/manage/:token"
                 element={
                   <Suspense fallback={<PageLoader />}>
-                    <Box>
-                      <Box sx={{ p: 3 }}>
-                        <BookingManagement />
-                      </Box>
-                    </Box>
+                    <div className="p-6">
+                      <BookingManagement />
+                    </div>
                   </Suspense>
                 }
               />
@@ -186,14 +149,14 @@ export function AppRoutes() {
                 path="/pos/dashboard"
                 element={
                   <ProtectedRoute>
-                    <Box>
+                    <div>
                       <Navigation />
-                      <Box sx={{ p: 3 }}>
+                      <div className="p-6">
                         <Suspense fallback={<PageLoader />}>
                           <AppointmentCalendar />
                         </Suspense>
-                      </Box>
-                    </Box>
+                      </div>
+                    </div>
                   </ProtectedRoute>
                 }
               />
@@ -201,14 +164,14 @@ export function AppRoutes() {
                 path="/pos/book-appointment"
                 element={
                   <ProtectedRoute>
-                    <Box>
+                    <div>
                       <Navigation />
-                      <Box sx={{ p: 3 }}>
+                      <div className="p-6">
                         <Suspense fallback={<PageLoader />}>
                           <BookAppointmentForm />
                         </Suspense>
-                      </Box>
-                    </Box>
+                      </div>
+                    </div>
                   </ProtectedRoute>
                 }
               />
@@ -216,14 +179,14 @@ export function AppRoutes() {
                 path="/pos/visits"
                 element={
                   <ProtectedRoute>
-                    <Box>
+                    <div>
                       <Navigation />
-                      <Box sx={{ p: 3 }}>
+                      <div className="p-6">
                         <Suspense fallback={<PageLoader />}>
                           <VisitManagement />
                         </Suspense>
-                      </Box>
-                    </Box>
+                      </div>
+                    </div>
                   </ProtectedRoute>
                 }
               />
@@ -231,14 +194,14 @@ export function AppRoutes() {
                 path="/pos/shift-close"
                 element={
                   <ProtectedRoute>
-                    <Box>
+                    <div>
                       <Navigation />
-                      <Box sx={{ p: 3 }}>
+                      <div className="p-6">
                         <Suspense fallback={<PageLoader />}>
                           <ShiftCloseDashboard />
                         </Suspense>
-                      </Box>
-                    </Box>
+                      </div>
+                    </div>
                   </ProtectedRoute>
                 }
               />
@@ -246,14 +209,14 @@ export function AppRoutes() {
                 path="/pos/clients/register"
                 element={
                   <ProtectedRoute>
-                    <Box>
+                    <div>
                       <Navigation />
-                      <Box sx={{ p: 3 }}>
+                      <div className="p-6">
                         <Suspense fallback={<PageLoader />}>
                           <ClientRegistration />
                         </Suspense>
-                      </Box>
-                    </Box>
+                      </div>
+                    </div>
                   </ProtectedRoute>
                 }
               />
@@ -261,14 +224,14 @@ export function AppRoutes() {
                 path="/pos/orders/:orderId"
                 element={
                   <ProtectedRoute>
-                    <Box>
+                    <div>
                       <Navigation />
-                      <Box sx={{ p: 3 }}>
+                      <div className="p-6">
                         <Suspense fallback={<PageLoader />}>
                           <OrderDetails />
                         </Suspense>
-                      </Box>
-                    </Box>
+                      </div>
+                    </div>
                   </ProtectedRoute>
                 }
               />
@@ -276,14 +239,14 @@ export function AppRoutes() {
                 path="/pos/checkout/:orderId"
                 element={
                   <ProtectedRoute>
-                    <Box>
+                    <div>
                       <Navigation />
-                      <Box sx={{ p: 3 }}>
+                      <div className="p-6">
                         <Suspense fallback={<PageLoader />}>
                           <Checkout />
                         </Suspense>
-                      </Box>
-                    </Box>
+                      </div>
+                    </div>
                   </ProtectedRoute>
                 }
               />
@@ -291,14 +254,14 @@ export function AppRoutes() {
                 path="/pos/payments/:paymentId"
                 element={
                   <ProtectedRoute>
-                    <Box>
+                    <div>
                       <Navigation />
-                      <Box sx={{ p: 3 }}>
+                      <div className="p-6">
                         <Suspense fallback={<PageLoader />}>
                           <PaymentStatus />
                         </Suspense>
-                      </Box>
-                    </Box>
+                      </div>
+                    </div>
                   </ProtectedRoute>
                 }
               />
@@ -306,14 +269,14 @@ export function AppRoutes() {
                 path="/franchise/tenants"
                 element={
                   <ProtectedRoute requiredRole="franchisor">
-                    <Box>
+                    <div>
                       <Navigation />
-                      <Box sx={{ p: 3 }}>
+                      <div className="p-6">
                         <Suspense fallback={<PageLoader />}>
                           <TenantOverview />
                         </Suspense>
-                      </Box>
-                    </Box>
+                      </div>
+                    </div>
                   </ProtectedRoute>
                 }
               />
@@ -321,14 +284,14 @@ export function AppRoutes() {
                 path="/franchise/kpis"
                 element={
                   <ProtectedRoute requiredRole="franchisor">
-                    <Box>
+                    <div>
                       <Navigation />
-                      <Box sx={{ p: 3 }}>
+                      <div className="p-6">
                         <Suspense fallback={<PageLoader />}>
                           <KPIDashboard />
                         </Suspense>
-                      </Box>
-                    </Box>
+                      </div>
+                    </div>
                   </ProtectedRoute>
                 }
               />
@@ -336,14 +299,14 @@ export function AppRoutes() {
                 path="/franchise/pricing"
                 element={
                   <ProtectedRoute requiredRole="franchisor">
-                    <Box>
+                    <div>
                       <Navigation />
-                      <Box sx={{ p: 3 }}>
+                      <div className="p-6">
                         <Suspense fallback={<PageLoader />}>
                           <PricingControl />
                         </Suspense>
-                      </Box>
-                    </Box>
+                      </div>
+                    </div>
                   </ProtectedRoute>
                 }
               />
@@ -351,14 +314,14 @@ export function AppRoutes() {
                 path="/franchise/catalog"
                 element={
                   <ProtectedRoute requiredRole="franchisor">
-                    <Box>
+                    <div>
                       <Navigation />
-                      <Box sx={{ p: 3 }}>
+                      <div className="p-6">
                         <Suspense fallback={<PageLoader />}>
                           <CatalogGovernance />
                         </Suspense>
-                      </Box>
-                    </Box>
+                      </div>
+                    </div>
                   </ProtectedRoute>
                 }
               />
@@ -394,9 +357,8 @@ export function AppRoutes() {
               {/* Catch-all: redirect to landing page (public) */}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
-          </BrowserRouter>
-        </TenantProvider>
-      </ThemeProvider>
+        </BrowserRouter>
+      </TenantProvider>
     </QueryClientProvider>
   );
 }

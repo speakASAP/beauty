@@ -1,21 +1,10 @@
 import { useEffect, useState } from 'react';
-import {
-  Box,
-  Container,
-  Paper,
-  Typography,
-  Button,
-  Alert,
-  Card,
-  CardContent,
-  Grid,
-} from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { publicApi } from '../../api/public';
 import type { PublicBooking } from '../../api/public';
 import { LoadingSpinner } from '../common/LoadingSpinner';
-import { CheckCircle } from '@mui/icons-material';
+import { ErrorAlert } from '../common/ErrorAlert';
 
 /**
  * Booking Confirmation Component
@@ -62,97 +51,68 @@ export function BookingConfirmation() {
 
   if (error || !booking) {
     return (
-      <Container maxWidth="sm">
-        <Box sx={{ mt: 8 }}>
-          <Alert severity="error">
-            {error || 'Booking not found'}
-          </Alert>
-          <Button
-            variant="contained"
-            sx={{ mt: 2 }}
-            onClick={() => navigate('/')}
-          >
-            Go to Home
-          </Button>
-        </Box>
-      </Container>
+      <div className="container max-w-md mt-20">
+        <ErrorAlert message={error || 'Booking not found'} />
+        <button
+          onClick={() => navigate('/')}
+          className="btn btn-primary mt-4"
+        >
+          Go to Home
+        </button>
+      </div>
     );
   }
 
   return (
-    <Container maxWidth="md">
-      <Box sx={{ mt: 8, mb: 4 }}>
-        <Paper sx={{ p: 4, textAlign: 'center' }}>
-          <CheckCircle sx={{ fontSize: 64, color: 'success.main', mb: 2 }} />
-          <Typography variant="h4" gutterBottom>
-            Booking Confirmed!
-          </Typography>
-          <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-            Your appointment has been successfully booked
-          </Typography>
+    <div className="container max-w-2xl mt-20 mb-8">
+      <div className="bg-base p-8 rounded-2xl shadow-lg border border-borderLight text-center">
+        <div className="text-6xl text-green-600 mb-4">✓</div>
+        <h1 className="mb-4">Booking Confirmed!</h1>
+        <p className="text-soft mb-8">Your appointment has been successfully booked</p>
 
-          <Card sx={{ mb: 3, textAlign: 'left' }}>
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                Appointment Details
-              </Typography>
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                  <Typography variant="body2" color="text.secondary">
-                    Client Name
-                  </Typography>
-                  <Typography variant="body1">{booking.client_name}</Typography>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Typography variant="body2" color="text.secondary">
-                    Service
-                  </Typography>
-                  <Typography variant="body1">{booking.service_name}</Typography>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Typography variant="body2" color="text.secondary">
-                    Date & Time
-                  </Typography>
-                  <Typography variant="body1">
-                    {format(new Date(booking.starts_at), 'PPpp')}
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Typography variant="body2" color="text.secondary">
-                    Status
-                  </Typography>
-                  <Typography variant="body1">{booking.status}</Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography variant="body2" color="text.secondary">
-                    Confirmation Token
-                  </Typography>
-                  <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>
-                    {booking.confirmation_token}
-                  </Typography>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
+        <div className="bg-light p-6 rounded-xl border border-borderLight mb-6 text-left">
+          <h3 className="mb-4">Appointment Details</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <p className="text-soft mb-1">Client Name</p>
+              <p className="text-dark">{booking.client_name}</p>
+            </div>
+            <div>
+              <p className="text-soft mb-1">Service</p>
+              <p className="text-dark">{booking.service_name}</p>
+            </div>
+            <div>
+              <p className="text-soft mb-1">Date & Time</p>
+              <p className="text-dark">{format(new Date(booking.starts_at), 'PPpp')}</p>
+            </div>
+            <div>
+              <p className="text-soft mb-1">Status</p>
+              <p className="text-dark">{booking.status}</p>
+            </div>
+            <div className="sm:col-span-2">
+              <p className="text-soft mb-1">Confirmation Token</p>
+              <p className="text-dark font-mono text-sm">{booking.confirmation_token}</p>
+            </div>
+          </div>
+        </div>
 
-          <Alert severity="success" sx={{ mb: 3 }}>
-            A confirmation SMS/Email has been sent to your contact information.
-          </Alert>
+        <div className="bg-green-50 border-l-4 border-green-500 p-4 mb-6">
+          <p className="text-green-700">A confirmation SMS/Email has been sent to your contact information.</p>
+        </div>
 
-          <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
-            <Button
-              variant="outlined"
-              onClick={() => navigate(`/booking/manage/${booking.confirmation_token}`)}
-            >
-              Manage Booking
-            </Button>
-            <Button variant="contained" onClick={() => navigate('/')}>
-              Book Another Appointment
-            </Button>
-          </Box>
-        </Paper>
-      </Box>
-    </Container>
+        <div className="flex gap-3 justify-center">
+          <button
+            onClick={() => navigate(`/booking/manage/${booking.confirmation_token}`)}
+            className="btn btn-secondary"
+          >
+            Manage Booking
+          </button>
+          <button onClick={() => navigate('/')} className="btn btn-primary">
+            Book Another Appointment
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 

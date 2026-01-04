@@ -24,7 +24,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
   return (
     <div className="min-h-screen bg-light">
       {/* Navigation */}
-      <nav className="bg-base/95 backdrop-blur-sm border-b border-border-light sticky top-0 z-[100] shadow-sm py-5">
+      <nav className="bg-base/95 backdrop-blur-sm border-b border-borderLight sticky top-0 z-[100] shadow-sm py-5">
         <div className="container flex justify-between items-center flex-wrap gap-4">
           <a href={`/salon?tenant_id=${tenantId}`} className="flex items-center gap-3">
             <img src="https://yaraspace.cz/wp-content/uploads/2025/01/logo.svg" alt="Yara Space & Hair Spa Logo" className="h-8 w-auto" />
@@ -52,17 +52,17 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
           <div className="absolute inset-0 bg-dark/40"></div>
         </div>
         <div className="container relative z-10">
-          <div className="text-center max-w-4xl mx-auto text-base">
-            <div className="inline-block px-4 py-2 mb-6 bg-accent/20 rounded-full text-accent font-semibold text-sm tracking-wider uppercase">
+          <div className="text-center max-w-4xl mx-auto text-bg-base">
+            <div className="inline-block px-4 py-2 mb-6 bg-accent/20 rounded-full text-accent font-semibold text-sm tracking-wider uppercase font-poppins">
               KOSMETICKÝ SALON
             </div>
-            <h1 className="mb-6 text-base">
+            <h1 className="mb-6 text-bg-base">
               Yara Space & Hair Spa
             </h1>
             <div className="mb-6">
-              <div className="inline-block px-4 py-2 bg-accent/30 rounded-full text-accent font-semibold text-sm">Vlasový Wellness</div>
+              <div className="inline-block px-4 py-2 bg-accent/30 rounded-full text-accent font-semibold text-sm font-poppins">Vlasový Wellness</div>
             </div>
-            <p className="text-base/90 max-w-3xl mx-auto">
+            <p className="text-bg-base/90 max-w-3xl mx-auto font-poppins">
               Yara Space & Hair Spa – to je vaše dobrá nálada, sebevědomí a ten pocit, že jste to vy, jen ještě krásnější. Odvážné mikádo, nová energie, dokonalé svatební fotografie. První rande, na kterém se citíte jako královna. Účes, který vám opravdu sluší! Za tím vším stojí lidé, kteří milují svou práci a dělají ji srdcem. Jsem tým profesionálů, který vidí krásu v každém a ví, jak ji zvýraznit. Vaše krása si zaslouží zazářit. My víme, jak na to.
             </p>
           </div>
@@ -70,7 +70,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-section-mobile md:py-section-desktop bg-base border-b border-border-light">
+      <section id="about" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight">
         <div className="container">
           <div className="flex justify-center mb-12">
             <img src="https://yaraspace.cz/wp-content/uploads/2025/01/logo.svg" alt="Yara Space & Hair Spa Logo" className="h-16 w-auto" />
@@ -90,8 +90,8 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
                 <div className="text-4xl md:text-5xl font-bold font-heading text-accent">Spa</div>
               </div>
               <div className="space-y-4">
-                <p className="text-soft">Yara Space & Hair Spa není jen obyčejný salon krásy. Je to místo, kde se setkávají talentovaní odborníci, kteří svou práci dělají s láskou a péčí. Skuteční profesionálové nikdy nepracují podle šablony. Náš tým tvoří s citem pro detail a hledá individuální řešení pro každého klienta podle struktury vlasů, tónu pleti i osobního stylu.</p>
-                <p className="text-soft">Naše filozofie stojí na respektu k vaší jedinečné kráse a zdraví. Používáme bezpečné a účinné produkty, moderní techniky a spolupracujeme pouze s certifikovanými odborníky, kteří přesně vědí, jak dosáhnout vašeho vysněného výsledku a vykouzlit vám úsměv na tváři. Každá návštěva Yara Space & Hair Spa je jako malé prázdniny pro duši a proměna, která vám dodá novou energii.</p>
+                <p className="text-soft font-poppins">Yara Space & Hair Spa není jen obyčejný salon krásy. Je to místo, kde se setkávají talentovaní odborníci, kteří svou práci dělají s láskou a péčí. Skuteční profesionálové nikdy nepracují podle šablony. Náš tým tvoří s citem pro detail a hledá individuální řešení pro každého klienta podle struktury vlasů, tónu pleti i osobního stylu.</p>
+                <p className="text-soft font-poppins">Naše filozofie stojí na respektu k vaší jedinečné kráse a zdraví. Používáme bezpečné a účinné produkty, moderní techniky a spolupracujeme pouze s certifikovanými odborníky, kteří přesně vědí, jak dosáhnout vašeho vysněného výsledku a vykouzlit vám úsměv na tváři. Každá návštěva Yara Space & Hair Spa je jako malé prázdniny pro duši a proměna, která vám dodá novou energii.</p>
               </div>
             </div>
           </div>
@@ -103,13 +103,13 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               <div className="absolute inset-0 bg-gradient-to-t from-dark/20 to-transparent"></div>
             </div>
             <div>
-              <div className="text-sm text-accent font-semibold mb-4 uppercase tracking-wider">Zakladatelka salónu krásy Yara Space & Hair SPA</div>
+              <div className="text-sm text-accent font-semibold mb-4 uppercase tracking-wider font-poppins">Zakladatelka salónu krásy Yara Space & Hair SPA</div>
               <h2 className="mb-6">Ing. Yaroslava Vlasová</h2>
               <div className="space-y-4">
-                <p className="text-soft">Yaroslava Vlasova (<a href="https://www.instagram.com/yaroslava_vlasova" target="_blank" rel="noopener noreferrer" className="text-accent hover:text-dark transition-colors">@yaroslava_vlasova</a>) je stylistka, kadeřnice a vizážistka, která stojí za konceptem salonů Yara Space & Hair SPA a pro kterou je práce s individualitou každého člověka něco víc. Yaroslava je člověk s velkým srdcem, pro kterého je klid klienta na prvním místě.</p>
-                <p className="text-soft">Yara Space & Hair SPA je salon, kde se snoubí profesionalita, ekologické produkty a individuální přístup ke každému klientovi. Celý tým se neustále zdokonaluje tím, že navštěvuje odborné kurzy a učí se nové vlasové techniky, používání nových produktů a nové techniky barvení.</p>
-                <p className="text-soft">Náš salon je nejen krásný, ale vytvořili jsme pro vás také útulné a příjemné prostředí. Každému klientovi věnujeme zvláštní pozornost a individuální přístup s péčí a pozorností.</p>
-                <p className="text-soft">✨ Yara Space & Hair SPA je místem, kde vládne harmonie a krása.</p>
+                <p className="text-soft font-poppins">Yaroslava Vlasova (<a href="https://www.instagram.com/yaroslava_vlasova" target="_blank" rel="noopener noreferrer" className="text-accent hover:text-dark transition-colors">@yaroslava_vlasova</a>) je stylistka, kadeřnice a vizážistka, která stojí za konceptem salonů Yara Space & Hair SPA a pro kterou je práce s individualitou každého člověka něco víc. Yaroslava je člověk s velkým srdcem, pro kterého je klid klienta na prvním místě.</p>
+                <p className="text-soft font-poppins">Yara Space & Hair SPA je salon, kde se snoubí profesionalita, ekologické produkty a individuální přístup ke každému klientovi. Celý tým se neustále zdokonaluje tím, že navštěvuje odborné kurzy a učí se nové vlasové techniky, používání nových produktů a nové techniky barvení.</p>
+                <p className="text-soft font-poppins">Náš salon je nejen krásný, ale vytvořili jsme pro vás také útulné a příjemné prostředí. Každému klientovi věnujeme zvláštní pozornost a individuální přístup s péčí a pozorností.</p>
+                <p className="text-soft font-poppins">✨ Yara Space & Hair SPA je místem, kde vládne harmonie a krása.</p>
               </div>
             </div>
           </div>
@@ -119,7 +119,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
             <h2 className="text-center mb-12">Klíčoví zaměstnanci</h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="relative">
-                <div className="absolute top-4 left-4 z-10 px-4 py-2 bg-accent text-base font-semibold rounded-lg">Top Stylist</div>
+                <div className="absolute top-4 left-4 z-10 px-4 py-2 bg-accent text-bg-base font-semibold rounded-lg font-poppins">Top Stylist</div>
                 <div className="relative rounded-2xl overflow-hidden">
                   <img src="https://yaraspace.cz/wp-content/uploads/2025/09/anna-bulatko-scaled.jpg" alt="Anna Bulatko - Top Stylist of Yara Space & Hair Spa" className="w-full h-auto object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-dark/20 to-transparent"></div>
@@ -128,8 +128,8 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               <div>
                 <h3 className="mb-6">Anna Bulatko</h3>
                 <div className="space-y-4">
-                  <p className="text-soft">Anna Bulatko — Top Stylist salonu Yara Space & Hair SPA, pro kterou je práce s vlasy uměním a způsobem, jak zdůraznit individualitu každého klienta. Vyznačuje se jemným smyslem pro styl, smyslem pro detail a schopností vytvářet harmonické obrazy, které zdůrazňují přirozenou krásu.</p>
-                  <p className="text-soft">Anna neustále zlepšuje své dovednosti, učí se novým technikám stříhání a barvení a také pracuje s moderními produkty, aby klienti vždy dosáhli výsledku prémiové úrovně.</p>
+                  <p className="text-soft font-poppins">Anna Bulatko — Top Stylist salonu Yara Space & Hair SPA, pro kterou je práce s vlasy uměním a způsobem, jak zdůraznit individualitu každého klienta. Vyznačuje se jemným smyslem pro styl, smyslem pro detail a schopností vytvářet harmonické obrazy, které zdůrazňují přirozenou krásu.</p>
+                  <p className="text-soft font-poppins">Anna neustále zlepšuje své dovednosti, učí se novým technikám stříhání a barvení a také pracuje s moderními produkty, aby klienti vždy dosáhli výsledku prémiové úrovně.</p>
                 </div>
               </div>
             </div>
@@ -138,7 +138,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-section-mobile md:py-section-desktop bg-accent/10 border-b border-border-light">
+      <section className="py-section-mobile md:py-section-desktop bg-accent/10 border-b border-borderLight">
         <div className="container text-center">
           <h2 className="mb-6">Sledujte novinky a propagační akce!</h2>
           <button className="btn btn-primary">Přihlaste se k odběru newsletteru</button>
@@ -146,10 +146,10 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-section-mobile md:py-section-desktop bg-light border-b border-border-light">
+      <section id="services" className="py-section-mobile md:py-section-desktop bg-light border-b border-borderLight">
         <div className="container">
           <h1 className="text-center mb-6">Služby</h1>
-          <p className="text-center text-soft max-w-3xl mx-auto mb-16">
+          <p className="text-center text-soft max-w-3xl mx-auto mb-16 font-poppins">
             Ať už toužíte po čerstvé manikúře, moderním barvení, svatebním účesu nebo jen potřebujete upravit konečky, u nás si můžete vybrat jakoukoli službu bez obav o kvalitu a bezpečnost. Používáme šetrné produkty, ověřené techniky a naši stylisté neustále zdokonalují své dovednosti, aby byl výsledek vždy přesně takový, jaký si přejete.
           </p>
 
@@ -164,9 +164,9 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
                 <div className="p-8">
                   <h3 className="text-xl font-semibold text-dark mb-4">Brazilian bleach</h3>
                   <div className="space-y-4 text-soft">
-                    <p>Technika Brazilian Bleach je jedinečný způsob, jak vytvořit jemný kontrast mezi tmavšími a světlejšími prameny. Diky harmonickému propojení odstín: například tmavě blond a světle karamelové vzniká přírozený, plynulý přechod barev.</p>
-                    <p>Tento styl barvení je vhodný pro světlé i tmavé vlasy, podtrhuje hloubku základního tónua vytváří efekt přirozené hry světla po celé délce vlasů. Ve výsledku získáte plynulé přechody od sytých tónů ke světlým odleskům, které působí elegantně, luxusně a naprosto přirozeně.</p>
-                    <p>Jednou z hlavních výhod Brazilian Bleach je jeho šetrnost k vlasům. Navíc tato technika nevyžaduje časté korekce a provádí se rychleji než většina jiných zesvětlujících meto. Tato technika je ideální volba pro ty, kdo oceňují přirozenost, kvalitu a svůj čas.</p>
+                    <p className="font-poppins">Technika Brazilian Bleach je jedinečný způsob, jak vytvořit jemný kontrast mezi tmavšími a světlejšími prameny. Diky harmonickému propojení odstín: například tmavě blond a světle karamelové vzniká přírozený, plynulý přechod barev.</p>
+                    <p className="font-poppins">Tento styl barvení je vhodný pro světlé i tmavé vlasy, podtrhuje hloubku základního tónua vytváří efekt přirozené hry světla po celé délce vlasů. Ve výsledku získáte plynulé přechody od sytých tónů ke světlým odleskům, které působí elegantně, luxusně a naprosto přirozeně.</p>
+                    <p className="font-poppins">Jednou z hlavních výhod Brazilian Bleach je jeho šetrnost k vlasům. Navíc tato technika nevyžaduje časté korekce a provádí se rychleji než většina jiných zesvětlujících meto. Tato technika je ideální volba pro ty, kdo oceňují přirozenost, kvalitu a svůj čas.</p>
                   </div>
                 </div>
               </div>
@@ -177,12 +177,12 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
                 <div className="p-8">
                   <h3 className="text-xl font-semibold text-dark mb-4">Airtouch</h3>
                   <div className="space-y-4 text-soft">
-                    <p>Tato moderní technika přínáší maximálně přirozený výsledek: vlasy získávají jas, optický objem a lehkost. Přechody odstínů jsou jemné, měkké a naprosto plynulé.</p>
-                    <p>Kadeřník vybere odstín, který dokonale ladí s vaším přirozeným tónem a zvýrazní krásu vašich vlasů. Šetrné složení jemně zesvětluje prameny, nepoškozuje jejich strukturu a zachovává pružnost i přirozený lesk.</p>
-                    <p>S technikou Airtouch vytvoříte jedinečný, přirozený a svěží vzhled a bez ztráty své osobitosti.</p>
-                    <h4 className="text-lg font-semibold text-dark mt-6 mb-2">V čem je Airtouch výjimečný?</h4>
-                    <p>Barvení v této technice zaručuje plynulý přechod mezi odstíny, takže vlasy působí naprosto přirozeně. Výhodou je, že korekce je nutná jen jednou za několik měsíců!</p>
-                    <p>Metoda je ideální i pro jemné ztmavení vlasů – v takovém případě kadeřník zvolí hlubší, a víc přirozené tóny, které zjemní příliš světlý blond a dodají barvě bohatý a přirozený odstín.</p>
+                    <p className="font-poppins">Tato moderní technika přínáší maximálně přirozený výsledek: vlasy získávají jas, optický objem a lehkost. Přechody odstínů jsou jemné, měkké a naprosto plynulé.</p>
+                    <p className="font-poppins">Kadeřník vybere odstín, který dokonale ladí s vaším přirozeným tónem a zvýrazní krásu vašich vlasů. Šetrné složení jemně zesvětluje prameny, nepoškozuje jejich strukturu a zachovává pružnost i přirozený lesk.</p>
+                    <p className="font-poppins">S technikou Airtouch vytvoříte jedinečný, přirozený a svěží vzhled a bez ztráty své osobitosti.</p>
+                    <h4 className="text-lg font-semibold text-dark mt-6 mb-2 font-poppins">V čem je Airtouch výjimečný?</h4>
+                    <p className="font-poppins">Barvení v této technice zaručuje plynulý přechod mezi odstíny, takže vlasy působí naprosto přirozeně. Výhodou je, že korekce je nutná jen jednou za několik měsíců!</p>
+                    <p className="font-poppins">Metoda je ideální i pro jemné ztmavení vlasů – v takovém případě kadeřník zvolí hlubší, a víc přirozené tóny, které zjemní příliš světlý blond a dodají barvě bohatý a přirozený odstín.</p>
                   </div>
                 </div>
               </div>
@@ -361,7 +361,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* Blog Section */}
-      <section id="blog" className="py-section-mobile md:py-section-desktop bg-base border-b border-border-light">
+      <section id="blog" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight">
         <div className="container">
           <h1 className="text-center mb-6">Blog</h1>
           <p className="text-center text-soft max-w-3xl mx-auto mb-16">
@@ -389,7 +389,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-section-mobile md:py-section-desktop bg-light border-b border-border-light">
+      <section id="pricing" className="py-section-mobile md:py-section-desktop bg-light border-b border-borderLight">
         <div className="container">
           <h1 className="text-center mb-6">Ceník</h1>
           <p className="text-center text-soft max-w-3xl mx-auto mb-16">
@@ -403,38 +403,38 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               <table className="w-full border-collapse bg-base rounded-xl overflow-hidden">
                 <thead>
                   <tr className="bg-accent/20">
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Služba</th>
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Popis</th>
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Čas</th>
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Cena</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Služba</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Popis</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Čas</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Cena</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Foukání (vodová), mytí</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">580 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Kompletní střih +komplet péče</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">680 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Barvení, odrostu do 2 cm, (trvalá ondulace, přeliv)</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">1730 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Melír doplnění odrostu, střih, konečná úprava</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">1830 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Nový melír, kombinace, barev, technik, střih, konečná úprava</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
@@ -452,44 +452,44 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               <table className="w-full border-collapse bg-base rounded-xl overflow-hidden">
                 <thead>
                   <tr className="bg-accent/20">
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Služba</th>
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Popis</th>
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Čas</th>
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Cena</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Služba</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Popis</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Čas</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Cena</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Foukání + mytí</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">780 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Úprava stávajícího střihu + péče + konečná úprava</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">980 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Barvení odrostů (do 2 cm) + střih + péče + konečná úprava</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">1930 Kč / 2230 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Melír (doplnění odrostů) + střih + péče + konečná úprava</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">2230 Kč / 2730 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Kombinace barvení + melírování nebo nový melír + střih + péče + konečná úprava</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">2430 Kč / 2990 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Po foukání lokny, vlny, přežehlení</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
@@ -507,44 +507,44 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               <table className="w-full border-collapse bg-base rounded-xl overflow-hidden">
                 <thead>
                   <tr className="bg-accent/20">
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Služba</th>
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Popis</th>
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Čas</th>
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Cena</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Služba</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Popis</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Čas</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Cena</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Foukání + mytí</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">980 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Úprava stávajícího střihu + péče + konečná úprava</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">1280 Kč / 1680 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Barvení odrostů (do 2 cm) / přeliv / tónování + péče + střih + konečná úprava</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">2230 Kč / 3180 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Melír (doplnění odrostů) + péče + střih + konečná úprava</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">3630 Kč / 4080 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Kombinace technik (barva + melír) nebo nový melír / změna barvy + péče + střih + konečná úprava</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">2890 Kč / 4550 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Přežehlení vlasů, vlny, lokny</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
@@ -562,50 +562,50 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               <table className="w-full border-collapse bg-base rounded-xl overflow-hidden">
                 <thead>
                   <tr className="bg-accent/20">
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Služba</th>
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Popis</th>
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Čas</th>
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Cena</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Služba</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Popis</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Čas</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Cena</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Základní střih</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">250 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Náročný střih na čas a provedení</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">od 350 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Střih pouze strojkem</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">200 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Ofina, ornament, vousy</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">100 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Dětský střih (dle náročnosti)</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">od 350 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Kompletní střih + mytí + péče + konečná úprava + styling</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">450 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Masáž hlavy</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
@@ -623,44 +623,44 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               <table className="w-full border-collapse bg-base rounded-xl overflow-hidden">
                 <thead>
                   <tr className="bg-accent/20">
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Služba</th>
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Popis</th>
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Čas</th>
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Cena</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Služba</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Popis</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Čas</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Cena</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Společenský účes + péče (bez střihu)</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">980 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Vlny, lokny, výčes (dle délky a hustoty vlasů, bez střihu)</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">1200 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Zkouška nevěsty + konzultace účesu (bez mytí a konečné úpravy, max. 2 pokusy / 1,5 hod.)</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">1500 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Svatební účes (bez předchozí zkoušky, v salonu)</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">1800 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Svatební balíček (účes v salonu včetně zkoušky předem nebo náročnější bez zkoušky)</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">2800 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Úprava svatebčana (bez mytí, styling)</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
@@ -678,56 +678,56 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               <table className="w-full border-collapse bg-base rounded-xl overflow-hidden">
                 <thead>
                   <tr className="bg-accent/20">
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Služba</th>
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Popis</th>
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Čas</th>
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Cena</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Služba</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Popis</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Čas</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Cena</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Laminace vlasů</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">1150 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Rekonstrukce vlasů</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">1200 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Detoxikace vlasů</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">780 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Hloubková hydratace</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">580 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Vypadávání vlasů</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">1430 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Peeling vlasové pokožky</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">780 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Hloubková péče</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 font-semibold text-dark">880 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Péče o pokožku</td>
                     <td className="px-6 py-4 text-soft"></td>
                     <td className="px-6 py-4 text-soft"></td>
@@ -745,86 +745,86 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               <table className="w-full border-collapse bg-base rounded-xl overflow-hidden">
                 <thead>
                   <tr className="bg-accent/20">
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Služba</th>
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Popis</th>
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Čas</th>
-                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-border-light">Cena</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Služba</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Popis</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Čas</th>
+                    <th className="px-6 py-4 text-left font-semibold text-dark border-b border-borderLight">Cena</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Suchá pokožka</td>
                     <td className="px-6 py-4 text-soft">Ošetření pro suchou a matnou pokožku hlavy</td>
                     <td className="px-6 py-4 text-soft">15 min</td>
                     <td className="px-6 py-4 font-semibold text-dark">750 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Mastná pokožka</td>
                     <td className="px-6 py-4 text-soft">Ideální ošetření pokožky hlavy s přebytečným mazem a hyperhidrozou</td>
                     <td className="px-6 py-4 text-soft">15 min</td>
                     <td className="px-6 py-4 font-semibold text-dark">750 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Pokožka a lupy</td>
                     <td className="px-6 py-4 text-soft">Ideální ošetření pokožky hlavy s odlupováním nebo lupy</td>
                     <td className="px-6 py-4 text-soft">15 min</td>
                     <td className="px-6 py-4 font-semibold text-dark">750 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Svědění</td>
                     <td className="px-6 py-4 text-soft">Ideální ošetření pokožky hlavy se zarudnutím a / nebo svěděním</td>
                     <td className="px-6 py-4 text-soft">15 min</td>
                     <td className="px-6 py-4 font-semibold text-dark">750 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">PICASSO mastná pokožka</td>
                     <td className="px-6 py-4 text-soft">Ritual pokožky hlavy regulující kožní maz</td>
                     <td className="px-6 py-4 text-soft">90 min</td>
                     <td className="px-6 py-4 font-semibold text-dark">2000 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">HAIR LOSS TREATMENTT VÝPADAVANÍ SUCHÁ/NORMALNÍ</td>
                     <td className="px-6 py-4 text-soft">Ideální léčba k prevenci a / nebo zpomalení sezonního vypadávání</td>
                     <td className="px-6 py-4 text-soft">60 min</td>
                     <td className="px-6 py-4 font-semibold text-dark">2200 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">HAIR LOSS TREATMENTT VÝPADAVANÍ (MASTNÁ POKOŽKA)</td>
                     <td className="px-6 py-4 text-soft">Ideální ošetření pro prevenci a / nebo zpomalení sezonního vypadávání</td>
                     <td className="px-6 py-4 text-soft">60 min</td>
                     <td className="px-6 py-4 font-semibold text-dark">2200 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Jemné vlasy / Mechanické poškození</td>
                     <td className="px-6 py-4 text-soft">Ideální ošetření pro obnovení objemu tenkých vlasů</td>
                     <td className="px-6 py-4 text-soft">20 min</td>
                     <td className="px-6 py-4 font-semibold text-dark">950 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Kudrnaté vlasy</td>
                     <td className="px-6 py-4 text-soft">Ideální ošetření pro obnovení elasticity a definování kadeře</td>
                     <td className="px-6 py-4 text-soft">20 min</td>
                     <td className="px-6 py-4 font-semibold text-dark">700 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">Suché vlasy</td>
                     <td className="px-6 py-4 text-soft">Ideální kůra pro obnovení hydratace a lesku suchých vlasů</td>
                     <td className="px-6 py-4 text-soft">20 min</td>
                     <td className="px-6 py-4 font-semibold text-dark">950 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">SŤEDNĚ POŠKOZENÉ VLASY</td>
                     <td className="px-6 py-4 text-soft">Ideální kůra pro vlasy poškozené chemickým ošetřením nebo nadměrným a nesprávným používáním žehliček a fénu</td>
                     <td className="px-6 py-4 text-soft">90 min</td>
                     <td className="px-6 py-4 font-semibold text-dark">2700 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">SILNĚ POŠKOZENÉ VLASY A SLABÝ VLAS</td>
                     <td className="px-6 py-4 text-soft">Ideální kůra pro vlasy poškozené chemickým ošetřením nebo nadměrným a nesprávným používáním žehliček a fénu</td>
                     <td className="px-6 py-4 text-soft">90 min</td>
                     <td className="px-6 py-4 font-semibold text-dark">2750 Kč</td>
                   </tr>
-                  <tr className="border-b border-border-light hover:bg-light/50 transition-colors">
+                  <tr className="border-b border-borderLight hover:bg-light/50 transition-colors">
                     <td className="px-6 py-4 text-soft">UNDER CONTROL Ošetření proti krepatění</td>
                     <td className="px-6 py-4 text-soft">Osvěžující fluid pro suché a rozcuchané vlasy. Poskytuje lesk a hebkost. Pomáhá udržovat vlasy v kondici, chrání je před zdroji tepla ( fén, žehlička) a vlhkosti. Nezanechává žádné zbytky, nemastí a nezatěžuje vlasy.</td>
                     <td className="px-6 py-4 text-soft">150 min</td>
@@ -838,7 +838,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="py-section-mobile md:py-section-desktop bg-base border-b border-border-light">
+      <section id="testimonials" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight">
         <div className="container">
           <h1 className="text-center mb-6">Zkušenosti</h1>
           <p className="text-center text-soft max-w-3xl mx-auto mb-8">
@@ -910,32 +910,32 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-section-mobile md:py-section-desktop bg-base border-b border-border-light">
+      <section className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight">
         <div className="container">
           <h2 className="text-center mb-12">Proč si vybrat právě nás?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-light p-8 rounded-2xl shadow-sm">
               <h3 className="text-xl font-semibold text-dark mb-4">Bezpečí</h3>
-              <p className="text-soft">Profesionalita začíná u detailů: dokonale čisté nástroje, bezpečné produkty a ohleduplný přístup. Náš salon je mistem, kde se můžete uvolnit a vychutnat si příjemnou atmosférus jistotou, že vaše krása je v dobrých rukou.</p>
+              <p className="text-soft font-poppins">Profesionalita začíná u detailů: dokonale čisté nástroje, bezpečné produkty a ohleduplný přístup. Náš salon je mistem, kde se můžete uvolnit a vychutnat si příjemnou atmosférus jistotou, že vaše krása je v dobrých rukou.</p>
             </div>
             <div className="bg-light p-8 rounded-2xl shadow-sm">
               <h3 className="text-xl font-semibold text-dark mb-4">Otevřenost</h3>
-              <p className="text-soft">Každá služba ať už jde o líčení, střih nebo regeneraci vlasů začíná konzultaci. Vysvětlíme vám postup, cenu i složení používané kosmetiky, poradíme, jak si účes upravit doma, a doporučíme produkty, které vám péči usnadní. Jsme tu, abychom naslouchali vašim přáním a podpořili i ty nejodvážnější nápady.</p>
+              <p className="text-soft font-poppins">Každá služba ať už jde o líčení, střih nebo regeneraci vlasů začíná konzultaci. Vysvětlíme vám postup, cenu i složení používané kosmetiky, poradíme, jak si účes upravit doma, a doporučíme produkty, které vám péči usnadní. Jsme tu, abychom naslouchali vašim přáním a podpořili i ty nejodvážnější nápady.</p>
             </div>
             <div className="bg-light p-8 rounded-2xl shadow-sm">
               <h3 className="text-xl font-semibold text-dark mb-4">Sebevědomí</h3>
-              <p className="text-soft">Víme, že krása je v jedinečnosti. Pomůžeme vám objevit svůj styl, zdůraznit vaše přednosti a cítit se skvěle ve své kůži. Ať už hledáte nový střih, barvu, slavnostní účes nebo svatební make-up naši stylisté se postarají o to, abyste zářili sebejistotou.</p>
+              <p className="text-soft font-poppins">Víme, že krása je v jedinečnosti. Pomůžeme vám objevit svůj styl, zdůraznit vaše přednosti a cítit se skvěle ve své kůži. Ať už hledáte nový střih, barvu, slavnostní účes nebo svatební make-up naši stylisté se postarají o to, abyste zářili sebejistotou.</p>
             </div>
             <div className="bg-light p-8 rounded-2xl shadow-sm">
               <h3 className="text-xl font-semibold text-dark mb-4">Atmosféra</h3>
-              <p className="text-soft">Yara Space & Hair Spa není jen salon krásy, ale místo, kde se zastaví čas. Příjemná hudbag vůně čaje, teplé úsměvy a pohodová konverzace - každý detail vytváří atmosféru, do které se budete chtit vracet.</p>
+              <p className="text-soft font-poppins">Yara Space & Hair Spa není jen salon krásy, ale místo, kde se zastaví čas. Příjemná hudbag vůně čaje, teplé úsměvy a pohodová konverzace - každý detail vytváří atmosféru, do které se budete chtit vracet.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-section-mobile md:py-section-desktop bg-light border-b border-border-light">
+      <section id="contact" className="py-section-mobile md:py-section-desktop bg-light border-b border-borderLight">
         <div className="container">
           <h1 className="text-center mb-12">Kontakty</h1>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
@@ -950,26 +950,26 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
                   name="name"
                   placeholder="Název *"
                   required
-                  className="w-full px-4 py-3 rounded-lg border border-border-light bg-light text-dark placeholder:text-soft focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-lg border border-borderLight bg-light text-dark placeholder:text-soft focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
                 />
                 <input
                   type="tel"
                   name="phone"
                   placeholder="Telefonní číslo *"
                   required
-                  className="w-full px-4 py-3 rounded-lg border border-border-light bg-light text-dark placeholder:text-soft focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-lg border border-borderLight bg-light text-dark placeholder:text-soft focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
                 />
                 <input
                   type="email"
                   name="email"
                   placeholder="E-mail"
-                  className="w-full px-4 py-3 rounded-lg border border-border-light bg-light text-dark placeholder:text-soft focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-lg border border-borderLight bg-light text-dark placeholder:text-soft focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
                 />
                 <textarea
                   name="message"
                   placeholder="Vaše zpráva"
                   rows={5}
-                  className="w-full px-4 py-3 rounded-lg border border-border-light bg-light text-dark placeholder:text-soft focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-none"
+                  className="w-full px-4 py-3 rounded-lg border border-borderLight bg-light text-dark placeholder:text-soft focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-none"
                 />
                 <button type="submit" className="btn btn-primary w-full">Odeslat</button>
               </form>
@@ -1011,11 +1011,11 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
             <div className="bg-base p-6 rounded-2xl shadow-sm flex items-center gap-4">
               <div className="text-3xl">🕐</div>
-              <p className="text-soft">Po–Pá: 09:00–19:00, So: 10:00–16:00</p>
+              <p className="text-soft font-poppins">Po–Pá: 09:00–19:00, So: 10:00–16:00</p>
             </div>
             <div className="bg-base p-6 rounded-2xl shadow-sm flex items-center gap-4">
               <div className="text-3xl">📍</div>
-              <p className="text-soft">Križná 169/8, Kroměříž</p>
+              <p className="text-soft font-poppins">Križná 169/8, Kroměříž</p>
             </div>
           </div>
           <div className="rounded-2xl overflow-hidden shadow-sm">
@@ -1023,7 +1023,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2605.1234567890123!2d17.394814!3d49.297924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4713e5c5c5c5c5c5%3A0x5c5c5c5c5c5c5c5c!2sKrižn%C3%A1%20169%2F8%2C%20Krom%C4%9B%C5%99%C3%AD%C5%BE!5e0!3m2!1scs!2scz!4v1234567890123!5m2!1scs!2scz"
               width="100%"
               height="400"
-              style={{ border: 0 }}
+              className="border-0"
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -1035,7 +1035,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* Footer */}
-      <footer className="bg-base border-t border-border-light py-section-mobile md:py-section-desktop">
+      <footer className="bg-base border-t border-borderLight py-section-mobile md:py-section-desktop">
         <div className="container">
           <div className="space-y-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-8">
@@ -1071,9 +1071,9 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               <a href="#testimonials" className="hover:text-accent transition-colors">Zkušenosti</a>
               <a href="#contact" className="hover:text-accent transition-colors">Kontakty</a>
             </nav>
-            <div className="border-t border-border-light pt-8 text-center space-y-2">
-              <p className="text-soft">Yara Space & Hair Spa © 2026</p>
-              <p className="text-soft">Všechna práva vyhrazena</p>
+            <div className="border-t border-borderLight pt-8 text-center space-y-2">
+              <p className="text-soft font-poppins">Yara Space & Hair Spa © 2026</p>
+              <p className="text-soft font-poppins">Všechna práva vyhrazena</p>
               <a href="/privacy/" className="text-accent hover:text-dark transition-colors">Zásady ochrany osobních údajů</a>
             </div>
           </div>

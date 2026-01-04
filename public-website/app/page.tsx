@@ -64,7 +64,7 @@ function HomeContent() {
               <br />
               <span className="text-accent">Začněte ještě dnes</span>
             </h1>
-            <p className="text-soft mb-10 max-w-2xl mx-auto">
+            <p className="text-soft mb-10 max-w-2xl mx-auto font-poppins">
               Kompletní IT platforma pro váš beauty salon. Vše, co potřebujete pro úspěšný start a růst vašeho podnikání.
             </p>
             <div className="flex gap-5 justify-center flex-wrap">
@@ -81,10 +81,10 @@ function HomeContent() {
 
       {/* Our Salons Section */}
       {tenants.length > 0 && (
-        <section id="our-salons" className="py-section-mobile md:py-section-desktop bg-base border-b border-border-light">
+        <section id="our-salons" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight">
           <div className="container">
             <h2 className="text-center mb-4">Naše Beauty Salony</h2>
-            <p className="text-center text-soft mb-16 max-w-2xl mx-auto">
+            <p className="text-center text-soft mb-16 max-w-2xl mx-auto font-poppins">
               Objevte naše partnerské salony a rezervujte si termín ještě dnes
             </p>
             {tenantsLoading ? (
@@ -118,10 +118,10 @@ function HomeContent() {
       )}
 
       {/* Features Overview */}
-      <section id="features" className="py-section-mobile md:py-section-desktop bg-base border-b border-border-light">
+      <section id="features" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight">
         <div className="container">
           <h2 className="text-center mb-4">Vše, co potřebujete v jednom systému</h2>
-          <p className="text-center text-soft mb-15 max-w-2xl mx-auto">
+          <p className="text-center text-soft mb-15 max-w-2xl mx-auto font-poppins">
             Moderní platforma navržená speciálně pro beauty salony v České republice
           </p>
           
@@ -129,77 +129,77 @@ function HomeContent() {
             <Link href="/features/pos" className="bg-light p-10 rounded-2xl text-center transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-accent hover:shadow-lg">
               <div className="text-6xl mb-5">💳</div>
               <h3 className="font-semibold text-dark mb-3">POS Systém</h3>
-              <p className="text-soft">Prodej služeb a produktů, rychlé platby, tisk účtenek</p>
+              <p className="text-soft font-poppins">Prodej služeb a produktů, rychlé platby, tisk účtenek</p>
             </Link>
 
             <Link href="/features/crm" className="bg-light p-10 rounded-2xl text-center transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-accent hover:shadow-lg">
               <div className="text-6xl mb-5">👥</div>
               <h3 className="font-semibold text-dark mb-3">CRM & Klienti</h3>
-              <p className="text-soft">Správa klientů, historie návštěv, GDPR souhlas</p>
+              <p className="text-soft font-poppins">Správa klientů, historie návštěv, GDPR souhlas</p>
             </Link>
 
             <Link href="/features/booking" className="bg-light p-10 rounded-2xl text-center transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-accent hover:shadow-lg">
               <div className="text-6xl mb-5">📅</div>
               <h3 className="font-semibold text-dark mb-3">Online Rezervace</h3>
-              <p className="text-soft">Online i offline rezervace, kalendář, notifikace</p>
+              <p className="text-soft font-poppins">Online i offline rezervace, kalendář, notifikace</p>
             </Link>
 
             <Link href="/features/inventory" className="bg-light p-10 rounded-2xl text-center transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-accent hover:shadow-lg">
               <div className="text-6xl mb-5">📦</div>
               <h3 className="font-semibold text-dark mb-3">Sklad & Inventura</h3>
-              <p className="text-soft">Správa zásob, automatické upozornění, reporty</p>
+              <p className="text-soft font-poppins">Správa zásob, automatické upozornění, reporty</p>
             </Link>
 
             <Link href="/features/analytics" className="bg-light p-10 rounded-2xl text-center transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-accent hover:shadow-lg">
               <div className="text-6xl mb-5">📊</div>
               <h3 className="font-semibold text-dark mb-3">Analytika & Reporty</h3>
-              <p className="text-soft">Real-time metriky, tržby, využití kapacit, LTV klientů</p>
+              <p className="text-soft font-poppins">Real-time metriky, tržby, využití kapacit, LTV klientů</p>
             </Link>
 
             <Link href="/features/platform" className="bg-light p-10 rounded-2xl text-center transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-accent hover:shadow-lg">
               <div className="text-6xl mb-5">🏢</div>
               <h3 className="font-semibold text-dark mb-3">Franchise Platforma</h3>
-              <p className="text-soft">Multi-tenant systém, centralizovaná správa, rychlý start</p>
+              <p className="text-soft font-poppins">Multi-tenant systém, centralizovaná správa, rychlý start</p>
             </Link>
           </div>
         </div>
       </section>
 
       {/* Benefits Section */}
-      <section className="py-section-mobile md:py-section-desktop bg-light border-b border-border-light">
+      <section className="py-section-mobile md:py-section-desktop bg-light border-b border-borderLight">
         <div className="container">
           <h2 className="text-center mb-16">Proč zvolit naši platformu?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mt-16">
             <div className="text-center">
               <div className="text-6xl font-bold mb-5 bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent leading-none">01</div>
               <h3 className="font-semibold text-dark mb-3">Rychlý Start</h3>
-              <p className="text-soft">Váš salon může začít fungovat během několika dní. Vše je připraveno "out of the box".</p>
+              <p className="text-soft font-poppins">Váš salon může začít fungovat během několika dní. Vše je připraveno "out of the box".</p>
             </div>
             <div className="text-center">
               <div className="text-6xl font-bold mb-5 bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent leading-none">02</div>
               <h3 className="font-semibold text-dark mb-3">Kompletní Řešení</h3>
-              <p className="text-soft">Všechny nástroje, které potřebujete, v jednom systému. Žádné další integrace.</p>
+              <p className="text-soft font-poppins">Všechny nástroje, které potřebujete, v jednom systému. Žádné další integrace.</p>
             </div>
             <div className="text-center">
               <div className="text-6xl font-bold mb-5 bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent leading-none">03</div>
               <h3 className="font-semibold text-dark mb-3">Moderní Technologie</h3>
-              <p className="text-soft">Event-driven architektura, multi-tenant systém, škálovatelné řešení.</p>
+              <p className="text-soft font-poppins">Event-driven architektura, multi-tenant systém, škálovatelné řešení.</p>
             </div>
             <div className="text-center">
               <div className="text-6xl font-bold mb-5 bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent leading-none">04</div>
               <h3 className="font-semibold text-dark mb-3">Podpora & Školení</h3>
-              <p className="text-soft">Kompletní podpora při startu a průběžné školení vašeho týmu.</p>
+              <p className="text-soft font-poppins">Kompletní podpora při startu a průběžné školení vašeho týmu.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Franchise Form Section */}
-      <section id="franchise-form" className="py-section-mobile md:py-section-desktop bg-base border-b border-border-light">
+      <section id="franchise-form" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight">
         <div className="container">
           <div className="max-w-2xl mx-auto">
             <h2 className="text-center mb-4">Zaujala vás naše platforma?</h2>
-            <p className="text-center text-soft mb-10 max-w-xl mx-auto">
+            <p className="text-center text-soft mb-10 max-w-xl mx-auto font-poppins">
               Vyplňte formulář a my vás kontaktujeme s detaily o franchize
             </p>
             <FranchiseForm />
@@ -247,7 +247,7 @@ function FranchiseForm() {
             name="name"
             required
             placeholder="Vaše jméno"
-            className="w-full px-4 py-3.5 border-2 border-border-light rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
+            className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
           />
         </div>
         <div className="mb-5">
@@ -258,7 +258,7 @@ function FranchiseForm() {
             name="email"
             required
             placeholder="vas@email.cz"
-            className="w-full px-4 py-3.5 border-2 border-border-light rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
+            className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
           />
         </div>
       </div>
@@ -271,7 +271,7 @@ function FranchiseForm() {
             name="phone"
             required
             placeholder="+420 123 456 789"
-            className="w-full px-4 py-3.5 border-2 border-border-light rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
+            className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
           />
         </div>
         <div className="mb-5">
@@ -281,7 +281,7 @@ function FranchiseForm() {
             id="city"
             name="city"
             placeholder="Kde chcete otevřít salon?"
-            className="w-full px-4 py-3.5 border-2 border-border-light rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
+            className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
           />
         </div>
       </div>
@@ -292,7 +292,7 @@ function FranchiseForm() {
           name="message"
           rows={4}
           placeholder="Napište nám o vašich plánech nebo otázkách..."
-          className="w-full px-4 py-3.5 border-2 border-border-light rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all resize-y min-h-[120px]"
+          className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all resize-y min-h-[120px]"
         ></textarea>
       </div>
       <button type="submit" className="btn btn-primary btn-large">

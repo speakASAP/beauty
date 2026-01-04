@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="cs">
       <body>
-        <nav className="main-nav salon-page-hidden bg-base/95 backdrop-blur-sm border-b border-border-light sticky top-0 z-[100] shadow-sm py-5">
+        <nav className="main-nav salon-page-hidden bg-base/95 backdrop-blur-sm border-b border-borderLight sticky top-0 z-[100] shadow-sm py-5">
           <div className="container flex justify-between items-center">
             <a href="/" className="text-2xl font-bold font-heading text-dark">Beauty Franchise</a>
             <div className="flex gap-8">

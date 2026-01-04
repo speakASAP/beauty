@@ -1,4 +1,3 @@
-import { Container, Box, Paper, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useTenantContext } from '../../contexts/TenantContext';
 
@@ -25,32 +24,23 @@ export function Unauthorized() {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box
-        sx={{
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Paper sx={{ p: 4, width: '100%', textAlign: 'center' }}>
-          <Typography variant="h4" gutterBottom color="error">
-            Unauthorized Access
-          </Typography>
-          <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+    <div className="min-h-screen flex items-center justify-center bg-light py-section-mobile md:py-section-desktop">
+      <div className="container max-w-md">
+        <div className="bg-base p-8 rounded-2xl shadow-lg border border-borderLight text-center">
+          <h2 className="text-red-600 mb-4">Unauthorized Access</h2>
+          <p className="text-soft mb-6">
             You don't have permission to access this resource.
-          </Typography>
+          </p>
           {role && (
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-              Your role: <strong>{role}</strong>
-            </Typography>
+            <p className="text-soft mb-6">
+              Your role: <strong className="text-dark">{role}</strong>
+            </p>
           )}
-          <Button variant="contained" onClick={handleGoBack}>
+          <button onClick={handleGoBack} className="btn btn-primary">
             Go to Dashboard
-          </Button>
-        </Paper>
-      </Box>
-    </Container>
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }

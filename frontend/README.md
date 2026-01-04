@@ -8,7 +8,7 @@ POS UI and Franchise Portal for the Beauty Franchise Platform.
 - **State Management:** Context API + React Query
 - **Routing:** React Router v6
 - **HTTP Client:** Axios with tenant context interceptor
-- **UI Components:** Material-UI (MUI)
+- **Styling:** Tailwind CSS
 - **Build Tool:** Vite
 
 ## Project Structure

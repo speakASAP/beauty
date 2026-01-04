@@ -1,19 +1,4 @@
 import { useState } from 'react';
-import {
-  Box,
-  Paper,
-  Typography,
-  Grid,
-  Card,
-  CardContent,
-  TextField,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from '@mui/material';
 import { useDailySales } from '../../hooks/useAnalytics';
 import { useMasterUtilization } from '../../hooks/useAnalytics';
 import { useClientLTV } from '../../hooks/useAnalytics';
@@ -62,153 +47,171 @@ export function KPIDashboard() {
   const avgOrderValue = totalOrders > 0 ? totalRevenue / totalOrders : 0;
 
   return (
-    <Box>
-      <Paper sx={{ p: 3, mb: 3 }}>
-        <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-          <Typography variant="h5">KPI Dashboard</Typography>
-          <Box display="flex" gap={2}>
-            <TextField
-              type="date"
-              label="From Date"
-              value={dateRange.from_date}
-              onChange={(e) =>
-                setDateRange({ ...dateRange, from_date: e.target.value })
-              }
-              InputLabelProps={{ shrink: true }}
-            />
-            <TextField
-              type="date"
-              label="To Date"
-              value={dateRange.to_date}
-              onChange={(e) =>
-                setDateRange({ ...dateRange, to_date: e.target.value })
-              }
-              InputLabelProps={{ shrink: true }}
-            />
-          </Box>
-        </Box>
+    <div>
+      <div className="bg-base border border-borderLight rounded-2xl p-6 md:p-8 shadow-sm mb-6">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+          <h2 className="text-h2-mobile md:text-h2-desktop font-heading font-semibold text-dark">
+            KPI Dashboard
+          </h2>
+          <div className="flex gap-4">
+            <div>
+              <label className="block text-body-mobile md:text-body-desktop font-body font-semibold text-dark mb-2">
+                From Date
+              </label>
+              <input
+                type="date"
+                value={dateRange.from_date}
+                onChange={(e) =>
+                  setDateRange({ ...dateRange, from_date: e.target.value })
+                }
+                className="px-4 py-3 rounded-button border border-borderLight bg-base text-dark text-body-mobile md:text-body-desktop font-body focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label className="block text-body-mobile md:text-body-desktop font-body font-semibold text-dark mb-2">
+                To Date
+              </label>
+              <input
+                type="date"
+                value={dateRange.to_date}
+                onChange={(e) =>
+                  setDateRange({ ...dateRange, to_date: e.target.value })
+                }
+                className="px-4 py-3 rounded-button border border-borderLight bg-base text-dark text-body-mobile md:text-body-desktop font-body focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+              />
+            </div>
+          </div>
+        </div>
 
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={3}>
-            <Card>
-              <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                  Total Revenue
-                </Typography>
-                <Typography variant="h4">
-                  {(totalRevenue / 100).toFixed(2)} CZK
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="bg-light border border-borderLight rounded-2xl p-6">
+            <p className="text-body-mobile md:text-body-desktop font-body text-soft mb-2">
+              Total Revenue
+            </p>
+            <p className="text-h2-mobile md:text-h2-desktop font-heading font-bold text-dark">
+              {(totalRevenue / 100).toFixed(2)} CZK
+            </p>
+          </div>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <Card>
-              <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                  Total Orders
-                </Typography>
-                <Typography variant="h4">{totalOrders}</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+          <div className="bg-light border border-borderLight rounded-2xl p-6">
+            <p className="text-body-mobile md:text-body-desktop font-body text-soft mb-2">
+              Total Orders
+            </p>
+            <p className="text-h2-mobile md:text-h2-desktop font-heading font-bold text-dark">
+              {totalOrders}
+            </p>
+          </div>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <Card>
-              <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                  Avg Order Value
-                </Typography>
-                <Typography variant="h4">
-                  {(avgOrderValue / 100).toFixed(2)} CZK
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+          <div className="bg-light border border-borderLight rounded-2xl p-6">
+            <p className="text-body-mobile md:text-body-desktop font-body text-soft mb-2">
+              Avg Order Value
+            </p>
+            <p className="text-h2-mobile md:text-h2-desktop font-heading font-bold text-dark">
+              {(avgOrderValue / 100).toFixed(2)} CZK
+            </p>
+          </div>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <Card>
-              <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                  Active Tenants
-                </Typography>
-                <Typography variant="h4">
-                  {new Set(dailySales?.map((d) => d.tenant_id)).size || 0}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
-      </Paper>
+          <div className="bg-light border border-borderLight rounded-2xl p-6">
+            <p className="text-body-mobile md:text-body-desktop font-body text-soft mb-2">
+              Active Tenants
+            </p>
+            <p className="text-h2-mobile md:text-h2-desktop font-heading font-bold text-dark">
+              {new Set(dailySales?.map((d) => d.tenant_id)).size || 0}
+            </p>
+          </div>
+        </div>
+      </div>
 
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <Paper sx={{ p: 3 }}>
-            <Typography variant="h6" gutterBottom>
-              Master Utilization
-            </Typography>
-            <TableContainer>
-              <Table size="small">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Master</TableCell>
-                    <TableCell align="right">Booked Hours</TableCell>
-                    <TableCell align="right">Total Hours</TableCell>
-                    <TableCell align="right">Utilization</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {masterUtilization?.slice(0, 10).map((master) => (
-                    <TableRow key={master.master_id}>
-                      <TableCell>{master.master_name}</TableCell>
-                      <TableCell align="right">{master.booked_hours}</TableCell>
-                      <TableCell align="right">{master.total_hours}</TableCell>
-                      <TableCell align="right">
-                        {(master.utilization_rate * 100).toFixed(1)}%
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Paper>
-        </Grid>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-base border border-borderLight rounded-2xl p-6 md:p-8 shadow-sm">
+          <h3 className="text-h3-mobile md:text-h3-desktop font-heading font-semibold text-dark mb-6">
+            Master Utilization
+          </h3>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="border-b border-borderLight bg-light">
+                  <th className="px-4 py-3 text-left text-body-mobile md:text-body-desktop font-body font-semibold text-dark">
+                    Master
+                  </th>
+                  <th className="px-4 py-3 text-right text-body-mobile md:text-body-desktop font-body font-semibold text-dark">
+                    Booked Hours
+                  </th>
+                  <th className="px-4 py-3 text-right text-body-mobile md:text-body-desktop font-body font-semibold text-dark">
+                    Total Hours
+                  </th>
+                  <th className="px-4 py-3 text-right text-body-mobile md:text-body-desktop font-body font-semibold text-dark">
+                    Utilization
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {masterUtilization?.slice(0, 10).map((master) => (
+                  <tr key={master.master_id} className="border-b border-borderLight hover:bg-light/50 transition-colors">
+                    <td className="px-4 py-3 text-body-mobile md:text-body-desktop font-body text-dark">
+                      {master.master_name}
+                    </td>
+                    <td className="px-4 py-3 text-right text-body-mobile md:text-body-desktop font-body text-dark">
+                      {master.booked_hours}
+                    </td>
+                    <td className="px-4 py-3 text-right text-body-mobile md:text-body-desktop font-body text-dark">
+                      {master.total_hours}
+                    </td>
+                    <td className="px-4 py-3 text-right text-body-mobile md:text-body-desktop font-body text-dark">
+                      {(master.utilization_rate * 100).toFixed(1)}%
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-        <Grid item xs={12} md={6}>
-          <Paper sx={{ p: 3 }}>
-            <Typography variant="h6" gutterBottom>
-              Top Clients (LTV)
-            </Typography>
-            <TableContainer>
-              <Table size="small">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Client</TableCell>
-                    <TableCell align="right">Total Spent</TableCell>
-                    <TableCell align="right">Visits</TableCell>
-                    <TableCell align="right">Avg Visit Value</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {clientLTV?.slice(0, 10).map((client) => (
-                    <TableRow key={client.client_id}>
-                      <TableCell>{client.client_name}</TableCell>
-                      <TableCell align="right">
-                        {(client.total_spent / 100).toFixed(2)} CZK
-                      </TableCell>
-                      <TableCell align="right">{client.visit_count}</TableCell>
-                      <TableCell align="right">
-                        {(client.average_visit_value / 100).toFixed(2)} CZK
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Paper>
-        </Grid>
-      </Grid>
-    </Box>
+        <div className="bg-base border border-borderLight rounded-2xl p-6 md:p-8 shadow-sm">
+          <h3 className="text-h3-mobile md:text-h3-desktop font-heading font-semibold text-dark mb-6">
+            Top Clients (LTV)
+          </h3>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="border-b border-borderLight bg-light">
+                  <th className="px-4 py-3 text-left text-body-mobile md:text-body-desktop font-body font-semibold text-dark">
+                    Client
+                  </th>
+                  <th className="px-4 py-3 text-right text-body-mobile md:text-body-desktop font-body font-semibold text-dark">
+                    Total Spent
+                  </th>
+                  <th className="px-4 py-3 text-right text-body-mobile md:text-body-desktop font-body font-semibold text-dark">
+                    Visits
+                  </th>
+                  <th className="px-4 py-3 text-right text-body-mobile md:text-body-desktop font-body font-semibold text-dark">
+                    Avg Visit Value
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {clientLTV?.slice(0, 10).map((client) => (
+                  <tr key={client.client_id} className="border-b border-borderLight hover:bg-light/50 transition-colors">
+                    <td className="px-4 py-3 text-body-mobile md:text-body-desktop font-body text-dark">
+                      {client.client_name}
+                    </td>
+                    <td className="px-4 py-3 text-right text-body-mobile md:text-body-desktop font-body text-dark">
+                      {(client.total_spent / 100).toFixed(2)} CZK
+                    </td>
+                    <td className="px-4 py-3 text-right text-body-mobile md:text-body-desktop font-body text-dark">
+                      {client.visit_count}
+                    </td>
+                    <td className="px-4 py-3 text-right text-body-mobile md:text-body-desktop font-body text-dark">
+                      {(client.average_visit_value / 100).toFixed(2)} CZK
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

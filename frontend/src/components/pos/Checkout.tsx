@@ -1,15 +1,5 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import {
-  Box,
-  Paper,
-  Typography,
-  Button,
-  TextField,
-  MenuItem,
-  Grid,
-  Divider,
-} from '@mui/material';
 import { useOrders, useCloseOrder } from '../../hooks/useOrders';
 import { useInitiatePayment } from '../../hooks/usePayments';
 import { LoadingSpinner } from '../common/LoadingSpinner';
@@ -70,71 +60,56 @@ export function Checkout({ orderId: orderIdProp }: { orderId?: string }) {
   };
 
   return (
-    <Paper sx={{ p: 3 }}>
-      <Typography variant="h5" gutterBottom>
-        Checkout
-      </Typography>
+    <div className="bg-base p-6 rounded-2xl shadow-lg border border-borderLight">
+      <h2 className="mb-6">Checkout</h2>
 
-      <Box mb={3}>
-        <Typography variant="body1" gutterBottom>
-          Order ID: {order.id.substring(0, 8)}...
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          Total Amount: {order.total_amount / 100} CZK
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          VAT: {order.vat_amount / 100} CZK
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          Status: {order.status}
-        </Typography>
-      </Box>
+      <div className="mb-6 space-y-2">
+        <p className="text-dark">Order ID: {order.id.substring(0, 8)}...</p>
+        <p className="text-dark">Total Amount: {order.total_amount / 100} CZK</p>
+        <p className="text-dark">VAT: {order.vat_amount / 100} CZK</p>
+        <p className="text-dark">Status: {order.status}</p>
+      </div>
 
-      <Divider sx={{ my: 2 }} />
+      <div className="border-t border-borderLight my-6"></div>
 
-      <Box mb={3}>
-        <TextField
-          select
-          label="Payment Method"
+      <div className="mb-6">
+        <label htmlFor="paymentMethod" className="block mb-2 font-semibold text-dark">
+          Payment Method
+        </label>
+        <select
+          id="paymentMethod"
           value={paymentMethod}
           onChange={(e) =>
             setPaymentMethod(
               e.target.value as 'card' | 'cash' | 'online' | 'bank_transfer'
             )
           }
-          fullWidth
-          sx={{ mb: 2 }}
+          className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
         >
-          <MenuItem value="card">Card</MenuItem>
-          <MenuItem value="cash">Cash</MenuItem>
-          <MenuItem value="online">Online</MenuItem>
-          <MenuItem value="bank_transfer">Bank Transfer</MenuItem>
-        </TextField>
-      </Box>
+          <option value="card">Card</option>
+          <option value="cash">Cash</option>
+          <option value="online">Online</option>
+          <option value="bank_transfer">Bank Transfer</option>
+        </select>
+      </div>
 
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <Button
-            variant="contained"
-            fullWidth
-            onClick={handleProcessPayment}
-            disabled={initiatePayment.isPending || order.status === 'closed'}
-          >
-            {initiatePayment.isPending ? 'Processing...' : 'Process Payment'}
-          </Button>
-        </Grid>
-        <Grid item xs={6}>
-          <Button
-            variant="outlined"
-            fullWidth
-            onClick={handleCloseOrder}
-            disabled={closeOrder.isPending || order.status === 'closed'}
-          >
-            {closeOrder.isPending ? 'Closing...' : 'Close Order'}
-          </Button>
-        </Grid>
-      </Grid>
-    </Paper>
+      <div className="grid grid-cols-2 gap-3">
+        <button
+          onClick={handleProcessPayment}
+          disabled={initiatePayment.isPending || order.status === 'closed'}
+          className="btn btn-primary"
+        >
+          {initiatePayment.isPending ? 'Processing...' : 'Process Payment'}
+        </button>
+        <button
+          onClick={handleCloseOrder}
+          disabled={closeOrder.isPending || order.status === 'closed'}
+          className="btn btn-secondary"
+        >
+          {closeOrder.isPending ? 'Closing...' : 'Close Order'}
+        </button>
+      </div>
+    </div>
   );
 }
 

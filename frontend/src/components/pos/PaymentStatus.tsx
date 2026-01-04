@@ -1,12 +1,4 @@
 import { useParams } from 'react-router-dom';
-import {
-  Box,
-  Paper,
-  Typography,
-  Chip,
-  Alert,
-  Button,
-} from '@mui/material';
 import { usePayment } from '../../hooks/usePayments';
 import { LoadingSpinner } from '../common/LoadingSpinner';
 import { ErrorAlert } from '../common/ErrorAlert';
@@ -39,106 +31,91 @@ export function PaymentStatus() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'completed':
-        return 'success';
+        return 'bg-green-100 text-green-800 border-green-500';
       case 'failed':
-        return 'error';
+        return 'bg-red-100 text-red-800 border-red-500';
       case 'pending':
-        return 'warning';
+        return 'bg-yellow-100 text-yellow-800 border-yellow-500';
       default:
-        return 'default';
+        return 'bg-gray-100 text-gray-800 border-gray-500';
     }
   };
 
   return (
-    <Paper sx={{ p: 3 }}>
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-        <Typography variant="h5">Payment Status</Typography>
-        <Chip
-          label={payment.status}
-          color={getStatusColor(payment.status) as 'success' | 'error' | 'warning' | 'default'}
-        />
-      </Box>
+    <div className="bg-base p-6 rounded-2xl shadow-lg border border-borderLight">
+      <div className="flex justify-between items-center mb-6">
+        <h2>Payment Status</h2>
+        <span className={`px-3 py-1 rounded-button border-2 text-sm font-semibold ${getStatusColor(payment.status)}`}>
+          {payment.status}
+        </span>
+      </div>
 
-      <Box mb={3}>
-        <Typography variant="body2" color="text.secondary">
-          Payment ID
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          {payment.id}
-        </Typography>
+      <div className="mb-6 space-y-4">
+        <div>
+          <p className="text-soft mb-1">Payment ID</p>
+          <p className="text-dark">{payment.id}</p>
+        </div>
 
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-          Order ID
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          {payment.order_id}
-        </Typography>
+        <div>
+          <p className="text-soft mb-1">Order ID</p>
+          <p className="text-dark">{payment.order_id}</p>
+        </div>
 
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-          Amount
-        </Typography>
-        <Typography variant="h6" gutterBottom>
-          {(payment.amount / 100).toFixed(2)} CZK
-        </Typography>
+        <div>
+          <p className="text-soft mb-1">Amount</p>
+          <p className="text-xl font-semibold text-dark">{(payment.amount / 100).toFixed(2)} CZK</p>
+        </div>
 
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-          Payment Method
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          {payment.method}
-        </Typography>
+        <div>
+          <p className="text-soft mb-1">Payment Method</p>
+          <p className="text-dark">{payment.method}</p>
+        </div>
 
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-          Created At
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          {format(new Date(payment.created_at), 'PPpp')}
-        </Typography>
+        <div>
+          <p className="text-soft mb-1">Created At</p>
+          <p className="text-dark">{format(new Date(payment.created_at), 'PPpp')}</p>
+        </div>
 
         {payment.captured_at && (
-          <>
-            <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-              Captured At
-            </Typography>
-            <Typography variant="body1" gutterBottom>
-              {format(new Date(payment.captured_at), 'PPpp')}
-            </Typography>
-          </>
+          <div>
+            <p className="text-soft mb-1">Captured At</p>
+            <p className="text-dark">{format(new Date(payment.captured_at), 'PPpp')}</p>
+          </div>
         )}
-      </Box>
+      </div>
 
       {payment.status === 'pending' && (
-        <Alert severity="info" sx={{ mb: 2 }}>
-          Payment is being processed. This page will update automatically.
-        </Alert>
+        <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
+          <p className="text-blue-700">Payment is being processed. This page will update automatically.</p>
+        </div>
       )}
 
       {payment.status === 'completed' && (
-        <Alert severity="success" sx={{ mb: 2 }}>
-          Payment completed successfully!
-        </Alert>
+        <div className="bg-green-50 border-l-4 border-green-500 p-4 mb-4">
+          <p className="text-green-700">Payment completed successfully!</p>
+        </div>
       )}
 
       {payment.status === 'failed' && (
-        <Alert severity="error" sx={{ mb: 2 }}>
-          Payment failed. Please try again.
-        </Alert>
+        <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-4">
+          <p className="text-red-700">Payment failed. Please try again.</p>
+        </div>
       )}
 
-      <Box display="flex" gap={2}>
-        <Button variant="outlined" onClick={() => navigate(-1)}>
+      <div className="flex gap-3">
+        <button onClick={() => navigate(-1)} className="btn btn-secondary">
           Back
-        </Button>
+        </button>
         {payment.status === 'completed' && (
-          <Button
-            variant="contained"
+          <button
             onClick={() => navigate('/pos/orders/' + payment.order_id)}
+            className="btn btn-primary"
           >
             View Order
-          </Button>
+          </button>
         )}
-      </Box>
-    </Paper>
+      </div>
+    </div>
   );
 }
 

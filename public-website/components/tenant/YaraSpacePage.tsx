@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import '../globals.css'
-import './yaraspace.css'
 
 export default function YaraSpace() {
   return (

@@ -16,7 +16,7 @@ export default function FranchiseLanding() {
               <br />
               <span className="text-accent">Začněte ještě dnes</span>
             </h1>
-            <p className="text-soft mb-10 max-w-2xl mx-auto">
+            <p className="text-soft mb-10 max-w-2xl mx-auto font-poppins">
               Kompletní IT platforma pro váš beauty salon. Vše, co potřebujete pro úspěšný start a růst vašeho podnikání.
             </p>
             <div className="flex gap-5 justify-center flex-wrap">
@@ -32,7 +32,7 @@ export default function FranchiseLanding() {
       </section>
 
       {/* Features Overview */}
-      <section id="features" className="py-section-mobile md:py-section-desktop bg-base border-b border-border-light">
+      <section id="features" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight">
         <div className="container">
           <h2 className="text-center mb-4">Vše, co potřebujete v jednom systému</h2>
             <p className="text-center text-soft mb-16 max-w-2xl mx-auto">
@@ -80,7 +80,7 @@ export default function FranchiseLanding() {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-section-mobile md:py-section-desktop bg-light border-b border-border-light">
+      <section className="py-section-mobile md:py-section-desktop bg-light border-b border-borderLight">
         <div className="container">
           <h2 className="text-center mb-16">Proč zvolit naši platformu?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mt-16">
@@ -109,7 +109,7 @@ export default function FranchiseLanding() {
       </section>
 
       {/* Franchise Form Section */}
-      <section id="franchise-form" className="py-section-mobile md:py-section-desktop bg-base border-b border-border-light">
+      <section id="franchise-form" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight">
         <div className="container">
           <div className="max-w-2xl mx-auto">
             <h2 className="text-center mb-4">Zaujala vás naše platforma?</h2>
@@ -161,7 +161,7 @@ function FranchiseForm() {
             name="name"
             required
             placeholder="Vaše jméno"
-            className="w-full px-4 py-3.5 border-2 border-border-light rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
+            className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
           />
         </div>
         <div className="mb-5">
@@ -172,7 +172,7 @@ function FranchiseForm() {
             name="email"
             required
             placeholder="vas@email.cz"
-            className="w-full px-4 py-3.5 border-2 border-border-light rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
+            className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
           />
         </div>
       </div>
@@ -185,7 +185,7 @@ function FranchiseForm() {
             name="phone"
             required
             placeholder="+420 123 456 789"
-            className="w-full px-4 py-3.5 border-2 border-border-light rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
+            className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
           />
         </div>
         <div className="mb-5">
@@ -195,7 +195,7 @@ function FranchiseForm() {
             id="city"
             name="city"
             placeholder="Kde chcete otevřít salon?"
-            className="w-full px-4 py-3.5 border-2 border-border-light rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
+            className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
           />
         </div>
       </div>
@@ -206,7 +206,7 @@ function FranchiseForm() {
           name="message"
           rows={4}
           placeholder="Napište nám o vašich plánech nebo otázkách..."
-          className="w-full px-4 py-3.5 border-2 border-border-light rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all resize-y min-h-[120px]"
+          className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all resize-y min-h-[120px]"
         ></textarea>
       </div>
       <button type="submit" className="btn btn-primary btn-large">

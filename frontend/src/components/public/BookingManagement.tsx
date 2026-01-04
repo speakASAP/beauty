@@ -1,25 +1,10 @@
 import { useEffect, useState, useCallback } from 'react';
-import {
-  Box,
-  Container,
-  Paper,
-  Typography,
-  Button,
-  Alert,
-  Card,
-  CardContent,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-  Grid,
-} from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { publicApi } from '../../api/public';
 import type { PublicBooking } from '../../api/public';
 import { LoadingSpinner } from '../common/LoadingSpinner';
+import { ErrorAlert } from '../common/ErrorAlert';
 
 /**
  * Booking Management Component
@@ -88,122 +73,105 @@ export function BookingManagement() {
 
   if (error || !booking) {
     return (
-      <Container maxWidth="sm">
-        <Box sx={{ mt: 8 }}>
-          <Alert severity="error">
-            {error || 'Booking not found'}
-          </Alert>
-          <Button
-            variant="contained"
-            sx={{ mt: 2 }}
-            onClick={() => navigate('/')}
-          >
-            Go to Home
-          </Button>
-        </Box>
-      </Container>
+      <div className="container max-w-md mt-20">
+        <ErrorAlert message={error || 'Booking not found'} />
+        <button
+          onClick={() => navigate('/')}
+          className="btn btn-primary mt-4"
+        >
+          Go to Home
+        </button>
+      </div>
     );
   }
 
   const isCancelled = booking.status === 'cancelled';
 
   return (
-    <Container maxWidth="md">
-      <Box sx={{ mt: 8, mb: 4 }}>
-        <Paper sx={{ p: 4 }}>
-          <Typography variant="h4" gutterBottom>
-            Manage Your Booking
-          </Typography>
+    <div className="container max-w-2xl mt-20 mb-8">
+      <div className="bg-base p-8 rounded-2xl shadow-lg border border-borderLight">
+        <h1 className="mb-6 text-h1-mobile md:text-h1-desktop font-heading font-bold text-dark">Manage Your Booking</h1>
 
-          <Card sx={{ mb: 3, mt: 3 }}>
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                Appointment Details
-              </Typography>
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                  <Typography variant="body2" color="text.secondary">
-                    Client Name
-                  </Typography>
-                  <Typography variant="body1">{booking.client_name}</Typography>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Typography variant="body2" color="text.secondary">
-                    Service
-                  </Typography>
-                  <Typography variant="body1">{booking.service_name}</Typography>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Typography variant="body2" color="text.secondary">
-                    Date & Time
-                  </Typography>
-                  <Typography variant="body1">
-                    {format(new Date(booking.starts_at), 'PPpp')}
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Typography variant="body2" color="text.secondary">
-                    Status
-                  </Typography>
-                  <Typography variant="body1">{booking.status}</Typography>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
+        <div className="bg-light p-6 rounded-xl border border-borderLight mb-6">
+          <h3 className="mb-4 text-h3-mobile md:text-h3-desktop font-heading font-semibold text-dark">Appointment Details</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <p className="text-soft mb-1 text-body-mobile md:text-body-desktop font-body">Client Name</p>
+              <p className="text-dark text-body-mobile md:text-body-desktop font-body font-semibold">{booking.client_name}</p>
+            </div>
+            <div>
+              <p className="text-soft mb-1 text-body-mobile md:text-body-desktop font-body">Service</p>
+              <p className="text-dark text-body-mobile md:text-body-desktop font-body font-semibold">{booking.service_name}</p>
+            </div>
+            <div>
+              <p className="text-soft mb-1 text-body-mobile md:text-body-desktop font-body">Date & Time</p>
+              <p className="text-dark text-body-mobile md:text-body-desktop font-body font-semibold">{format(new Date(booking.starts_at), 'PPpp')}</p>
+            </div>
+            <div>
+              <p className="text-soft mb-1 text-body-mobile md:text-body-desktop font-body">Status</p>
+              <p className="text-dark text-body-mobile md:text-body-desktop font-body font-semibold">{booking.status}</p>
+            </div>
+          </div>
+        </div>
 
-          {isCancelled ? (
-            <Alert severity="warning">
-              This booking has been cancelled.
-            </Alert>
-          ) : (
-            <Box sx={{ display: 'flex', gap: 2 }}>
-              <Button
-                variant="outlined"
-                color="error"
-                onClick={() => setCancelDialogOpen(true)}
+        {isCancelled ? (
+          <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-6">
+            <p className="text-yellow-700">This booking has been cancelled.</p>
+          </div>
+        ) : (
+          <div className="flex gap-3">
+            <button
+              onClick={() => setCancelDialogOpen(true)}
+              className="btn btn-secondary border-red-500 text-red-600 hover:bg-red-50"
+            >
+              Cancel Booking
+            </button>
+            <button
+              onClick={() => navigate('/')}
+              className="btn btn-secondary"
+            >
+              Book Another Appointment
+            </button>
+          </div>
+        )}
+      </div>
+
+      {cancelDialogOpen && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-base p-6 rounded-2xl shadow-lg border border-borderLight max-w-md w-full">
+            <h2 className="mb-4 text-h2-mobile md:text-h2-desktop font-heading font-semibold text-dark">Cancel Booking</h2>
+            <p className="text-soft mb-4 text-body-mobile md:text-body-desktop font-body">Are you sure you want to cancel this booking?</p>
+            <div className="mb-4">
+              <label htmlFor="cancelReason" className="block mb-2 font-semibold text-dark text-body-mobile md:text-body-desktop font-body">
+                Cancellation Reason (Optional)
+              </label>
+              <textarea
+                id="cancelReason"
+                value={cancelReason}
+                onChange={(e) => setCancelReason(e.target.value)}
+                rows={3}
+                className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all resize-y text-body-mobile md:text-body-desktop font-body text-dark"
+              />
+            </div>
+            <div className="flex gap-3 justify-end">
+              <button
+                onClick={() => setCancelDialogOpen(false)}
+                className="btn btn-secondary"
               >
-                Cancel Booking
-              </Button>
-              <Button
-                variant="outlined"
-                onClick={() => navigate('/')}
+                Keep Booking
+              </button>
+              <button
+                onClick={handleCancel}
+                disabled={isCancelling}
+                className="btn btn-primary bg-red-600 hover:bg-red-700"
               >
-                Book Another Appointment
-              </Button>
-            </Box>
-          )}
-        </Paper>
-      </Box>
-
-      <Dialog open={cancelDialogOpen} onClose={() => setCancelDialogOpen(false)}>
-        <DialogTitle>Cancel Booking</DialogTitle>
-        <DialogContent>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Are you sure you want to cancel this booking?
-          </Typography>
-          <TextField
-            fullWidth
-            label="Cancellation Reason (Optional)"
-            value={cancelReason}
-            onChange={(e) => setCancelReason(e.target.value)}
-            multiline
-            rows={3}
-            sx={{ mt: 2 }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setCancelDialogOpen(false)}>Keep Booking</Button>
-          <Button
-            variant="contained"
-            color="error"
-            onClick={handleCancel}
-            disabled={isCancelling}
-          >
-            {isCancelling ? 'Cancelling...' : 'Cancel Booking'}
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Container>
+                {isCancelling ? 'Cancelling...' : 'Cancel Booking'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 

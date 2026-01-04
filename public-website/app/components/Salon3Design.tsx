@@ -25,7 +25,7 @@ export default function Salon3Design({ tenant }: Salon3DesignProps) {
 
   return (
     <div className="min-h-screen bg-light salon-landing">
-      <nav className="bg-base/95 backdrop-blur-sm border-b border-border-light sticky top-0 z-[100] shadow-sm py-5">
+      <nav className="bg-base/95 backdrop-blur-sm border-b border-borderLight sticky top-0 z-[100] shadow-sm py-5">
         <div className="container flex justify-between items-center">
           <a href={`/salon?tenant_id=${tenantId}`} className="text-2xl font-bold font-heading text-dark">{salonName}</a>
           <div className="flex gap-8 items-center">
@@ -43,7 +43,7 @@ export default function Salon3Design({ tenant }: Salon3DesignProps) {
         <div className="absolute inset-0 bg-gradient-to-b from-light to-light/80 z-0"></div>
         <div className="container relative z-10">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-block px-4 py-2 mb-6 bg-accent/20 rounded-full text-accent font-semibold text-sm tracking-wider uppercase">
+            <div className="inline-block px-4 py-2 mb-6 bg-accent/20 rounded-full text-accent font-semibold text-sm tracking-wider uppercase font-poppins">
               PREMIUM BEAUTY LOUNGE
             </div>
             <h1 className="mb-6">
@@ -51,7 +51,7 @@ export default function Salon3Design({ tenant }: Salon3DesignProps) {
               <br />
               <span className="text-accent">{restName}</span>
             </h1>
-            <p className="text-soft mb-10 max-w-2xl mx-auto">
+            <p className="text-soft mb-10 max-w-2xl mx-auto font-poppins">
               Sophisticated elegance meets natural beauty. Oáza klidu a luxusu, kde se vaše krása probouzí v nejjemnější podobě.
             </p>
             <div className="flex gap-5 justify-center flex-wrap">
@@ -62,7 +62,7 @@ export default function Salon3Design({ tenant }: Salon3DesignProps) {
         </div>
       </section>
 
-      <section id="about" className="py-section-mobile md:py-section-desktop bg-base border-b border-border-light">
+      <section id="about" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight">
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="mb-4">O nás</h2>
@@ -82,7 +82,7 @@ export default function Salon3Design({ tenant }: Salon3DesignProps) {
         </div>
       </section>
 
-      <section id="services" className="py-section-mobile md:py-section-desktop bg-light border-b border-border-light">
+      <section id="services" className="py-section-mobile md:py-section-desktop bg-light border-b border-borderLight">
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="mb-4">Naše služby</h2>
@@ -96,8 +96,8 @@ export default function Salon3Design({ tenant }: Salon3DesignProps) {
                   <img src="https://yaraspace.cz/wp-content/uploads/2025/05/brazilian-bleach.webp" alt="Brazilian Bleach" className="w-full h-full object-cover" />
                 </div>
                 <div className="p-8">
-                  <h4 className="text-xl font-semibold text-dark mb-4">Brazilian Bleach</h4>
-                  <p className="text-soft">Technika Brazilian Bleach je jedinečný způsob, jak vytvořit jemný kontrast mezi tmavšími a světlejšími prameny. Díky harmonickému propojení odstínů vzniká přirozený, plynulý přechod barev.</p>
+                  <h4 className="text-xl font-semibold text-dark mb-4 font-poppins">Brazilian Bleach</h4>
+                  <p className="text-soft font-poppins">Technika Brazilian Bleach je jedinečný způsob, jak vytvořit jemný kontrast mezi tmavšími a světlejšími prameny. Díky harmonickému propojení odstínů vzniká přirozený, plynulý přechod barev.</p>
                 </div>
               </div>
               <div className="bg-base rounded-2xl overflow-hidden shadow-sm">
@@ -105,8 +105,8 @@ export default function Salon3Design({ tenant }: Salon3DesignProps) {
                   <img src="https://yaraspace.cz/wp-content/uploads/2025/05/airtouch.webp" alt="Airtouch" className="w-full h-full object-cover" />
                 </div>
                 <div className="p-8">
-                  <h4 className="text-xl font-semibold text-dark mb-4">Airtouch</h4>
-                  <p className="text-soft">Tato moderní technika přináší maximálně přirozený výsledek: vlasy získávají jas, optický objem a lehkost. Přechody odstínů jsou jemné, měkké a naprosto plynulé.</p>
+                  <h4 className="text-xl font-semibold text-dark mb-4 font-poppins">Airtouch</h4>
+                  <p className="text-soft font-poppins">Tato moderní technika přináší maximálně přirozený výsledek: vlasy získávají jas, optický objem a lehkost. Přechody odstínů jsou jemné, měkké a naprosto plynulé.</p>
                 </div>
               </div>
             </div>
@@ -119,8 +119,8 @@ export default function Salon3Design({ tenant }: Salon3DesignProps) {
                   <img src="https://yaraspace.cz/wp-content/uploads/2025/05/laminovani.webp" alt="Laminování vlasů" className="w-full h-full object-cover" />
                 </div>
                 <div className="p-8">
-                  <h4 className="text-xl font-semibold text-dark mb-4">Laminování vlasů</h4>
-                  <p className="text-soft">Hebké, lesklé, hydratované a posílené vlasy, přesně takový efekt přináší profesionální ošetření! Bez peroxidu, amoniaku a jiných agresivních látek.</p>
+                  <h4 className="text-xl font-semibold text-dark mb-4 font-poppins">Laminování vlasů</h4>
+                  <p className="text-soft font-poppins">Hebké, lesklé, hydratované a posílené vlasy, přesně takový efekt přináší profesionální ošetření! Bez peroxidu, amoniaku a jiných agresivních látek.</p>
                 </div>
               </div>
               <div className="bg-base rounded-2xl overflow-hidden shadow-sm">
@@ -128,8 +128,8 @@ export default function Salon3Design({ tenant }: Salon3DesignProps) {
                   <img src="https://yaraspace.cz/wp-content/uploads/2025/05/rekonstrukce.webp" alt="Rekonstrukce vlasů" className="w-full h-full object-cover" />
                 </div>
                 <div className="p-8">
-                  <h4 className="text-xl font-semibold text-dark mb-4">Rekonstrukce vlasů</h4>
-                  <p className="text-soft">Rekonstrukce vrací vlasům zdraví, pružnost a vitalitu. Díky vylepšenému a naprosto bezpečnému složení profesionální péče se stav vlasů viditelně zlepší už po první aplikaci!</p>
+                  <h4 className="text-xl font-semibold text-dark mb-4 font-poppins">Rekonstrukce vlasů</h4>
+                  <p className="text-soft font-poppins">Rekonstrukce vrací vlasům zdraví, pružnost a vitalitu. Díky vylepšenému a naprosto bezpečnému složení profesionální péče se stav vlasů viditelně zlepší už po první aplikaci!</p>
                 </div>
               </div>
             </div>
@@ -137,7 +137,7 @@ export default function Salon3Design({ tenant }: Salon3DesignProps) {
         </div>
       </section>
 
-      <section className="py-section-mobile md:py-section-desktop bg-base border-b border-border-light">
+      <section className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight">
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="mb-4">Proč si vybrat právě nás?</h2>
@@ -167,7 +167,7 @@ export default function Salon3Design({ tenant }: Salon3DesignProps) {
         </div>
       </section>
 
-      <section id="testimonials" className="py-section-mobile md:py-section-desktop bg-light border-b border-border-light">
+      <section id="testimonials" className="py-section-mobile md:py-section-desktop bg-light border-b border-borderLight">
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="mb-4">Zkušenosti zákazníků</h2>
@@ -192,7 +192,7 @@ export default function Salon3Design({ tenant }: Salon3DesignProps) {
         </div>
       </section>
 
-      <section id="contact" className="py-section-mobile md:py-section-desktop bg-base border-b border-border-light">
+      <section id="contact" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
@@ -228,19 +228,19 @@ export default function Salon3Design({ tenant }: Salon3DesignProps) {
               }}>
                 <div>
                   <label className="block mb-2 font-semibold text-dark">Jméno a příjmení *</label>
-                  <input type="text" required placeholder="Vaše jméno" className="w-full px-4 py-3.5 border-2 border-border-light rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all" />
+                  <input type="text" required placeholder="Vaše jméno" className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all" />
                 </div>
                 <div>
                   <label className="block mb-2 font-semibold text-dark">Telefon *</label>
-                  <input type="tel" required placeholder="+420 123 456 789" className="w-full px-4 py-3.5 border-2 border-border-light rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all" />
+                  <input type="tel" required placeholder="+420 123 456 789" className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all" />
                 </div>
                 <div>
                   <label className="block mb-2 font-semibold text-dark">Email *</label>
-                  <input type="email" required placeholder="vas@email.cz" className="w-full px-4 py-3.5 border-2 border-border-light rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all" />
+                  <input type="email" required placeholder="vas@email.cz" className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all" />
                 </div>
                 <div>
                   <label className="block mb-2 font-semibold text-dark">Služba *</label>
-                  <select required className="w-full px-4 py-3.5 border-2 border-border-light rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all">
+                  <select required className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all">
                     <option value="">Vyberte službu</option>
                     <option value="strih">Střih</option>
                     <option value="barveni">Barvení</option>
@@ -250,7 +250,7 @@ export default function Salon3Design({ tenant }: Salon3DesignProps) {
                 </div>
                 <div>
                   <label className="block mb-2 font-semibold text-dark">Datum a čas *</label>
-                  <input type="datetime-local" required className="w-full px-4 py-3.5 border-2 border-border-light rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all" />
+                  <input type="datetime-local" required className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all" />
                 </div>
                 <button type="submit" className="btn btn-primary btn-large">Odeslat rezervaci</button>
               </form>

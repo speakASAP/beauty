@@ -1,12 +1,4 @@
 import { useParams } from 'react-router-dom';
-import {
-  Box,
-  Paper,
-  Typography,
-  Chip,
-  Button,
-  Grid,
-} from '@mui/material';
 import { useOrders } from '../../hooks/useOrders';
 import { useCloseOrder } from '../../hooks/useOrders';
 import { LoadingSpinner } from '../common/LoadingSpinner';
@@ -49,94 +41,78 @@ export function OrderDetails() {
   }
 
   return (
-    <Paper sx={{ p: 3 }}>
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-        <Typography variant="h5">Order Details</Typography>
-        <Chip
-          label={order.status}
-          color={order.status === 'closed' ? 'success' : 'primary'}
-        />
-      </Box>
+    <div className="bg-base p-6 rounded-2xl shadow-lg border border-borderLight">
+      <div className="flex justify-between items-center mb-6">
+        <h2>Order Details</h2>
+        <span className={`px-3 py-1 rounded-button border-2 text-sm font-semibold ${
+          order.status === 'closed' 
+            ? 'bg-green-100 text-green-800 border-green-500' 
+            : 'bg-accent/20 text-accent border-accent'
+        }`}>
+          {order.status}
+        </span>
+      </div>
 
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <Typography variant="body2" color="text.secondary">
-            Order ID
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            {order.id}
-          </Typography>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div className="space-y-4">
+          <div>
+            <p className="text-soft mb-1">Order ID</p>
+            <p className="text-dark">{order.id}</p>
+          </div>
 
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-            Client ID
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            {order.client_id}
-          </Typography>
+          <div>
+            <p className="text-soft mb-1">Client ID</p>
+            <p className="text-dark">{order.client_id}</p>
+          </div>
 
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-            Created At
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            {format(new Date(order.created_at), 'PPpp')}
-          </Typography>
+          <div>
+            <p className="text-soft mb-1">Created At</p>
+            <p className="text-dark">{format(new Date(order.created_at), 'PPpp')}</p>
+          </div>
 
           {order.closed_at && (
-            <>
-              <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-                Closed At
-              </Typography>
-              <Typography variant="body1" gutterBottom>
-                {format(new Date(order.closed_at), 'PPpp')}
-              </Typography>
-            </>
+            <div>
+              <p className="text-soft mb-1">Closed At</p>
+              <p className="text-dark">{format(new Date(order.closed_at), 'PPpp')}</p>
+            </div>
           )}
-        </Grid>
+        </div>
 
-        <Grid item xs={12} md={6}>
-          <Paper variant="outlined" sx={{ p: 2 }}>
-            <Typography variant="h6" gutterBottom>
-              Summary
-            </Typography>
-            <Box display="flex" justifyContent="space-between" mb={1}>
-              <Typography variant="body2">Subtotal:</Typography>
-              <Typography variant="body2">
-                {((order.total_amount - order.vat_amount) / 100).toFixed(2)} CZK
-              </Typography>
-            </Box>
-            <Box display="flex" justifyContent="space-between" mb={1}>
-              <Typography variant="body2">VAT:</Typography>
-              <Typography variant="body2">
-                {(order.vat_amount / 100).toFixed(2)} CZK
-              </Typography>
-            </Box>
-            <Box display="flex" justifyContent="space-between" sx={{ mt: 2, pt: 2, borderTop: 1, borderColor: 'divider' }}>
-              <Typography variant="h6">Total:</Typography>
-              <Typography variant="h6">
-                {(order.total_amount / 100).toFixed(2)} CZK
-              </Typography>
-            </Box>
-          </Paper>
-        </Grid>
-      </Grid>
+        <div className="bg-light p-4 rounded-xl border border-borderLight">
+          <h3 className="mb-4">Summary</h3>
+          <div className="space-y-2">
+            <div className="flex justify-between">
+              <p className="text-soft">Subtotal:</p>
+              <p className="text-dark">{((order.total_amount - order.vat_amount) / 100).toFixed(2)} CZK</p>
+            </div>
+            <div className="flex justify-between">
+              <p className="text-soft">VAT:</p>
+              <p className="text-dark">{(order.vat_amount / 100).toFixed(2)} CZK</p>
+            </div>
+            <div className="flex justify-between pt-3 mt-3 border-t border-borderLight">
+              <p className="text-xl font-semibold text-dark">Total:</p>
+              <p className="text-xl font-semibold text-dark">{(order.total_amount / 100).toFixed(2)} CZK</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <Box sx={{ mt: 3 }}>
-        <Button
-          variant="contained"
+      <div className="flex gap-3">
+        <button
           onClick={handleCloseOrder}
           disabled={closeOrder.isPending || order.status === 'closed'}
+          className="btn btn-primary"
         >
           {closeOrder.isPending ? 'Closing...' : 'Close Order'}
-        </Button>
-        <Button
-          variant="outlined"
-          sx={{ ml: 2 }}
+        </button>
+        <button
           onClick={() => navigate('/pos/checkout/' + order.id)}
+          className="btn btn-secondary"
         >
           Go to Checkout
-        </Button>
-      </Box>
-    </Paper>
+        </button>
+      </div>
+    </div>
   );
 }
 

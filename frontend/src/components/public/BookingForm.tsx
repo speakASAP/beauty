@@ -1,20 +1,9 @@
 import { useState } from 'react';
-import {
-  Box,
-  Paper,
-  Typography,
-  TextField,
-  Button,
-  Grid,
-  Alert,
-  Checkbox,
-  FormControlLabel,
-  CircularProgress,
-} from '@mui/material';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { publicApi } from '../../api/public';
 import type { PublicBookingRequest } from '../../api/public';
+import { ErrorAlert } from '../common/ErrorAlert';
 
 /**
  * Public Booking Form Component
@@ -99,111 +88,118 @@ export function BookingForm() {
 
   if (!tenantId || !serviceId || !masterId || !startsAt) {
     return (
-      <Alert severity="error">
-        Missing required booking information. Please go back and select a time slot.
-      </Alert>
+      <ErrorAlert message="Missing required booking information. Please go back and select a time slot." />
     );
   }
 
   return (
-    <Paper sx={{ p: 4, maxWidth: 600, mx: 'auto' }}>
-      <Typography variant="h4" gutterBottom>
-        Complete Your Booking
-      </Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-        Please provide your contact information
-      </Typography>
+    <div className="bg-base p-8 rounded-2xl shadow-lg border border-borderLight max-w-2xl mx-auto">
+      <h1 className="mb-2">Complete Your Booking</h1>
+      <p className="text-soft mb-6">Please provide your contact information</p>
 
-      <Box sx={{ mb: 3, p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
-        <Typography variant="body2" color="text.secondary">
-          <strong>Appointment Details:</strong>
-        </Typography>
-        <Typography variant="body2">
-          Date & Time: {format(new Date(startsAt), 'PPpp')}
-        </Typography>
-        <Typography variant="body2">
-          Master ID: {masterId.substring(0, 8)}...
-        </Typography>
-        <Typography variant="body2">
-          Service ID: {serviceId.substring(0, 8)}...
-        </Typography>
-      </Box>
+      <div className="mb-6 p-4 bg-light rounded-xl">
+        <p className="text-soft mb-2">
+          <strong className="text-dark">Appointment Details:</strong>
+        </p>
+        <p className="text-dark">Date & Time: {format(new Date(startsAt), 'PPpp')}</p>
+        <p className="text-dark">Master ID: {masterId.substring(0, 8)}...</p>
+        <p className="text-dark">Service ID: {serviceId.substring(0, 8)}...</p>
+      </div>
 
-      <form onSubmit={handleSubmit}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="First Name"
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label htmlFor="firstName" className="block mb-2 font-semibold text-dark">
+              First Name
+            </label>
+            <input
+              id="firstName"
+              type="text"
               value={formData.first_name}
               onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
               required
+              className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="Last Name"
+          </div>
+          <div>
+            <label htmlFor="lastName" className="block mb-2 font-semibold text-dark">
+              Last Name
+            </label>
+            <input
+              id="lastName"
+              type="text"
               value={formData.last_name}
               onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}
               required
+              className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
             />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Phone"
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+          </div>
+        </div>
+        <div>
+          <label htmlFor="phone" className="block mb-2 font-semibold text-dark">
+            Phone
+          </label>
+          <input
+            id="phone"
+            type="tel"
+            value={formData.phone}
+            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+            required
+            className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
+          />
+        </div>
+        <div>
+          <label htmlFor="email" className="block mb-2 font-semibold text-dark">
+            Email (Optional)
+          </label>
+          <input
+            id="email"
+            type="email"
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
+          />
+        </div>
+        <div>
+          <label className="flex items-start gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={formData.gdpr_consent}
+              onChange={(e) => setFormData({ ...formData, gdpr_consent: e.target.checked })}
               required
-              type="tel"
+              className="mt-1 w-5 h-5 border-2 border-borderLight rounded focus:ring-2 focus:ring-accent"
             />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Email (Optional)"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              type="email"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formData.gdpr_consent}
-                  onChange={(e) => setFormData({ ...formData, gdpr_consent: e.target.checked })}
-                  required
-                />
-              }
-              label="I consent to the processing of my personal data (GDPR)"
-            />
-          </Grid>
+            <span className="text-dark">I consent to the processing of my personal data (GDPR)</span>
+          </label>
+        </div>
 
-          {error && (
-            <Grid item xs={12}>
-              <Alert severity="error">{error}</Alert>
-            </Grid>
-          )}
+        {error && <ErrorAlert message={error} />}
 
-          <Grid item xs={12}>
-            <Box display="flex" gap={2} justifyContent="flex-end">
-              <Button variant="outlined" onClick={() => navigate(-1)}>
-                Back
-              </Button>
-              <Button
-                type="submit"
-                variant="contained"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? <CircularProgress size={24} /> : 'Confirm Booking'}
-              </Button>
-            </Box>
-          </Grid>
-        </Grid>
+        <div className="flex gap-3 justify-end">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="btn btn-secondary"
+          >
+            Back
+          </button>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="btn btn-primary"
+          >
+            {isSubmitting ? (
+              <span className="flex items-center justify-center">
+                <span className="border-2 border-base border-t-transparent rounded-full w-6 h-6 animate-spin mr-2" />
+                Submitting...
+              </span>
+            ) : (
+              'Confirm Booking'
+            )}
+          </button>
+        </div>
       </form>
-    </Paper>
+    </div>
   );
 }
 

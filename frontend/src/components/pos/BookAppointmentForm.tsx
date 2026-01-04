@@ -1,17 +1,8 @@
 import { useState } from 'react';
-import {
-  Box,
-  Paper,
-  Typography,
-  TextField,
-  Button,
-  MenuItem,
-  Grid,
-  Alert,
-} from '@mui/material';
 import { useBookAppointment } from '../../hooks/useAppointments';
 import { useClients } from '../../hooks/useClients';
 import { LoadingSpinner } from '../common/LoadingSpinner';
+import { ErrorAlert } from '../common/ErrorAlert';
 import { useNavigate } from 'react-router-dom';
 
 /**
@@ -67,102 +58,114 @@ export function BookAppointmentForm() {
   }
 
   return (
-    <Paper sx={{ p: 3, maxWidth: 600, mx: 'auto' }}>
-      <Typography variant="h5" gutterBottom>
-        Book Appointment
-      </Typography>
+    <div className="bg-base p-6 rounded-2xl shadow-lg border border-borderLight max-w-2xl mx-auto">
+      <h2 className="mb-4">Book Appointment</h2>
 
-      <form onSubmit={handleSubmit}>
-        <Grid container spacing={2} sx={{ mt: 1 }}>
-          <Grid item xs={12}>
-            <TextField
-              select
-              fullWidth
-              label="Client"
-              value={clientId}
-              onChange={(e) => setClientId(e.target.value)}
-              required
-            >
-              {clients?.map((client) => (
-                <MenuItem key={client.id} value={client.id}>
-                  {client.first_name} {client.last_name}
-                  {client.phone && ` - ${client.phone}`}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Grid>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label htmlFor="client" className="block mb-2 font-semibold text-dark">
+            Client
+          </label>
+          <select
+            id="client"
+            value={clientId}
+            onChange={(e) => setClientId(e.target.value)}
+            required
+            className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
+          >
+            <option value="">Select a client</option>
+            {clients?.map((client) => (
+              <option key={client.id} value={client.id}>
+                {client.first_name} {client.last_name}
+                {client.phone && ` - ${client.phone}`}
+              </option>
+            ))}
+          </select>
+        </div>
 
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Master ID"
-              value={masterId}
-              onChange={(e) => setMasterId(e.target.value)}
-              required
-              placeholder="Enter master UUID"
-            />
-          </Grid>
+        <div>
+          <label htmlFor="masterId" className="block mb-2 font-semibold text-dark">
+            Master ID
+          </label>
+          <input
+            id="masterId"
+            type="text"
+            value={masterId}
+            onChange={(e) => setMasterId(e.target.value)}
+            required
+            placeholder="Enter master UUID"
+            className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
+          />
+        </div>
 
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Service ID"
-              value={serviceId}
-              onChange={(e) => setServiceId(e.target.value)}
-              required
-              placeholder="Enter service UUID"
-            />
-          </Grid>
+        <div>
+          <label htmlFor="serviceId" className="block mb-2 font-semibold text-dark">
+            Service ID
+          </label>
+          <input
+            id="serviceId"
+            type="text"
+            value={serviceId}
+            onChange={(e) => setServiceId(e.target.value)}
+            required
+            placeholder="Enter service UUID"
+            className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
+          />
+        </div>
 
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="Start Time"
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label htmlFor="startsAt" className="block mb-2 font-semibold text-dark">
+              Start Time
+            </label>
+            <input
+              id="startsAt"
               type="datetime-local"
               value={startsAt}
               onChange={(e) => setStartsAt(e.target.value)}
               required
-              InputLabelProps={{
-                shrink: true,
-              }}
+              className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
             />
-          </Grid>
+          </div>
 
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="Duration (minutes)"
+          <div>
+            <label htmlFor="duration" className="block mb-2 font-semibold text-dark">
+              Duration (minutes)
+            </label>
+            <input
+              id="duration"
               type="number"
               value={durationMinutes}
               onChange={(e) => setDurationMinutes(Number(e.target.value))}
               required
-              inputProps={{ min: 15, max: 480, step: 15 }}
+              min={15}
+              max={480}
+              step={15}
+              className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
             />
-          </Grid>
+          </div>
+        </div>
 
-          {error && (
-            <Grid item xs={12}>
-              <Alert severity="error">{error}</Alert>
-            </Grid>
-          )}
+        {error && <ErrorAlert message={error} />}
 
-          <Grid item xs={12}>
-            <Box display="flex" gap={2} justifyContent="flex-end">
-              <Button variant="outlined" onClick={() => navigate(-1)}>
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                variant="contained"
-                disabled={bookAppointment.isPending}
-              >
-                {bookAppointment.isPending ? 'Booking...' : 'Book Appointment'}
-              </Button>
-            </Box>
-          </Grid>
-        </Grid>
+        <div className="flex gap-3 justify-end">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="btn btn-secondary"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            disabled={bookAppointment.isPending}
+            className="btn btn-primary"
+          >
+            {bookAppointment.isPending ? 'Booking...' : 'Book Appointment'}
+          </button>
+        </div>
       </form>
-    </Paper>
+    </div>
   );
 }
 

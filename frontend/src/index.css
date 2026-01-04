@@ -11,8 +11,7 @@
 
   html,
   body {
-    @apply max-w-full overflow-x-hidden;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    @apply max-w-full overflow-x-hidden font-body;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
@@ -24,19 +23,20 @@
   }
 
   h1, h2, h3 {
-    font-family: 'Manrope', sans-serif;
+    @apply font-heading;
   }
 
+
   h1 {
-    @apply text-h1-mobile md:text-h1-desktop font-bold;
+    @apply text-h1-mobile md:text-h1-desktop font-heading font-bold;
   }
 
   h2 {
-    @apply text-h2-mobile md:text-h2-desktop font-semibold;
+    @apply text-h2-mobile md:text-h2-desktop font-heading font-semibold;
   }
 
   h3 {
-    @apply text-h3-mobile md:text-h3-desktop font-semibold;
+    @apply text-h3-mobile md:text-h3-desktop font-heading font-semibold;
   }
 
   p, span, div, a, li, label, input, textarea, select, button {
@@ -66,12 +66,8 @@
     @apply bg-base text-dark border-2 border-accent hover:bg-accent hover:text-base;
   }
 
-  .section {
-    @apply py-section-mobile md:py-section-desktop border-b border-borderLight;
-  }
-
   .btn-large {
-    @apply w-full py-4.5;
+    @apply w-full py-4;
   }
 
   .subheading {

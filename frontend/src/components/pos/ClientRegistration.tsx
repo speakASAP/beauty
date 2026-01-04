@@ -1,17 +1,7 @@
 import { useState } from 'react';
-import {
-  Box,
-  Paper,
-  Typography,
-  TextField,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Grid,
-  Alert,
-} from '@mui/material';
 import { useRegisterClient } from '../../hooks/useClients';
 import { useNavigate } from 'react-router-dom';
+import { ErrorAlert } from '../common/ErrorAlert';
 
 /**
  * Client Registration Component
@@ -61,89 +51,99 @@ export function ClientRegistration() {
   };
 
   return (
-    <Paper sx={{ p: 3, maxWidth: 600, mx: 'auto' }}>
-      <Typography variant="h5" gutterBottom>
-        Register New Client
-      </Typography>
+    <div className="bg-base p-6 rounded-2xl shadow-lg border border-borderLight max-w-2xl mx-auto">
+      <h2 className="mb-4">Register New Client</h2>
 
-      <form onSubmit={handleSubmit}>
-        <Grid container spacing={2} sx={{ mt: 1 }}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="First Name"
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label htmlFor="firstName" className="block mb-2 font-semibold text-dark">
+              First Name
+            </label>
+            <input
+              id="firstName"
+              type="text"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               required
+              className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
             />
-          </Grid>
+          </div>
 
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="Last Name"
+          <div>
+            <label htmlFor="lastName" className="block mb-2 font-semibold text-dark">
+              Last Name
+            </label>
+            <input
+              id="lastName"
+              type="text"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               required
+              className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
             />
-          </Grid>
+          </div>
 
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="Phone"
+          <div>
+            <label htmlFor="phone" className="block mb-2 font-semibold text-dark">
+              Phone
+            </label>
+            <input
+              id="phone"
+              type="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              type="tel"
+              className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
             />
-          </Grid>
+          </div>
 
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="Email"
+          <div>
+            <label htmlFor="email" className="block mb-2 font-semibold text-dark">
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              type="email"
+              className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
             />
-          </Grid>
+          </div>
+        </div>
 
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={gdprConsent}
-                  onChange={(e) => setGdprConsent(e.target.checked)}
-                  required
-                />
-              }
-              label="I consent to the processing of personal data (GDPR)"
+        <div>
+          <label className="flex items-start gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={gdprConsent}
+              onChange={(e) => setGdprConsent(e.target.checked)}
+              required
+              className="mt-1 w-5 h-5 border-2 border-borderLight rounded focus:ring-2 focus:ring-accent"
             />
-          </Grid>
+            <span className="text-dark">I consent to the processing of personal data (GDPR)</span>
+          </label>
+        </div>
 
-          {error && (
-            <Grid item xs={12}>
-              <Alert severity="error">{error}</Alert>
-            </Grid>
-          )}
+        {error && <ErrorAlert message={error} />}
 
-          <Grid item xs={12}>
-            <Box display="flex" gap={2} justifyContent="flex-end">
-              <Button variant="outlined" onClick={() => navigate(-1)}>
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                variant="contained"
-                disabled={registerClient.isPending}
-              >
-                {registerClient.isPending ? 'Registering...' : 'Register Client'}
-              </Button>
-            </Box>
-          </Grid>
-        </Grid>
+        <div className="flex gap-3 justify-end">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="btn btn-secondary"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            disabled={registerClient.isPending}
+            className="btn btn-primary"
+          >
+            {registerClient.isPending ? 'Registering...' : 'Register Client'}
+          </button>
+        </div>
       </form>
-    </Paper>
+    </div>
   );
 }
 

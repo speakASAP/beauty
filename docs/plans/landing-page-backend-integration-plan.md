@@ -371,7 +371,7 @@ Create a modern, SEO-optimized landing page for the beauty franchise platform.
 **Technology Stack:**
 
 - **Framework:** Next.js 14+ (React, SSR, SEO)
-- **Styling:** Tailwind CSS or Material-UI
+- **Styling:** Tailwind CSS
 - **Content:** Markdown or CMS integration
 - **Deployment:** Vercel or similar
 

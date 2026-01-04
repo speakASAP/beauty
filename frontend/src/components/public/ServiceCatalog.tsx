@@ -1,18 +1,9 @@
 import { useState, useEffect } from 'react';
-import {
-  Box,
-  Typography,
-  Grid,
-  Card,
-  CardContent,
-  CardActions,
-  Button,
-  Alert,
-} from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 import { publicApi } from '../../api/public';
 import type { PublicService } from '../../api/public';
 import { LoadingSpinner } from '../common/LoadingSpinner';
+import { ErrorAlert } from '../common/ErrorAlert';
 
 /**
  * Service Catalog Component (Public View)
@@ -60,9 +51,7 @@ export function ServiceCatalog() {
 
   if (!tenantId) {
     return (
-      <Alert severity="error">
-        Salon ID is required. Please go back to the landing page.
-      </Alert>
+      <ErrorAlert message="Salon ID is required. Please go back to the landing page." />
     );
   }
 
@@ -71,58 +60,48 @@ export function ServiceCatalog() {
   }
 
   if (error) {
-    return <Alert severity="error">{error}</Alert>;
+    return <ErrorAlert message={error} />;
   }
 
   return (
-    <Box>
-      <Typography variant="h4" gutterBottom>
-        Select a Service
-      </Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-        Choose the service you'd like to book
-      </Typography>
+    <div>
+      <h1 className="mb-2">Select a Service</h1>
+      <p className="text-soft mb-6">Choose the service you'd like to book</p>
 
       {services.length === 0 ? (
-        <Alert severity="info">
-          No services available. Please contact the salon directly.
-        </Alert>
+        <div className="bg-blue-50 border-l-4 border-blue-500 p-4">
+          <p className="text-blue-700">No services available. Please contact the salon directly.</p>
+        </div>
       ) : (
-        <Grid container spacing={3}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service) => (
-            <Grid item xs={12} sm={6} md={4} key={service.id}>
-              <Card>
-                <CardContent>
-                  <Typography variant="h6" gutterBottom>
-                    {service.name}
-                  </Typography>
-                  {service.description && (
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                      {service.description}
-                    </Typography>
-                  )}
-                  <Typography variant="body2">
-                    Duration: {service.duration_minutes} minutes
-                  </Typography>
-                  <Typography variant="h6" color="primary" sx={{ mt: 1 }}>
-                    {(service.price / 100).toFixed(2)} CZK
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    onClick={() => handleSelectService(service.id)}
-                  >
-                    Book This Service
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
+            <div
+              key={service.id}
+              className="bg-base rounded-xl border border-borderLight shadow-lg overflow-hidden"
+            >
+              <div className="p-6">
+                <h3 className="mb-3">{service.name}</h3>
+                {service.description && (
+                  <p className="text-soft mb-4">{service.description}</p>
+                )}
+                <p className="text-dark mb-2">Duration: {service.duration_minutes} minutes</p>
+                <p className="text-xl font-semibold text-accent mt-3">
+                  {(service.price / 100).toFixed(2)} CZK
+                </p>
+              </div>
+              <div className="p-4 border-t border-borderLight">
+                <button
+                  onClick={() => handleSelectService(service.id)}
+                  className="btn btn-primary w-full"
+                >
+                  Book This Service
+                </button>
+              </div>
+            </div>
           ))}
-        </Grid>
+        </div>
       )}
-    </Box>
+    </div>
   );
 }
 

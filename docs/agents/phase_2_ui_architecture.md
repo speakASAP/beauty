@@ -233,9 +233,9 @@ export function useWebSocketSubscription() {
 - Error handling
 
 ### UI Components
-- **Material-UI (MUI)** or **Ant Design** - Component library
+- **Tailwind CSS** - Utility-first CSS framework
 - Custom components for tenant-aware UI
-- Responsive design
+- Responsive design with mobile-first approach
 
 ### Build Tool
 - **Vite** (recommended) or **Create React App**

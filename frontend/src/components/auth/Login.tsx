@@ -1,14 +1,4 @@
 import { useState, useEffect } from 'react';
-import {
-  Box,
-  Paper,
-  Typography,
-  TextField,
-  Button,
-  Container,
-  Alert,
-  CircularProgress,
-} from '@mui/material';
 import { useTenantContext } from '../../contexts/TenantContext';
 import { useNavigate } from 'react-router-dom';
 import { authApi } from '../../api/auth';
@@ -98,61 +88,65 @@ export function Login() {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box
-        sx={{
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Paper sx={{ p: 4, width: '100%' }}>
-          <Typography variant="h4" gutterBottom align="center">
-            Beauty Franchise Platform
-          </Typography>
-          <Typography variant="body2" color="text.secondary" align="center" mb={3}>
-            Login to continue
-          </Typography>
+    <div className="min-h-screen flex items-center justify-center bg-light py-section-mobile md:py-section-desktop">
+      <div className="container max-w-md">
+        <div className="bg-base p-8 rounded-2xl shadow-lg border border-borderLight">
+          <h1 className="text-center mb-2">Beauty Franchise Platform</h1>
+          <p className="text-center text-soft mb-8">Login to continue</p>
 
-          <form onSubmit={handleSubmit}>
-            <TextField
-              fullWidth
-              label="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              margin="normal"
-              required
-            />
-            <TextField
-              fullWidth
-              label="Password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              margin="normal"
-              required
-            />
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <label htmlFor="username" className="block mb-2 font-semibold text-dark">
+                Username
+              </label>
+              <input
+                id="username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="password" className="block mb-2 font-semibold text-dark">
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all"
+              />
+            </div>
 
             {error && (
-              <Alert severity="error" sx={{ mt: 2 }}>
-                {error}
-              </Alert>
+              <div className="bg-red-50 border-l-4 border-red-500 p-4">
+                <p className="text-red-700">{error}</p>
+              </div>
             )}
 
-            <Button
+            <button
               type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3 }}
               disabled={isLoading}
+              className="btn btn-primary btn-large w-full"
             >
-              {isLoading ? <CircularProgress size={24} /> : 'Login'}
-            </Button>
+              {isLoading ? (
+                <span className="flex items-center justify-center">
+                  <span className="border-2 border-base border-t-transparent rounded-full w-6 h-6 animate-spin mr-2" />
+                  Loading...
+                </span>
+              ) : (
+                'Login'
+              )}
+            </button>
           </form>
-        </Paper>
-      </Box>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 }
 

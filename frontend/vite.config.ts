@@ -18,7 +18,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
     // Ensure proper module resolution
-    dedupe: ['react', 'react-dom', '@mui/material', '@emotion/react', '@emotion/styled'],
+    dedupe: ['react', 'react-dom'],
   },
   server: {
     port: 3000,

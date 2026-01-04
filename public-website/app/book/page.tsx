@@ -77,25 +77,33 @@ export default function BookPage() {
 
   if (step === 'confirm' && bookingResult) {
     return (
-      <div>
-        <header className="header">
+      <div className="min-h-screen bg-light">
+        <header className="bg-base border-b border-borderLight py-section-mobile md:py-section-desktop">
           <div className="container">
-            <h1>Booking Confirmed</h1>
+            <h1 className="text-h1-mobile md:text-h1-desktop font-heading font-bold text-dark">Booking Confirmed</h1>
           </div>
         </header>
 
-        <main className="main">
+        <main className="py-section-mobile md:py-section-desktop">
           <div className="container">
-            <div className="success-message">
-              <h2>Your appointment has been confirmed!</h2>
-              <p>Confirmation Code: <strong>{bookingResult.confirmation_code}</strong></p>
+            <div className="bg-base border border-borderLight rounded-button p-8 md:p-12 text-center">
+              <h2 className="text-h2-mobile md:text-h2-desktop font-heading font-semibold text-dark mb-6">
+                Your appointment has been confirmed!
+              </h2>
+              <p className="text-body-mobile md:text-body-desktop font-body text-dark mb-4">
+                Confirmation Code: <strong className="font-semibold">{bookingResult.confirmation_code}</strong>
+              </p>
               {bookingResult.sms_sent ? (
-                <p className="success">SMS confirmation has been sent to your phone.</p>
+                <p className="text-body-mobile md:text-body-desktop font-body text-green-700 mb-6">
+                  SMS confirmation has been sent to your phone.
+                </p>
               ) : (
-                <p className="error">SMS confirmation could not be sent. Please save your confirmation code.</p>
+                <p className="text-body-mobile md:text-body-desktop font-body text-red-700 mb-6">
+                  SMS confirmation could not be sent. Please save your confirmation code.
+                </p>
               )}
-              <div style={{ marginTop: '20px' }}>
-                <button className="button" onClick={() => router.push('/')}>
+              <div className="mt-5">
+                <button className="btn btn-primary" onClick={() => router.push('/')}>
                   Return to Home
                 </button>
               </div>
@@ -107,38 +115,46 @@ export default function BookPage() {
   }
 
   return (
-    <div>
-      <header className="header">
+    <div className="min-h-screen bg-light">
+      <header className="bg-base border-b border-borderLight py-section-mobile md:py-section-desktop">
         <div className="container">
-          <h1>Book Appointment</h1>
+          <h1 className="text-h1-mobile md:text-h1-desktop font-heading font-bold text-dark">Book Appointment</h1>
         </div>
       </header>
 
-      <main className="main">
+      <main className="py-section-mobile md:py-section-desktop">
         <div className="container">
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label>First Name *</label>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label className="block text-body-mobile md:text-body-desktop font-body font-semibold text-dark mb-2">
+                First Name *
+              </label>
               <input
                 type="text"
                 required
                 value={formData.client_first_name}
                 onChange={(e) => setFormData({ ...formData, client_first_name: e.target.value })}
+                className="w-full px-4 py-3 rounded-button border border-borderLight bg-base text-dark text-body-mobile md:text-body-desktop font-body focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
               />
             </div>
 
-            <div className="form-group">
-              <label>Last Name *</label>
+            <div>
+              <label className="block text-body-mobile md:text-body-desktop font-body font-semibold text-dark mb-2">
+                Last Name *
+              </label>
               <input
                 type="text"
                 required
                 value={formData.client_last_name}
                 onChange={(e) => setFormData({ ...formData, client_last_name: e.target.value })}
+                className="w-full px-4 py-3 rounded-button border border-borderLight bg-base text-dark text-body-mobile md:text-body-desktop font-body focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
               />
             </div>
 
-            <div className="form-group">
-              <label>Phone * (Format: +420XXXXXXXXX)</label>
+            <div>
+              <label className="block text-body-mobile md:text-body-desktop font-body font-semibold text-dark mb-2">
+                Phone * (Format: +420XXXXXXXXX)
+              </label>
               <input
                 type="tel"
                 required
@@ -146,63 +162,81 @@ export default function BookPage() {
                 value={formData.client_phone}
                 onChange={(e) => setFormData({ ...formData, client_phone: e.target.value })}
                 placeholder="+420123456789"
+                className="w-full px-4 py-3 rounded-button border border-borderLight bg-base text-dark text-body-mobile md:text-body-desktop font-body focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
               />
             </div>
 
-            <div className="form-group">
-              <label>Email (Optional)</label>
+            <div>
+              <label className="block text-body-mobile md:text-body-desktop font-body font-semibold text-dark mb-2">
+                Email (Optional)
+              </label>
               <input
                 type="email"
                 value={formData.client_email}
                 onChange={(e) => setFormData({ ...formData, client_email: e.target.value })}
+                className="w-full px-4 py-3 rounded-button border border-borderLight bg-base text-dark text-body-mobile md:text-body-desktop font-body focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
               />
             </div>
 
-            <div className="form-group">
-              <label>Master ID *</label>
+            <div>
+              <label className="block text-body-mobile md:text-body-desktop font-body font-semibold text-dark mb-2">
+                Master ID *
+              </label>
               <input
                 type="text"
                 required
                 value={formData.master_id}
                 onChange={(e) => setFormData({ ...formData, master_id: e.target.value })}
                 placeholder="Enter master UUID"
+                className="w-full px-4 py-3 rounded-button border border-borderLight bg-base text-dark text-body-mobile md:text-body-desktop font-body focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
               />
             </div>
 
-            <div className="form-group">
-              <label>Service ID *</label>
+            <div>
+              <label className="block text-body-mobile md:text-body-desktop font-body font-semibold text-dark mb-2">
+                Service ID *
+              </label>
               <input
                 type="text"
                 required
                 value={formData.service_id}
                 onChange={(e) => setFormData({ ...formData, service_id: e.target.value })}
                 placeholder="Enter service UUID"
+                className="w-full px-4 py-3 rounded-button border border-borderLight bg-base text-dark text-body-mobile md:text-body-desktop font-body focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
               />
             </div>
 
-            <div className="form-group">
-              <label>Date *</label>
+            <div>
+              <label className="block text-body-mobile md:text-body-desktop font-body font-semibold text-dark mb-2">
+                Date *
+              </label>
               <input
                 type="date"
                 required
                 value={formData.date}
                 onChange={(e) => handleDateChange(e.target.value)}
                 min={new Date().toISOString().split('T')[0]}
+                className="w-full px-4 py-3 rounded-button border border-borderLight bg-base text-dark text-body-mobile md:text-body-desktop font-body focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
               />
             </div>
 
-            <div className="form-group">
-              <label>Time *</label>
+            <div>
+              <label className="block text-body-mobile md:text-body-desktop font-body font-semibold text-dark mb-2">
+                Time *
+              </label>
               <input
                 type="time"
                 required
                 value={formData.time}
                 onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+                className="w-full px-4 py-3 rounded-button border border-borderLight bg-base text-dark text-body-mobile md:text-body-desktop font-body focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
               />
             </div>
 
-            <div className="form-group">
-              <label>Duration (minutes) *</label>
+            <div>
+              <label className="block text-body-mobile md:text-body-desktop font-body font-semibold text-dark mb-2">
+                Duration (minutes) *
+              </label>
               <input
                 type="number"
                 required
@@ -210,26 +244,36 @@ export default function BookPage() {
                 step="15"
                 value={formData.duration_minutes}
                 onChange={(e) => setFormData({ ...formData, duration_minutes: parseInt(e.target.value) })}
+                className="w-full px-4 py-3 rounded-button border border-borderLight bg-base text-dark text-body-mobile md:text-body-desktop font-body focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
               />
             </div>
 
-            <div className="form-group">
-              <label>
-                <input
-                  type="checkbox"
-                  required
-                  checked={formData.gdpr_consent}
-                  onChange={(e) => setFormData({ ...formData, gdpr_consent: e.target.checked })}
-                />
-                {' '}I consent to the processing of my personal data (GDPR) *
+            <div className="flex items-start">
+              <input
+                type="checkbox"
+                required
+                checked={formData.gdpr_consent}
+                onChange={(e) => setFormData({ ...formData, gdpr_consent: e.target.checked })}
+                className="mt-1 mr-3 w-5 h-5 rounded border-borderLight text-accent focus:ring-2 focus:ring-accent"
+              />
+              <label className="text-body-mobile md:text-body-desktop font-body text-dark">
+                I consent to the processing of my personal data (GDPR) *
               </label>
             </div>
 
-            {error && <div className="error">{error}</div>}
+            {error && (
+              <div className="p-4 rounded-button bg-red-50 border border-red-200 text-red-800 text-body-mobile md:text-body-desktop font-body">
+                {error}
+              </div>
+            )}
 
-            {loadingSlots && <div className="loading">Loading available slots...</div>}
+            {loadingSlots && (
+              <div className="text-center py-4 text-body-mobile md:text-body-desktop font-body text-soft">
+                Loading available slots...
+              </div>
+            )}
 
-            <button type="submit" className="button" disabled={loading}>
+            <button type="submit" className="btn btn-primary w-full" disabled={loading}>
               {loading ? 'Booking...' : 'Book Appointment'}
             </button>
           </form>

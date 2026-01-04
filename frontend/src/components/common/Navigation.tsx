@@ -1,13 +1,4 @@
 import { Link, useLocation } from 'react-router-dom';
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  Box,
-  Container,
-  Chip,
-} from '@mui/material';
 import { useTenantContext } from '../../contexts/TenantContext';
 import { authApi } from '../../api/auth';
 
@@ -38,106 +29,129 @@ export function Navigation() {
     }
   };
 
+  const isActive = (path: string) => {
+    return location.pathname === path || location.pathname.startsWith(path);
+  };
+
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Beauty Franchise Platform
-          </Typography>
+    <nav className="bg-dark text-base sticky top-0 z-50 shadow-md">
+      <div className="container">
+        <div className="flex justify-between items-center py-4">
+          <h1 className="text-xl font-heading font-semibold">Beauty Franchise Platform</h1>
 
           {(tenantId || isFranchisor) && (
-            <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+            <div className="flex gap-4 items-center flex-wrap">
               {isFranchisor ? (
-                <Chip label="Franchisor" color="primary" size="small" />
+                <span className="px-3 py-1 bg-accent text-base rounded-button text-sm font-semibold">
+                  Franchisor
+                </span>
               ) : tenantId ? (
-                <Typography variant="body2" sx={{ minWidth: 100 }}>
+                <span className="text-sm min-w-[100px]">
                   Tenant: {tenantId.substring(0, 8)}...
-                </Typography>
+                </span>
               ) : null}
 
               {role && (
-                <Chip label={role} size="small" variant="outlined" />
+                <span className="px-3 py-1 border-2 border-accent text-base rounded-button text-sm font-semibold">
+                  {role}
+                </span>
               )}
 
               {/* POS Menu (for non-franchisor or franchisor with tenant context) */}
               {!isFranchisor && (
                 <>
-                  <Button
-                    color="inherit"
-                    component={Link}
+                  <Link
                     to="/pos/dashboard"
-                    variant={location.pathname === '/pos/dashboard' ? 'outlined' : 'text'}
+                    className={`px-4 py-2 rounded-button transition-colors ${
+                      isActive('/pos/dashboard')
+                        ? 'bg-accent text-base'
+                        : 'text-base hover:bg-accent/20'
+                    }`}
                   >
                     Calendar
-                  </Button>
+                  </Link>
 
-                  <Button
-                    color="inherit"
-                    component={Link}
+                  <Link
                     to="/pos/visits"
-                    variant={location.pathname === '/pos/visits' ? 'outlined' : 'text'}
+                    className={`px-4 py-2 rounded-button transition-colors ${
+                      isActive('/pos/visits')
+                        ? 'bg-accent text-base'
+                        : 'text-base hover:bg-accent/20'
+                    }`}
                   >
                     Visits
-                  </Button>
+                  </Link>
 
-                  <Button
-                    color="inherit"
-                    component={Link}
+                  <Link
                     to="/pos/shift-close"
-                    variant={location.pathname === '/pos/shift-close' ? 'outlined' : 'text'}
+                    className={`px-4 py-2 rounded-button transition-colors ${
+                      isActive('/pos/shift-close')
+                        ? 'bg-accent text-base'
+                        : 'text-base hover:bg-accent/20'
+                    }`}
                   >
                     Shift Close
-                  </Button>
+                  </Link>
                 </>
               )}
 
               {/* Franchise Portal Menu (franchisor only) */}
               {isFranchisor && (
                 <>
-                  <Button
-                    color="inherit"
-                    component={Link}
+                  <Link
                     to="/franchise/tenants"
-                    variant={location.pathname.startsWith('/franchise/tenants') ? 'outlined' : 'text'}
+                    className={`px-4 py-2 rounded-button transition-colors ${
+                      isActive('/franchise/tenants')
+                        ? 'bg-accent text-base'
+                        : 'text-base hover:bg-accent/20'
+                    }`}
                   >
                     Tenants
-                  </Button>
-                  <Button
-                    color="inherit"
-                    component={Link}
+                  </Link>
+                  <Link
                     to="/franchise/kpis"
-                    variant={location.pathname.startsWith('/franchise/kpis') ? 'outlined' : 'text'}
+                    className={`px-4 py-2 rounded-button transition-colors ${
+                      isActive('/franchise/kpis')
+                        ? 'bg-accent text-base'
+                        : 'text-base hover:bg-accent/20'
+                    }`}
                   >
                     KPIs
-                  </Button>
-                  <Button
-                    color="inherit"
-                    component={Link}
+                  </Link>
+                  <Link
                     to="/franchise/pricing"
-                    variant={location.pathname.startsWith('/franchise/pricing') ? 'outlined' : 'text'}
+                    className={`px-4 py-2 rounded-button transition-colors ${
+                      isActive('/franchise/pricing')
+                        ? 'bg-accent text-base'
+                        : 'text-base hover:bg-accent/20'
+                    }`}
                   >
                     Pricing
-                  </Button>
-                  <Button
-                    color="inherit"
-                    component={Link}
+                  </Link>
+                  <Link
                     to="/franchise/catalog"
-                    variant={location.pathname.startsWith('/franchise/catalog') ? 'outlined' : 'text'}
+                    className={`px-4 py-2 rounded-button transition-colors ${
+                      isActive('/franchise/catalog')
+                        ? 'bg-accent text-base'
+                        : 'text-base hover:bg-accent/20'
+                    }`}
                   >
                     Catalog
-                  </Button>
+                  </Link>
                 </>
               )}
 
-              <Button color="inherit" onClick={handleLogout}>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 rounded-button text-base hover:bg-accent/20 transition-colors"
+              >
                 Logout
-              </Button>
-            </Box>
+              </button>
+            </div>
           )}
-        </Toolbar>
-      </Container>
-    </AppBar>
+        </div>
+      </div>
+    </nav>
   );
 }
 

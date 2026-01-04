@@ -23,7 +23,7 @@ export default function Salon1Design({ tenant }: Salon1DesignProps) {
   return (
     <div className="min-h-screen bg-light salon-landing">
       {/* Navigation */}
-      <nav className="bg-base/95 backdrop-blur-sm border-b border-border-light sticky top-0 z-[100] shadow-sm py-5">
+      <nav className="bg-base/95 backdrop-blur-sm border-b border-borderLight sticky top-0 z-[100] shadow-sm py-5">
         <div className="container flex justify-between items-center">
           <a href={`/salon?tenant_id=${tenantId}`} className="text-2xl font-bold font-heading text-dark">{salonName}</a>
           <div className="flex gap-8 items-center">
@@ -42,7 +42,7 @@ export default function Salon1Design({ tenant }: Salon1DesignProps) {
         <div className="absolute inset-0 bg-gradient-to-b from-light to-light/80 z-0"></div>
         <div className="container relative z-10">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-block px-4 py-2 mb-6 bg-accent/20 rounded-full text-accent font-semibold text-sm tracking-wider uppercase">
+            <div className="inline-block px-4 py-2 mb-6 bg-accent/20 rounded-full text-accent font-semibold text-sm tracking-wider uppercase font-poppins">
               KOSMETICKÝ SALON
             </div>
             <h1 className="mb-6">
@@ -50,7 +50,7 @@ export default function Salon1Design({ tenant }: Salon1DesignProps) {
               <br />
               <span className="text-accent">{salonName.split(' ').slice(1).join(' ')}</span>
             </h1>
-            <p className="text-soft mb-10 max-w-2xl mx-auto">
+            <p className="text-soft mb-10 max-w-2xl mx-auto font-poppins">
               Vaše krása si zaslouží zazářit. My víme, jak na to. Profesionální péče o vlasy a tělo v atmosféře klidu a elegance.
             </p>
             <div className="flex gap-5 justify-center flex-wrap">
@@ -66,7 +66,7 @@ export default function Salon1Design({ tenant }: Salon1DesignProps) {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-section-mobile md:py-section-desktop bg-base border-b border-border-light">
+      <section id="about" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight">
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="mb-4">O nás</h2>
@@ -93,7 +93,7 @@ export default function Salon1Design({ tenant }: Salon1DesignProps) {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-section-mobile md:py-section-desktop bg-light border-b border-border-light">
+      <section id="services" className="py-section-mobile md:py-section-desktop bg-light border-b border-borderLight">
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="mb-4">Naše služby</h2>
@@ -151,7 +151,7 @@ export default function Salon1Design({ tenant }: Salon1DesignProps) {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-section-mobile md:py-section-desktop bg-base border-b border-border-light">
+      <section className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight">
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="mb-4">Proč si vybrat právě nás?</h2>
@@ -182,7 +182,7 @@ export default function Salon1Design({ tenant }: Salon1DesignProps) {
       </section>
 
       {/* Testimonials */}
-      <section id="testimonials" className="py-section-mobile md:py-section-desktop bg-light border-b border-border-light">
+      <section id="testimonials" className="py-section-mobile md:py-section-desktop bg-light border-b border-borderLight">
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="mb-4">Zkušenosti zákazníků</h2>
@@ -214,7 +214,7 @@ export default function Salon1Design({ tenant }: Salon1DesignProps) {
       </section>
 
       {/* Contact & Booking */}
-      <section id="contact" className="py-section-mobile md:py-section-desktop bg-base border-b border-border-light">
+      <section id="contact" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
@@ -250,19 +250,19 @@ export default function Salon1Design({ tenant }: Salon1DesignProps) {
               }}>
                 <div>
                   <label className="block mb-2 font-semibold text-dark">Jméno a příjmení *</label>
-                  <input type="text" required placeholder="Vaše jméno" className="w-full px-4 py-3.5 border-2 border-border-light rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all" />
+                  <input type="text" required placeholder="Vaše jméno" className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all" />
                 </div>
                 <div>
                   <label className="block mb-2 font-semibold text-dark">Telefon *</label>
-                  <input type="tel" required placeholder="+420 123 456 789" className="w-full px-4 py-3.5 border-2 border-border-light rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all" />
+                  <input type="tel" required placeholder="+420 123 456 789" className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all" />
                 </div>
                 <div>
                   <label className="block mb-2 font-semibold text-dark">Email *</label>
-                  <input type="email" required placeholder="vas@email.cz" className="w-full px-4 py-3.5 border-2 border-border-light rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all" />
+                  <input type="email" required placeholder="vas@email.cz" className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all" />
                 </div>
                 <div>
                   <label className="block mb-2 font-semibold text-dark">Služba *</label>
-                  <select required className="w-full px-4 py-3.5 border-2 border-border-light rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all">
+                  <select required className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all">
                     <option value="">Vyberte službu</option>
                     <option value="strih">Střih</option>
                     <option value="barveni">Barvení</option>
@@ -272,7 +272,7 @@ export default function Salon1Design({ tenant }: Salon1DesignProps) {
                 </div>
                 <div>
                   <label className="block mb-2 font-semibold text-dark">Datum a čas *</label>
-                  <input type="datetime-local" required className="w-full px-4 py-3.5 border-2 border-border-light rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all" />
+                  <input type="datetime-local" required className="w-full px-4 py-3.5 border-2 border-borderLight rounded-xl bg-light focus:outline-none focus:border-accent focus:bg-base transition-all" />
                 </div>
                 <button type="submit" className="btn btn-primary btn-large">
                   Odeslat rezervaci
