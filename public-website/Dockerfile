@@ -16,8 +16,8 @@ COPY . .
 # Build the Next.js application
 RUN npm run build
 
-# Expose port (Next.js default is 3000)
-EXPOSE 3000
+# Expose port (beauty application uses 41xx range)
+EXPOSE 4102
 
 # Start the Next.js production server
 CMD ["npm", "start"]
