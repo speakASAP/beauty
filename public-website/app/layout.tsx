@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="cs">
       <body>
-        <nav className="main-nav">
+        <nav className="main-nav salon-page-hidden">
           <div className="container">
             <a href="/" className="nav-logo">Beauty Franchise</a>
             <div className="nav-links">

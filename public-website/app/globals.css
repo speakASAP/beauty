@@ -21,6 +21,12 @@ body {
   background: #fef7f0;
 }
 
+/* Hide main navigation on salon pages */
+body:has(.salon-yaraspace) .main-nav.salon-page-hidden,
+body:has(.salon-landing) .main-nav.salon-page-hidden {
+  display: none !important;
+}
+
 a {
   color: inherit;
   text-decoration: none;

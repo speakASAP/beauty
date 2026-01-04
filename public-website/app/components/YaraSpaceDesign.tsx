@@ -93,7 +93,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               </div>
               <div className="service-card">
                 <div className="service-image">
-                  <img src="https://yaraspace.cz/wp-content/uploads/2025/10/bleach-768x1024.webp" alt="Airtouch" />
+                  <img src="https://yaraspace.cz/wp-content/uploads/2025/10/airtouch-768x1024.webp" alt="Airtouch" />
                 </div>
                 <div className="service-content">
                   <h3>Airtouch</h3>
@@ -122,7 +122,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               </div>
               <div className="service-card">
                 <div className="service-image">
-                  <img src="https://yaraspace.cz/wp-content/uploads/2025/02/laminace-vlasu.webp" alt="Rekonstrukce vlasů" />
+                  <img src="https://yaraspace.cz/wp-content/uploads/2025/02/rekonstrukce-vlasu.webp" alt="Rekonstrukce vlasů" />
                 </div>
                 <div className="service-content">
                   <h3>Rekonstrukce vlasů</h3>
@@ -238,6 +238,9 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               </a>
             </div>
             <nav className="footer-nav">
+              <a href="/">Beauty Franchise</a>
+              <a href="/#features">Funkce</a>
+              <a href="/#franchise-form">Kontakt</a>
               <a href="#about">O nás</a>
               <a href="#blog">Blog</a>
               <a href="#services">Služby</a>
