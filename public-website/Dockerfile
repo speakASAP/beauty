@@ -8,7 +8,7 @@ COPY package.json ./
 COPY package-lock.json* ./
 
 # Install dependencies and curl (for health checks)
-RUN apk add --no-cache curl && npm install
+RUN apk add --no-cache curl && npm install --legacy-peer-deps
 
 # Copy source files
 COPY . .
