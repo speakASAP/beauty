@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import '../globals.css'
 import './salon.css'
@@ -21,7 +21,7 @@ interface TenantInfo {
   design_theme: string
 }
 
-export default function SalonPage() {
+function SalonPageContent() {
   const searchParams = useSearchParams()
   const tenantId = searchParams.get('tenant_id')
   const [tenantInfo, setTenantInfo] = useState<TenantInfo | null>(null)
@@ -124,4 +124,17 @@ export default function SalonPage() {
   }
 
   return renderSalonDesign()
+}
+
+export default function SalonPage() {
+  return (
+    <Suspense fallback={
+      <div className="salon-loading">
+        <div className="loading-spinner"></div>
+        <p>Loading salon information...</p>
+      </div>
+    }>
+      <SalonPageContent />
+    </Suspense>
+  )
 }

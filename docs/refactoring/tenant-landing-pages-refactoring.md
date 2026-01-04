@@ -7,6 +7,7 @@ This document describes the refactoring of the tenant system to consolidate all 
 ## Problem Statement
 
 The system had multiple beauty salons created using different APIs and technologies, resulting in:
+
 - Inconsistent database columns (`design` vs `design_theme`)
 - No unified way to view all salons
 - Main landing page didn't show existing salons
@@ -17,6 +18,7 @@ The system had multiple beauty salons created using different APIs and technolog
 ### 1. Main Landing Page Enhancement
 
 The main landing page at `https://beauty.alfares.cz` now:
+
 - Displays all active salons in a dedicated "Our Salons" section
 - Shows salon name, address, and phone for each salon
 - Provides clickable links to each salon's individual landing page
@@ -25,12 +27,14 @@ The main landing page at `https://beauty.alfares.cz` now:
 ### 2. Unified API Endpoints
 
 Created new API endpoints:
+
 - **GET `/api/tenants`** - Returns all active tenants (used by main landing page)
 - **GET `/api/tenant?tenant_id=uuid`** - Returns single tenant info (updated to handle both column names)
 
 ### 3. Database Standardization
 
 Created migration `010_standardize_tenant_design_column.sql` that:
+
 - Consolidates `design` and `design_theme` columns into a single `design_theme` column
 - Preserves all existing data
 - Removes the redundant `design` column
@@ -39,6 +43,7 @@ Created migration `010_standardize_tenant_design_column.sql` that:
 ### 4. Code Updates
 
 Updated all code to use `design_theme` consistently:
+
 - `public-website/app/api/tenant/route.ts` - Handles both columns for backward compatibility
 - `public-website/app/api/tenants/route.ts` - New endpoint for listing all tenants
 - `public-website/app/page.tsx` - Displays all salons on main landing page
@@ -56,6 +61,7 @@ psql -U beauty_user -d beauty_platform -f scripts/database/query_all_tenants.sql
 ```
 
 This will show:
+
 - All tenants with their IDs, names, addresses, contact info
 - Design theme for each tenant
 - State (ACTIVE, CREATING, SUSPENDED, ARCHIVED)
@@ -70,11 +76,13 @@ curl http://localhost:3000/api/tenants
 ```
 
 Or in the browser:
+
 ```
 http://localhost:3000/api/tenants
 ```
 
 Response format:
+
 ```json
 {
   "success": true,
@@ -97,10 +105,12 @@ Response format:
 ## URL Structure
 
 ### Main Landing Page
+
 - **URL**: `https://beauty.alfares.cz/`
 - **Purpose**: Franchise landing page with all salons listed
 
 ### Individual Salon Pages
+
 - **URL**: `https://beauty.alfares.cz/salon?tenant_id=<tenant-uuid>`
 - **Purpose**: Individual salon landing page with booking functionality
 
@@ -113,6 +123,7 @@ psql -U beauty_user -d beauty_platform -f scripts/database/migrations/010_standa
 ```
 
 This migration is safe to run multiple times and will:
+
 1. Preserve all existing data
 2. Consolidate columns
 3. Show a summary of tenants by design theme
@@ -120,6 +131,7 @@ This migration is safe to run multiple times and will:
 ## Design Themes
 
 Currently supported design themes:
+
 - `salon1` - Soft curves, pastel colors (pink, lavender)
 - `salon2` - Elegant flowing lines, warm tones (coral, beige)
 - `salon3` - Organic shapes, sophisticated neutrals
@@ -136,12 +148,14 @@ Currently supported design themes:
 ## Files Changed
 
 ### New Files
+
 - `public-website/app/api/tenants/route.ts` - API endpoint for listing all tenants
 - `scripts/database/query_all_tenants.sql` - SQL script to query all tenants
 - `scripts/database/migrations/010_standardize_tenant_design_column.sql` - Migration to standardize columns
 - `docs/refactoring/tenant-landing-pages-refactoring.md` - This document
 
 ### Modified Files
+
 - `public-website/app/page.tsx` - Added "Our Salons" section
 - `public-website/app/franchise.css` - Added styles for salon cards
 - `public-website/app/api/tenant/route.ts` - Updated to handle both column names
