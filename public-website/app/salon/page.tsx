@@ -7,7 +7,6 @@ import './salon.css'
 import Salon1Design from '../components/Salon1Design'
 import Salon2Design from '../components/Salon2Design'
 import Salon3Design from '../components/Salon3Design'
-import YaraSpaceDesign from '../components/YaraSpaceDesign'
 
 // Force dynamic rendering since we need tenant_id from search params
 export const dynamic = 'force-dynamic'
