@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import '../globals.css'
 import './salon.css'
-import Salon1 from '../salon1/page'
-import Salon2 from '../salon2/page'
-import Salon3 from '../salon3/page'
+import Salon1Design from '../components/Salon1Design'
+import Salon2Design from '../components/Salon2Design'
+import Salon3Design from '../components/Salon3Design'
 
 interface TenantInfo {
   id: string
@@ -97,16 +97,26 @@ export default function SalonPage() {
   const renderSalonDesign = () => {
     const theme = tenantInfo.design_theme
     
+    // Convert tenantInfo to match component interface
+    const tenant = {
+      id: tenantInfo.id,
+      name: tenantInfo.name,
+      address: tenantInfo.address || null,
+      phone: tenantInfo.phone || null,
+      email: tenantInfo.email || null,
+      design: tenantInfo.design_theme,
+    }
+    
     // Map various theme values to our 3 designs
     if (theme === 'salon1' || theme === 'luna') {
-      return <Salon1 tenantInfo={tenantInfo} />
+      return <Salon1Design tenant={tenant} />
     } else if (theme === 'salon2' || theme === 'aurora') {
-      return <Salon2 tenantInfo={tenantInfo} />
+      return <Salon2Design tenant={tenant} />
     } else if (theme === 'salon3' || theme === 'serenity') {
-      return <Salon3 tenantInfo={tenantInfo} />
+      return <Salon3Design tenant={tenant} />
     } else {
       // Default to salon1
-      return <Salon1 tenantInfo={tenantInfo} />
+      return <Salon1Design tenant={tenant} />
     }
   }
 
