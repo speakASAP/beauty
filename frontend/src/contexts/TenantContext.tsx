@@ -34,6 +34,21 @@ export function TenantProvider({ children }: TenantProviderProps) {
   const [isFranchisor, setIsFranchisor] = useState<boolean>(false);
   const queryClient = useQueryClient();
 
+  // Define clearContext before useEffect to avoid initialization order issues
+  const clearContext = useCallback(() => {
+    setTenantId(null);
+    setJwtToken(null);
+    setUserId(null);
+    setRole(null);
+    setIsFranchisor(false);
+    queryClient.clear();
+    localStorage.removeItem('jwt_token');
+    localStorage.removeItem('tenant_id');
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('role');
+    localStorage.removeItem('is_franchisor');
+  }, [queryClient]);
+
   // Load tenant context from localStorage on mount
   useEffect(() => {
     const token = localStorage.getItem('jwt_token');
@@ -84,8 +99,8 @@ export function TenantProvider({ children }: TenantProviderProps) {
 
       // Update context
       setTenantId(newTenantId);
-      setUserId(payload.user_id || payload.sub);
-      setRole(payload.role || response.user.role);
+      setUserId(payload.user_id || payload.sub || null);
+      setRole((payload.role || response.user.role) as Role | null);
     } catch {
       // If API call fails, still update local state (fallback)
       setTenantId(newTenantId);
@@ -95,20 +110,6 @@ export function TenantProvider({ children }: TenantProviderProps) {
     // Invalidate all queries to refetch with new tenant
     queryClient.invalidateQueries();
   };
-
-  const clearContext = useCallback(() => {
-    setTenantId(null);
-    setJwtToken(null);
-    setUserId(null);
-    setRole(null);
-    setIsFranchisor(false);
-    queryClient.clear();
-    localStorage.removeItem('jwt_token');
-    localStorage.removeItem('tenant_id');
-    localStorage.removeItem('user_id');
-    localStorage.removeItem('role');
-    localStorage.removeItem('is_franchisor');
-  }, [queryClient]);
 
   const isAuthenticated = !!jwtToken && (!!tenantId || isFranchisor);
 

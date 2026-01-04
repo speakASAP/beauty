@@ -108,7 +108,7 @@ curl https://beauty.alfares.cz/health
 
 The nginx-microservice deployment script automatically creates/updates the service registry file at:
 
-```
+```text
 nginx-microservice/service-registry/beauty.json
 ```
 
