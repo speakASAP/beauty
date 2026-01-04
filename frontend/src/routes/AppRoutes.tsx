@@ -48,14 +48,22 @@ const queryClient = new QueryClient({
   },
 });
 
-// Create MUI theme
+// Create MUI theme with warm colors for beauty salon
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2',
+      main: '#d4a574', // Warm terracotta/beige
+      light: '#e8b4b8', // Soft rose
+      dark: '#c8966a', // Deeper terracotta
     },
     secondary: {
-      main: '#dc004e',
+      main: '#f5c6cb', // Soft pink
+      light: '#f8d7da', // Light pink
+      dark: '#e8b4b8', // Rose
+    },
+    background: {
+      default: '#faf8f5', // Warm off-white
+      paper: '#ffffff',
     },
   },
 });
