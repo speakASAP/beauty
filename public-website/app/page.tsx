@@ -213,7 +213,7 @@ function HomeContent() {
       {/* Footer */}
       <footer className="franchise-footer">
         <div className="container">
-          <p>&copy; 2024 Beauty Franchise Platform. Všechna práva vyhrazena.</p>
+          <p>&copy; 2026 Beauty Franchise Platform. Všechna práva vyhrazena.</p>
         </div>
       </footer>
     </div>
