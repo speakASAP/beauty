@@ -33,6 +33,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Query tenant from database
+    // Handle both 'design' and 'design_theme' columns for backward compatibility
     const result = await db.query(
       `SELECT 
         id,
@@ -41,7 +42,7 @@ export async function GET(request: NextRequest) {
         phone,
         email,
         state,
-        design,
+        COALESCE(design, design_theme, 'salon1') as design_theme,
         created_at,
         updated_at
       FROM platform.tenants
@@ -66,7 +67,7 @@ export async function GET(request: NextRequest) {
         address: tenant.address,
         phone: tenant.phone,
         email: tenant.email,
-        design: tenant.design || 'salon1',
+        design_theme: tenant.design_theme || 'salon1',
         state: tenant.state,
       }
     });

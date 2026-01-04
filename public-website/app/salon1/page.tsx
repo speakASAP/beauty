@@ -15,14 +15,12 @@ interface TenantInfo {
 }
 
 export default function Salon1({ tenantInfo }: { tenantInfo: TenantInfo }) {
-  // Use tenant info from database, fallback to defaults
   const salonName = tenantInfo?.name || 'Bella Rose'
   const phone = tenantInfo?.phone || '+420 776 886 466'
   const address = tenantInfo?.address || 'Križná 169/8, Kroměříž'
   const hours = 'Po–Pá: 09:00–19:00, So: 10:00–16:00'
   return (
     <div className="salon-landing salon1">
-      {/* Navigation */}
       <nav className="salon-nav">
         <div className="container">
           <div className="nav-content">
@@ -38,7 +36,6 @@ export default function Salon1({ tenantInfo }: { tenantInfo: TenantInfo }) {
         </div>
       </nav>
 
-      {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-background">
           <div className="hero-curve-top"></div>
@@ -77,7 +74,6 @@ export default function Salon1({ tenantInfo }: { tenantInfo: TenantInfo }) {
         </div>
       </section>
 
-      {/* Contact Bar */}
       <section className="contact-bar">
         <div className="container">
           <div className="contact-items">
@@ -106,7 +102,6 @@ export default function Salon1({ tenantInfo }: { tenantInfo: TenantInfo }) {
         </div>
       </section>
 
-      {/* Services Section */}
       <section id="services" className="services-section">
         <div className="container">
           <div className="section-header">
@@ -157,7 +152,6 @@ export default function Salon1({ tenantInfo }: { tenantInfo: TenantInfo }) {
         </div>
       </section>
 
-      {/* Why Choose Us */}
       <section id="about" className="why-section">
         <div className="container">
           <div className="section-header">
@@ -182,13 +176,12 @@ export default function Salon1({ tenantInfo }: { tenantInfo: TenantInfo }) {
             <div className="why-card">
               <div className="why-icon">🌺</div>
               <h3>Atmosféra</h3>
-              <p>Bella Rose není jen salon krásy, ale místo, kde se zastaví čas. Příjemná hudba, vůně čaje, teplé úsměvy a pohodová konverzace - každý detail vytváří atmosféru, do které se budete chtít vracet.</p>
+              <p>{salonName} není jen salon krásy, ale místo, kde se zastaví čas. Příjemná hudba, vůně čaje, teplé úsměvy a pohodová konverzace - každý detail vytváří atmosféru, do které se budete chtít vracet.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
       <section id="testimonials" className="testimonials-section">
         <div className="container">
           <div className="section-header">
@@ -214,7 +207,6 @@ export default function Salon1({ tenantInfo }: { tenantInfo: TenantInfo }) {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section id="booking" className="cta-section">
         <div className="cta-background">
           <div className="cta-curve"></div>
@@ -228,7 +220,6 @@ export default function Salon1({ tenantInfo }: { tenantInfo: TenantInfo }) {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="salon-footer">
         <div className="container">
           <div className="footer-content">

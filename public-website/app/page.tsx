@@ -10,14 +10,45 @@ import './franchise.css'
 // Dynamically import salon page to avoid loading when not needed
 const SalonPage = dynamic(() => import('./salon/page'), { ssr: false })
 
+interface Tenant {
+  id: string
+  name: string
+  address?: string
+  phone?: string
+  email?: string
+  design_theme: string
+  url_slug?: string
+  state: string
+}
+
 export default function Home() {
   const searchParams = useSearchParams()
   const tenantId = searchParams.get('tenant_id')
   const [isClient, setIsClient] = useState(false)
+  const [tenants, setTenants] = useState<Tenant[]>([])
+  const [tenantsLoading, setTenantsLoading] = useState(true)
 
   useEffect(() => {
     setIsClient(true)
+    // Fetch all active tenants
+    fetchTenants()
   }, [])
+
+  const fetchTenants = async () => {
+    try {
+      const response = await fetch('/api/tenants')
+      if (response.ok) {
+        const data = await response.json()
+        if (data.success && data.data) {
+          setTenants(data.data)
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching tenants:', error)
+    } finally {
+      setTenantsLoading(false)
+    }
+  }
 
   // If tenant_id is present, show the salon page directly (no redirect - URL stays as /?tenant_id=...)
   if (tenantId && isClient) {
@@ -53,6 +84,44 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Our Salons Section */}
+      {tenants.length > 0 && (
+        <section id="our-salons" className="our-salons">
+          <div className="container">
+            <h2 className="section-title">Naše Beauty Salony</h2>
+            <p className="section-subtitle">
+              Objevte naše partnerské salony a rezervujte si termín ještě dnes
+            </p>
+            {tenantsLoading ? (
+              <div className="salons-loading">
+                <p>Načítání salonů...</p>
+              </div>
+            ) : (
+              <div className="salons-grid">
+                {tenants.map((tenant) => (
+                  <Link
+                    key={tenant.id}
+                    href={`/salon?tenant_id=${tenant.id}`}
+                    className="salon-card"
+                  >
+                    <div className="salon-card-content">
+                      <h3 className="salon-name">{tenant.name}</h3>
+                      {tenant.address && (
+                        <p className="salon-address">📍 {tenant.address}</p>
+                      )}
+                      {tenant.phone && (
+                        <p className="salon-phone">📞 {tenant.phone}</p>
+                      )}
+                      <span className="salon-link">Navštívit salon →</span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Features Overview */}
       <section id="features" className="features-overview">

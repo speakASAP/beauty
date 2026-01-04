@@ -43,8 +43,8 @@ export default function SalonPage() {
     // Fetch tenant info from API
     const fetchTenantInfo = async () => {
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4100'
-        const response = await fetch(`${apiUrl}/public/tenants/${tenantId}`)
+        // Use local API route for consistency
+        const response = await fetch(`/api/tenant?tenant_id=${tenantId}`)
         
         if (!response.ok) {
           if (response.status === 404) {
@@ -57,7 +57,11 @@ export default function SalonPage() {
         }
 
         const data = await response.json()
-        setTenantInfo(data.data)
+        if (data.success && data.data) {
+          setTenantInfo(data.data)
+        } else {
+          setError('Failed to load salon information')
+        }
         setLoading(false)
       } catch (err) {
         console.error('Error fetching tenant info:', err)

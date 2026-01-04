@@ -87,6 +87,7 @@ app.get('/public/tenants/:tenant_id', async (req, res) => {
     }
 
     // Query tenant from database (no tenant context needed - public read)
+    // Handle both 'design' and 'design_theme' columns for backward compatibility
     const result = await db.query(`
       SELECT 
         id,
@@ -95,7 +96,7 @@ app.get('/public/tenants/:tenant_id', async (req, res) => {
         phone,
         email,
         state,
-        design_theme,
+        COALESCE(design, design_theme, 'salon1') as design_theme,
         created_at,
         updated_at
       FROM platform.tenants

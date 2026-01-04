@@ -269,6 +269,77 @@
   font-size: 1rem;
 }
 
+/* Our Salons Section */
+.our-salons {
+  padding: 100px 0;
+  background: white;
+}
+
+.salons-loading {
+  text-align: center;
+  padding: 60px 0;
+  color: #718096;
+  font-size: 1.1rem;
+}
+
+.salons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 60px;
+}
+
+.salon-card {
+  background: linear-gradient(135deg, #fff5f7 0%, #fef7f0 100%);
+  padding: 30px;
+  border-radius: 20px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  display: block;
+}
+
+.salon-card:hover {
+  transform: translateY(-8px);
+  border-color: #ff9ec5;
+  box-shadow: 0 8px 25px rgba(255, 158, 197, 0.2);
+}
+
+.salon-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.salon-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0;
+}
+
+.salon-address,
+.salon-phone {
+  font-size: 0.95rem;
+  color: #718096;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.salon-link {
+  margin-top: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ff9ec5;
+  transition: color 0.3s ease;
+}
+
+.salon-card:hover .salon-link {
+  color: #c084fc;
+}
+
 /* Benefits Section */
 .benefits {
   padding: 100px 0;
@@ -579,5 +650,13 @@
 
   .feature-grid-small {
     grid-template-columns: 1fr;
+  }
+
+  .salons-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .salon-card {
+    padding: 24px;
   }
 }
