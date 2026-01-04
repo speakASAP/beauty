@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Pool } from 'pg';
 
+// Force dynamic rendering for API route
+export const dynamic = 'force-dynamic';
+
 // Database connection pool
 const db = new Pool({
   connectionString: process.env.DATABASE_URL || process.env.POSTGRES_URL,
