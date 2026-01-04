@@ -109,7 +109,42 @@ export interface PublicBooking {
   status: string;
 }
 
+export interface SalonInfo {
+  id: string;
+  name: string;
+  address?: string;
+  phone?: string;
+  email?: string;
+  description?: string;
+  state?: string;
+}
+
 export const publicApi = {
+  /**
+   * Get salon/tenant information (public, no auth)
+   * Note: For MVP, this might need a public endpoint or tenant_id from URL
+   */
+  getSalonInfo: async (tenantId: string): Promise<SalonInfo | null> => {
+    // Store tenant_id for subsequent requests
+    localStorage.setItem('public_tenant_id', tenantId);
+    
+    // For MVP, this is a placeholder - actual implementation depends on platform service
+    // This would fetch from /public/tenants/:id or similar endpoint
+    try {
+      // TODO: Replace with actual API call when tenant info endpoint is ready
+      // const response = await publicApiClient.get<ApiResponse<SalonInfo>>(
+      //   `/public/tenants/${tenantId}`
+      // );
+      // return response.data.data;
+      
+      // For now, return null to use mock data in component
+      return null;
+    } catch (error) {
+      console.error('Failed to fetch salon info:', error);
+      return null;
+    }
+  },
+
   /**
    * Get services catalog (public, no auth)
    * Note: For MVP, uses regular booking service with tenant_id from URL
