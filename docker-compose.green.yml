@@ -1,0 +1,18 @@
+services:
+  # Frontend (Green Environment) - Simplified for fast deployment
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ${API_GATEWAY_URL:-http://localhost:4100}
+    container_name: beauty-frontend-green
+    ports:
+      - "${FRONTEND_PORT:-4102}:4173"
+    networks:
+      - nginx-network
+
+networks:
+  nginx-network:
+    external: true
+    name: nginx-network
