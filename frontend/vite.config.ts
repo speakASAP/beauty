@@ -4,11 +4,18 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react({
+      // Optimize React for production
+      jsxRuntime: 'automatic',
+    }),
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
+    // Ensure proper module resolution
+    dedupe: ['react', 'react-dom', '@mui/material', '@emotion/react', '@emotion/styled'],
   },
   server: {
     port: 3000,
@@ -69,12 +76,17 @@ export default defineConfig({
       },
     },
     chunkSizeWarningLimit: 300,
-    // Use esbuild for minification (default, handles circular deps better)
-    minify: 'esbuild',
-    // Ensure proper module format
-    target: 'esnext',
+    // Disable minification to avoid circular dependency issues
+    minify: false,
+    // Use modern target but ensure compatibility
+    target: 'es2020',
     modulePreload: {
       polyfill: true,
+    },
+    // CommonJS interop for better compatibility
+    commonjsOptions: {
+      include: [/node_modules/],
+      transformMixedEsModules: true,
     },
   },
 })
