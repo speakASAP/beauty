@@ -73,7 +73,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(255, 238, 245, 0.85) 0%, rgba(240, 232, 245, 0.85) 50%, rgba(232, 240, 245, 0.85) 100%),
+  background: linear-gradient(135deg, rgba(255, 238, 245, 0.3) 0%, rgba(240, 232, 245, 0.3) 50%, rgba(232, 240, 245, 0.3) 100%),
               url('https://yaraspace.cz/wp-content/uploads/2025/05/yaraspace_intro.webp') center center / cover no-repeat;
   z-index: 0;
 }
@@ -117,8 +117,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(2px);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(0.5px);
   z-index: 1;
 }
 
