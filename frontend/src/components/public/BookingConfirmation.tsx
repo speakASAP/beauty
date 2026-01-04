@@ -45,8 +45,9 @@ export function BookingConfirmation() {
       try {
         const bookingData = await publicApi.getBookingByToken(token);
         setBooking(bookingData);
-      } catch (err: any) {
-        setError(err.message || 'Failed to load booking details');
+      } catch (err: unknown) {
+        const error = err as { message?: string };
+        setError(error.message || 'Failed to load booking details');
       } finally {
         setIsLoading(false);
       }

@@ -33,7 +33,7 @@ export function isValidUUID(uuid: string): boolean {
 /**
  * Validate required field
  */
-export function isRequired(value: any): boolean {
+export function isRequired(value: unknown): boolean {
   if (typeof value === 'string') {
     return value.trim().length > 0;
   }

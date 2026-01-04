@@ -54,8 +54,9 @@ export function ClientRegistration() {
 
       // Navigate back or show success
       navigate(-1);
-    } catch (err: any) {
-      setError(err.message || 'Failed to register client');
+    } catch (err: unknown) {
+      const error = err as { message?: string };
+      setError(error.message || 'Failed to register client');
     }
   };
 

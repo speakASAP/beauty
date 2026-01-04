@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import type { ApiResponse } from '../types/api';
 
 /**
@@ -57,11 +57,11 @@ class PublicApiClient {
     );
   }
 
-  get<T>(url: string, config?: any) {
+  get<T>(url: string, config?: AxiosRequestConfig) {
     return this.client.get<T>(url, config);
   }
 
-  post<T>(url: string, data?: any, config?: any) {
+  post<T>(url: string, data?: unknown, config?: AxiosRequestConfig) {
     return this.client.post<T>(url, data, config);
   }
 }

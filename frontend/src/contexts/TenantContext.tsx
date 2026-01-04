@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import type { TenantContext as TenantContextType, TenantId, UserId, Role } from '../types/domain';
 import { authApi } from '../api/auth';
@@ -56,12 +56,12 @@ export function TenantProvider({ children }: TenantProviderProps) {
         }
         setUserId(payload.user_id || storedUserId);
         setRole(payload.role || storedRole);
-      } catch (error) {
+      } catch {
         // Invalid token, clear context
         clearContext();
       }
     }
-  }, []);
+  }, [clearContext]);
 
   const switchTenant = async (newTenantId: TenantId) => {
     // Clear all queries for old tenant
@@ -86,7 +86,7 @@ export function TenantProvider({ children }: TenantProviderProps) {
       setTenantId(newTenantId);
       setUserId(payload.user_id || payload.sub);
       setRole(payload.role || response.user.role);
-    } catch (error) {
+    } catch {
       // If API call fails, still update local state (fallback)
       setTenantId(newTenantId);
       localStorage.setItem('tenant_id', newTenantId);
@@ -96,7 +96,7 @@ export function TenantProvider({ children }: TenantProviderProps) {
     queryClient.invalidateQueries();
   };
 
-  const clearContext = () => {
+  const clearContext = useCallback(() => {
     setTenantId(null);
     setJwtToken(null);
     setUserId(null);
@@ -108,7 +108,7 @@ export function TenantProvider({ children }: TenantProviderProps) {
     localStorage.removeItem('user_id');
     localStorage.removeItem('role');
     localStorage.removeItem('is_franchisor');
-  };
+  }, [queryClient]);
 
   const isAuthenticated = !!jwtToken && (!!tenantId || isFranchisor);
 
@@ -133,6 +133,7 @@ export function TenantProvider({ children }: TenantProviderProps) {
 /**
  * Hook to access tenant context
  */
+// eslint-disable-next-line react-refresh/only-export-components
 export function useTenantContext() {
   const context = useContext(TenantContext);
   if (!context) {
@@ -142,9 +143,21 @@ export function useTenantContext() {
 }
 
 /**
+ * JWT Payload interface
+ */
+interface JWTPayload {
+  user_id?: string;
+  sub?: string;
+  tenant_id?: string;
+  role?: Role;
+  is_franchisor?: boolean;
+  [key: string]: unknown;
+}
+
+/**
  * Parse JWT token to extract payload
  */
-function parseJWT(token: string): any {
+function parseJWT(token: string): JWTPayload {
   try {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -154,8 +167,8 @@ function parseJWT(token: string): any {
         .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
         .join('')
     );
-    return JSON.parse(jsonPayload);
-  } catch (error) {
+    return JSON.parse(jsonPayload) as JWTPayload;
+  } catch {
     throw new Error('Invalid JWT token');
   }
 }

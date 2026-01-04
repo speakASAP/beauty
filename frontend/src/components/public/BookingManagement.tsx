@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import {
   Box,
   Container,
@@ -42,6 +42,19 @@ export function BookingManagement() {
   const [cancelReason, setCancelReason] = useState('');
   const [isCancelling, setIsCancelling] = useState(false);
 
+  const loadBooking = useCallback(async (): Promise<void> => {
+    if (!token) return;
+    try {
+      const bookingData = await publicApi.getBookingByToken(token);
+      setBooking(bookingData);
+    } catch (err: unknown) {
+      const error = err as { message?: string };
+      setError(error.message || 'Failed to load booking details');
+    } finally {
+      setIsLoading(false);
+    }
+  }, [token]);
+
   useEffect(() => {
     if (!token) {
       setError('Confirmation token is required');
@@ -50,18 +63,7 @@ export function BookingManagement() {
     }
 
     loadBooking();
-  }, [token]);
-
-  const loadBooking = async () => {
-    try {
-      const bookingData = await publicApi.getBookingByToken(token!);
-      setBooking(bookingData);
-    } catch (err: any) {
-      setError(err.message || 'Failed to load booking details');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  }, [token, loadBooking]);
 
   const handleCancel = async () => {
     if (!token) return;
@@ -72,8 +74,9 @@ export function BookingManagement() {
       setCancelDialogOpen(false);
       // Reload booking to show updated status
       await loadBooking();
-    } catch (err: any) {
-      setError(err.message || 'Failed to cancel booking');
+    } catch (err: unknown) {
+      const error = err as { message?: string };
+      setError(error.message || 'Failed to cancel booking');
     } finally {
       setIsCancelling(false);
     }

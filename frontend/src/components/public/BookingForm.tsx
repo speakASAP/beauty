@@ -89,8 +89,9 @@ export function BookingForm() {
 
       // Navigate to confirmation page
       navigate(`/booking/confirm/${booking.confirmation_token}`);
-    } catch (err: any) {
-      setError(err.response?.data?.message || err.message || 'Failed to create booking');
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
+      setError(error.response?.data?.message || error.message || 'Failed to create booking');
     } finally {
       setIsSubmitting(false);
     }

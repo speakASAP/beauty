@@ -49,7 +49,7 @@ export function TenantSelection() {
         try {
           const availableTenants = await authApi.getAvailableTenants();
           setTenants(availableTenants);
-        } catch (err) {
+        } catch {
           // Fallback to localStorage (set during login)
           const stored = localStorage.getItem('available_tenants');
           if (stored) {
@@ -58,8 +58,9 @@ export function TenantSelection() {
             setError('No tenants available');
           }
         }
-      } catch (err: any) {
-        setError(err.message || 'Failed to load tenants');
+      } catch (err: unknown) {
+        const error = err as { message?: string };
+        setError(error.message || 'Failed to load tenants');
       } finally {
         setIsLoading(false);
       }
@@ -91,8 +92,9 @@ export function TenantSelection() {
       } else {
         navigate('/pos/dashboard');
       }
-    } catch (err: any) {
-      setError(err.message || 'Failed to switch tenant');
+    } catch (err: unknown) {
+      const error = err as { message?: string };
+      setError(error.message || 'Failed to switch tenant');
       setIsSwitching(false);
     }
   };

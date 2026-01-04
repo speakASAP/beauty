@@ -42,8 +42,9 @@ export function ServiceCatalog() {
       try {
         const servicesData = await publicApi.getServices(tenantId);
         setServices(servicesData);
-      } catch (err: any) {
-        setError(err.message || 'Failed to load services');
+      } catch (err: unknown) {
+        const error = err as { message?: string };
+        setError(error.message || 'Failed to load services');
       } finally {
         setIsLoading(false);
       }

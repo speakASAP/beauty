@@ -19,9 +19,21 @@ export function getJwtToken(): string | null {
 }
 
 /**
+ * JWT Payload interface
+ */
+interface JWTPayload {
+  user_id?: string;
+  sub?: string;
+  tenant_id?: string;
+  role?: string;
+  is_franchisor?: boolean;
+  [key: string]: unknown;
+}
+
+/**
  * Parse JWT token to extract payload
  */
-export function parseJWT(token: string): any {
+export function parseJWT(token: string): JWTPayload {
   try {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -31,8 +43,8 @@ export function parseJWT(token: string): any {
         .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
         .join('')
     );
-    return JSON.parse(jsonPayload);
-  } catch (error) {
+    return JSON.parse(jsonPayload) as JWTPayload;
+  } catch {
     throw new Error('Invalid JWT token');
   }
 }

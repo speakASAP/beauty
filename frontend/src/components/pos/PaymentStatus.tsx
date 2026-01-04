@@ -55,7 +55,7 @@ export function PaymentStatus() {
         <Typography variant="h5">Payment Status</Typography>
         <Chip
           label={payment.status}
-          color={getStatusColor(payment.status) as any}
+          color={getStatusColor(payment.status) as 'success' | 'error' | 'warning' | 'default'}
         />
       </Box>
 

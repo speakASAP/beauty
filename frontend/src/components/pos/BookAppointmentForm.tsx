@@ -56,8 +56,9 @@ export function BookAppointmentForm() {
 
       // Navigate to calendar
       navigate('/pos/dashboard');
-    } catch (err: any) {
-      setError(err.message || 'Failed to book appointment');
+    } catch (err: unknown) {
+      const error = err as { message?: string };
+      setError(error.message || 'Failed to book appointment');
     }
   };
 

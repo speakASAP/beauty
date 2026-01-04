@@ -115,7 +115,7 @@ export function TenantOverview() {
                 <TableCell>
                   <Chip
                     label={tenant.state}
-                    color={getStateColor(tenant.state) as any}
+                    color={getStateColor(tenant.state) as 'success' | 'warning' | 'default' | 'info'}
                     size="small"
                   />
                 </TableCell>

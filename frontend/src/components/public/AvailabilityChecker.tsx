@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   Box,
   Typography,
@@ -37,16 +37,7 @@ export function AvailabilityChecker() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!tenantId || !serviceId) {
-      setError('Salon ID and Service ID are required');
-      return;
-    }
-
-    loadAvailability();
-  }, [tenantId, serviceId, selectedDate, masterId]);
-
-  const loadAvailability = async () => {
+  const loadAvailability = useCallback(async (): Promise<void> => {
     if (!tenantId || !serviceId) return;
 
     setIsLoading(true);
@@ -59,12 +50,22 @@ export function AvailabilityChecker() {
         date: selectedDate,
       });
       setSlots(availability);
-    } catch (err: any) {
-      setError(err.message || 'Failed to load availability');
+    } catch (err: unknown) {
+      const error = err as { message?: string };
+      setError(error.message || 'Failed to load availability');
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [tenantId, serviceId, selectedDate, masterId]);
+
+  useEffect(() => {
+    if (!tenantId || !serviceId) {
+      setError('Salon ID and Service ID are required');
+      return;
+    }
+
+    loadAvailability();
+  }, [tenantId, serviceId, selectedDate, masterId, loadAvailability]);
 
   const handleSelectSlot = (slot: AvailabilitySlot) => {
     if (!slot.available) return;

@@ -89,8 +89,9 @@ export function Login() {
           navigate('/pos/dashboard');
         }
       }
-    } catch (err: any) {
-      setError(err.response?.data?.message || err.message || 'Login failed');
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
+      setError(error.response?.data?.message || error.message || 'Login failed');
     } finally {
       setIsLoading(false);
     }
