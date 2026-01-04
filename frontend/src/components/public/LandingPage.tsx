@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate, useParams } from 'react-router-dom';
 import {
   Box,
@@ -27,16 +27,8 @@ import {
   Face,
   LocalFlorist,
 } from '@mui/icons-material';
-
-interface SalonInfo {
-  id: string;
-  name: string;
-  address?: string;
-  phone?: string;
-  email?: string;
-  description?: string;
-  businessHours?: string;
-}
+import { publicApi, type SalonInfo } from '../../api/public';
+import { LoadingSpinner } from '../common/LoadingSpinner';
 
 /**
  * Modern Public Landing Page Component
@@ -171,35 +163,6 @@ export function LandingPage() {
     return mockSalons[slug] || null;
   };
 
-  // Apply custom theme from tenant config
-  const customTheme = useMemo(() => {
-    if (!salonInfo?.theme_config) return null;
-
-    const config = salonInfo.theme_config;
-    return {
-      primary: {
-        main: config.primaryColor || '#d4a574',
-        light: config.secondaryColor || '#e8b4b8',
-        dark: config.primaryColor ? adjustBrightness(config.primaryColor, -20) : '#c8966a',
-      },
-      secondary: {
-        main: config.secondaryColor || '#f5c6cb',
-        light: config.secondaryColor ? adjustBrightness(config.secondaryColor, 20) : '#f8d7da',
-        dark: config.secondaryColor ? adjustBrightness(config.secondaryColor, -20) : '#e8b4b8',
-      },
-    };
-  }, [salonInfo?.theme_config]);
-
-  // Helper to adjust color brightness
-  const adjustBrightness = (hex: string, percent: number): string => {
-    const num = parseInt(hex.replace('#', ''), 16);
-    const amt = Math.round(2.55 * percent);
-    const R = Math.min(255, Math.max(0, (num >> 16) + amt));
-    const G = Math.min(255, Math.max(0, ((num >> 8) & 0x00FF) + amt));
-    const B = Math.min(255, Math.max(0, (num & 0x0000FF) + amt));
-    return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
-  };
-
   const handleStartBooking = () => {
     if (!salonId || !salonId.trim()) {
       setError('Please enter a salon ID');
@@ -220,8 +183,18 @@ export function LandingPage() {
     navigate(`/booking?tenant_id=${salonId.trim()}`);
   };
 
+  // Show loading state when fetching salon info
+  if (loading && (tenantId || tenantSlug)) {
+    return <LoadingSpinner />;
+  }
+
   // If tenant_id is provided and salon info loaded, show salon landing page
   if (tenantId && salonInfo) {
+    return <SalonLandingPage salonInfo={salonInfo} />;
+  }
+
+  // If tenantSlug is provided and salon info loaded, show salon landing page
+  if (tenantSlug && salonInfo) {
     return <SalonLandingPage salonInfo={salonInfo} />;
   }
 

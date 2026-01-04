@@ -77,7 +77,7 @@ curl http://localhost:3000/api/tenants
 
 Or in the browser:
 
-```
+```bash
 http://localhost:3000/api/tenants
 ```
 
