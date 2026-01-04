@@ -1,4 +1,5 @@
 /* Yara Space & Hair Spa - Exact copy of yaraspace.cz design */
+/* Brandbook Colors: Warm beige/cream (#fcf2eb) and warm brown (#be845f) */
 
 .salon-yaraspace {
   font-family: 'Roboto', sans-serif;
@@ -6,6 +7,14 @@
   background: #fff;
   overflow-x: hidden;
   line-height: 1.6;
+}
+
+/* Brandbook Color Variables */
+:root {
+  --yaraspace-cream: #fcf2eb;
+  --yaraspace-brown: #be845f;
+  --yaraspace-light-beige: #ede1dc;
+  --yaraspace-dark: #333;
 }
 
 .container {
@@ -60,7 +69,7 @@
 }
 
 .btn-booking {
-  background: #000;
+  background: var(--yaraspace-brown, #be845f);
   color: #fff !important;
   padding: 10px 20px;
   border-radius: 4px;
@@ -69,7 +78,7 @@
 }
 
 .btn-booking:hover {
-  background: #333;
+  background: #a6734f;
   color: #fff !important;
 }
 
@@ -94,6 +103,7 @@
   align-items: center;
   padding: 80px 0 60px;
   overflow: hidden;
+  background: var(--yaraspace-cream, #fcf2eb);
 }
 
 .hero-background {
@@ -151,18 +161,18 @@
   font-size: 3rem;
   font-weight: 700;
   line-height: 1.1;
-  color: #000;
+  color: var(--yaraspace-brown, #be845f);
   margin-bottom: 10px;
 }
 
 .hero-subtitle-badge {
   display: inline-block;
   padding: 4px 12px;
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(190, 132, 95, 0.1);
   border-radius: 4px;
   font-size: 0.85rem;
   font-weight: 500;
-  color: #000;
+  color: var(--yaraspace-brown, #be845f);
   margin-top: 10px;
 }
 
@@ -176,7 +186,7 @@
 /* Newsletter Section */
 .newsletter-section {
   padding: 60px 0;
-  background: #f8f8f8;
+  background: var(--yaraspace-cream, #fcf2eb);
   text-align: center;
 }
 
@@ -188,7 +198,7 @@
 }
 
 .newsletter-btn {
-  background: #000;
+  background: var(--yaraspace-brown, #be845f);
   color: #fff;
   padding: 12px 30px;
   border: none;
@@ -200,7 +210,7 @@
 }
 
 .newsletter-btn:hover {
-  background: #333;
+  background: #a6734f;
 }
 
 /* Services Section */
@@ -297,7 +307,7 @@
 /* Testimonials Section */
 .testimonials-section {
   padding: 80px 0;
-  background: #f8f8f8;
+  background: var(--yaraspace-light-beige, #ede1dc);
 }
 
 .section-title {
