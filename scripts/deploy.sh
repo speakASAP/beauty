@@ -169,9 +169,9 @@ START_TIME=$(get_timestamp_seconds)
 # Create a wrapper to track phases from deployment script output
 # Use a named pipe or process substitution to track phases
 "$DEPLOY_SCRIPT" "$SERVICE_NAME" 2>&1 | {
-    local build_started=0
-    local start_containers_started=0
-    local health_check_started=0
+    build_started=0
+    start_containers_started=0
+    health_check_started=0
     
     while IFS= read -r line; do
         # Echo the line to stdout
