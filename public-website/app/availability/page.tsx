@@ -2,7 +2,6 @@
 
 import { useState, FormEvent } from 'react'
 import { getAvailability } from '@/lib/api'
-import './availability.css'
 
 export default function AvailabilityPage() {
   const [date, setDate] = useState('')

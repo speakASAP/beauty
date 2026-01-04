@@ -77,7 +77,7 @@ export const blogArticles: BlogArticle[] = [
     slug: 'manikura-gelovym-lakem-nejmodernejsi-techniky-a-bezpecny-selak',
     title: 'Manikúra gelovým lakem – nejmodernější techniky a bezpečný šelak',
     excerpt: 'S radostí oznamujeme, že Yara Space & Hair Spa v Kroměříži nyní nabízí novou službu - šelakovou manikúru. Shellac manikúra zůstává jednou z nejoblíbenějších kosmetických procedur, která nabízí dlouhotrvající a...',
-    image: 'https://yaraspace.cz/wp-content/uploads/2025/06/manikura-scaled.webp',
+    image: 'https://yaraspace.cz/wp-content/uploads/2025/03/manicure-849x1024.jpg',
     imageAlt: 'Manikúra gelovým lakem – nejmodernější techniky a bezpečný šelak',
     author: 'Yaroslava Vlasova'
   }

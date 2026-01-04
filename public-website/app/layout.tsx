@@ -20,12 +20,12 @@ export default function RootLayout({
   return (
     <html lang="cs">
       <body>
-        <nav className="main-nav salon-page-hidden">
-          <div className="container">
-            <a href="/" className="nav-logo">Beauty Franchise</a>
-            <div className="nav-links">
-              <a href="/#features">Funkce</a>
-              <a href="/#franchise-form">Kontakt</a>
+        <nav className="main-nav salon-page-hidden bg-base/95 backdrop-blur-sm border-b border-border-light sticky top-0 z-[100] shadow-sm py-5">
+          <div className="container flex justify-between items-center">
+            <a href="/" className="text-2xl font-bold font-heading text-dark">Beauty Franchise</a>
+            <div className="flex gap-8">
+              <a href="/#features" className="text-soft font-medium hover:text-accent transition-colors">Funkce</a>
+              <a href="/#franchise-form" className="text-soft font-medium hover:text-accent transition-colors">Kontakt</a>
             </div>
           </div>
         </nav>

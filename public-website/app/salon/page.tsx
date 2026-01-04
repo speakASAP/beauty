@@ -3,7 +3,6 @@
 import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import '../globals.css'
-import './salon.css'
 import Salon1Design from '../components/Salon1Design'
 import Salon2Design from '../components/Salon2Design'
 import Salon3Design from '../components/Salon3Design'
@@ -79,19 +78,19 @@ function SalonPageContent() {
 
   if (loading) {
     return (
-      <div className="salon-loading">
-        <div className="loading-spinner"></div>
-        <p>Loading salon information...</p>
+      <div className="text-center py-20">
+        <div className="inline-block w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin mb-4"></div>
+        <p className="text-soft">Loading salon information...</p>
       </div>
     )
   }
 
   if (error || !tenantInfo) {
     return (
-      <div className="salon-error">
-        <h1>Salon Not Found</h1>
-        <p>{error || 'The requested salon could not be found.'}</p>
-        <a href="/">Return to homepage</a>
+      <div className="text-center py-20 px-5">
+        <h1 className="mb-4">Salon Not Found</h1>
+        <p className="text-soft mb-6">{error || 'The requested salon could not be found.'}</p>
+        <a href="/" className="btn btn-primary">Return to homepage</a>
       </div>
     )
   }
@@ -132,9 +131,9 @@ function SalonPageContent() {
 export default function SalonPage() {
   return (
     <Suspense fallback={
-      <div className="salon-loading">
-        <div className="loading-spinner"></div>
-        <p>Loading salon information...</p>
+      <div className="text-center py-20">
+        <div className="inline-block w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin mb-4"></div>
+        <p className="text-soft">Loading salon information...</p>
       </div>
     }>
       <SalonPageContent />

@@ -3,7 +3,6 @@
 import { useState, FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import { createBooking, getAvailability } from '@/lib/api'
-import './book.css'
 
 export default function BookPage() {
   const router = useRouter()

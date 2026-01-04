@@ -4,7 +4,6 @@ import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import '../../globals.css'
-import '../../yaraspace/yaraspace.css'
 import { blogArticles } from '../../components/yaraSpaceBlogData'
 
 // Force dynamic rendering since we need tenant_id from search params

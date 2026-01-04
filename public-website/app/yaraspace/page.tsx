@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import '../globals.css'
-import './yaraspace.css'
 
 export default function YaraSpace() {
   return (
@@ -139,7 +138,7 @@ export default function YaraSpace() {
               <div className="testimonial-avatar"></div>
               <p className="testimonial-text">Nejednou jsem využila služby "Yara Spase & Hair Spa Vlasový Welness" a jsem velmi spokojená!!! Kvalita produktů a úroveň provedení práce je vždy na vysoké úrovni!!! Kadeřnice vždy chápe potřeby a přání zákazníka, je v dobré náladě a má pozitivní přístup ke každému klientovi. Vždy poradí, podpoří a udělá vše co nejlépe.Široký výběr procedur pro péči o vlasy, regenerace poškozených vlasů, používají se pouze přírodní složky.Salon je snadno dostupný, nachází se v prvním patře, je přístupný i pro kočárky, což usnadňuje návštěvu maminkám s malými dětmi. Vřele doporučuji!</p>
               <p className="testimonial-author">Tatiana Kravčuk</p>
-              <a href="#" className="testimonial-read-more">Читать далее</a>
+              <a href="#" className="testimonial-read-more">Přečíst více</a>
             </div>
             <div className="testimonial-card">
               <div className="testimonial-avatar"></div>
@@ -150,13 +149,13 @@ export default function YaraSpace() {
               <div className="testimonial-avatar"></div>
               <p className="testimonial-text">Dnes jsem byla v tomto salonu, kadeřnice byla velmi příjemná 🥰. Všechno se mi moc líbilo 😍, výsledek je skvělý 👍. Pokud chcete krásnou barvu vlasů, střih nebo péči, doporučuji 🤗!</p>
               <p className="testimonial-author">Sofie</p>
-              <a href="#" className="testimonial-read-more">Читать далее</a>
+              <a href="#" className="testimonial-read-more">Přečíst více</a>
             </div>
             <div className="testimonial-card">
               <div className="testimonial-avatar"></div>
               <p className="testimonial-text">Chci zanechat recenzi na tento úžasný kadeřnický salon a zejména na kadeřnici! Práce byla provedena na nejvyšší úrovni – velmi pečlivě, kvalitně a s důrazem na detaily. Je vidět, že tato osoba miluje svou profesi a vkládá do své práce srdce. Výsledek předčil všechna očekávání!Také bych chtěla vyzdvihnout dostupné ceny, které dělají návštěvu této kadeřnice ještě příjemnější. Pokud hledáte profesionála, kterému můžete svěřit svůj účes, vřele doporučuji! Určitě budete spokojeni!</p>
               <p className="testimonial-author">Marina Vološko</p>
-              <a href="#" className="testimonial-read-more">Читать далее</a>
+              <a href="#" className="testimonial-read-more">Přečíst více</a>
             </div>
             <div className="testimonial-card">
               <div className="testimonial-avatar"></div>
@@ -172,13 +171,13 @@ export default function YaraSpace() {
               <div className="testimonial-avatar"></div>
               <p className="testimonial-text">Mír a lásku všem! Nechali jsme ostříhat naše dva syny, 9 a 19 let. Kadeřnice Jaroslava odvedla skvělou práci a proměnila sny chlapců ve skutečnost. Děkujeme vám za váš profesionalismus!!! Příště určitě znovu využijeme vašich služeb!</p>
               <p className="testimonial-author">Alexandr Andrievskij</p>
-              <a href="#" className="testimonial-read-more">Читать далее</a>
+              <a href="#" className="testimonial-read-more">Přečíst více</a>
             </div>
             <div className="testimonial-card">
               <div className="testimonial-avatar"></div>
               <p className="testimonial-text">Nabarvila jsem si své dlouhé vlasy s šedinami barvou Filip Martin. Příjemně mě překvapila barva a lesk. Vlasy se vyživily oleji, zhoustly a změkly. Objem copu se znatelně zvětšil. Navíc při růstu kořínků není přechod viditelný (vybrali jsme odstín barvy podle mého přirozeného tónu vlasů). Celkově jsem velmi spokojená a chci to zopakovat. Vlasy vypadají zdravě a upraveně, a kadeřnice Jaroslava byla pozorná a snažila se dosáhnout co nejlepšího výsledku. Všem doporučuji tento nový kadeřnický salon!</p>
               <p className="testimonial-author">Zel</p>
-              <a href="#" className="testimonial-read-more">Читать далее</a>
+              <a href="#" className="testimonial-read-more">Přečíst více</a>
             </div>
           </div>
         </div>

@@ -1,0 +1,82 @@
+---
+name: tailwind
+description: This is a new rule
+---
+
+# Overview
+
+RULES FOR CURSOR AI:
+
+1. You MUST fully remove all existing CSS, SCSS, styled-components, inline styles, or any legacy styling.
+2. You MUST convert ALL styling to Tailwind CSS.
+3. You MUST use ONLY the colors, fonts, and sizes defined below. NO EXCEPTIONS.
+4. You MUST create or update tailwind.config.js with:
+   - Custom colors
+   - Custom font families
+   - Custom font sizes
+5. You MUST create base typography and global styles in @layer base.
+6. You MUST import Google Fonts once globally:
+   - Manrope (400, 600, 700)
+   - Inter (400, 600, 700)
+   - Use font-display: swap
+7. Headings (h1–h3) MUST use Manrope. Body text MUST use Inter.
+8. Font weights:
+   - Headings: 600–700
+   - Body text: 400–500
+   - Never use thin/light for body text.
+9. Color palette:
+   - bg-light: #faf8f5
+   - bg-base: #ffffff
+   - text-dark: #1a1a1a
+   - text-soft: #3a3a3a
+   - accent: #dbb89c
+   - border-light: #e4dfda
+10. Typography scale:
+    Desktop:
+      - H1: 56px, line-height 1.1, font-weight 700
+      - H2: 40px, line-height 1.2, font-weight 600
+      - H3: 32px, line-height 1.25, font-weight 600
+      - Body: 20px, line-height 1.6
+      - Buttons/CTA: 18px, font-weight 600
+    Mobile:
+      - H1: 36px
+      - H2: 28px
+      - Body: 18px (min)
+      - Buttons: 16–18px
+11. Letter-spacing:
+    - Headings: -0.02em
+    - Uppercase labels only: +0.05em
+12. Buttons:
+    - Padding: min 14px vertical
+    - Border-radius: 8–12px
+    - Dark background default, accent hover
+13. Sections:
+    - Light background
+    - Bottom border using border-light
+14. Layout:
+    - Max width: 1300px
+    - Container width: 90%
+    - Section vertical padding: 80px desktop, 48px mobile
+15. Responsiveness:
+    - All typography must scale correctly
+    - Mobile body text >= 18px
+16. Utilities:
+    - Use Tailwind utility classes for all elements
+    - Use @layer components only if necessary
+17. Final output:
+    - Refactored tailwind.config.js
+    - Base global CSS
+    - Updated components with Tailwind classes
+    - No legacy CSS
+18. Validation:
+    - Ensure readability, premium look, modern beauty style
+    - No horizontal scrolling on mobile
+    - All headings and body follow font rules exactly
+
+IF ANY EXISTING STYLES CONFLICT:
+
+- Refactor them completely
+- Do not merge legacy CSS with Tailwind
+
+TASK:
+Replace all current styles in the project with Tailwind CSS according to the rules above.
