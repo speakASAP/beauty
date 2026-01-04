@@ -94,3 +94,24 @@ export async function getBookingByToken(token: string) {
   return response.data;
 }
 
+// Get tenant information by tenant_id (public endpoint)
+export async function getTenantInfo(tenantId: string) {
+  const API_GATEWAY_URL = process.env.API_GATEWAY_URL || process.env.NEXT_PUBLIC_API_GATEWAY_URL || 'http://localhost:4100';
+  
+  const client = axios.create({
+    baseURL: API_GATEWAY_URL,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  try {
+    const response = await client.get(`/public/tenant/${tenantId}`);
+    return response.data.data;
+  } catch (error: any) {
+    if (error.response?.status === 404) {
+      return null;
+    }
+    throw error;
+  }
+}

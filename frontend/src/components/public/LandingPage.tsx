@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useMemo } from 'react';
+import { useSearchParams, useNavigate, useParams } from 'react-router-dom';
 import {
   Box,
   Container,
@@ -12,9 +12,7 @@ import {
   Grid,
   Paper,
   Avatar,
-  Chip,
   Stack,
-  Divider,
 } from '@mui/material';
 import {
   Spa,
@@ -53,6 +51,7 @@ interface SalonInfo {
  * - Navigate to booking after tenant selection
  */
 export function LandingPage() {
+  const { tenantSlug } = useParams<{ tenantSlug?: string }>();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const tenantId = searchParams.get('tenant_id');
@@ -62,17 +61,55 @@ export function LandingPage() {
   const [salonInfo, setSalonInfo] = useState<SalonInfo | null>(null);
   const [loading, setLoading] = useState(false);
 
-  // If tenant_id is in URL, try to load salon info
+  // Load salon info by slug (from URL path) or tenant_id (from query param for backward compatibility)
   useEffect(() => {
-    if (tenantId) {
+    if (tenantSlug) {
+      loadSalonInfoBySlug(tenantSlug);
+    } else if (tenantId) {
       loadSalonInfo(tenantId);
     }
-  }, [tenantId]);
+  }, [tenantSlug, tenantId]);
+
+  const loadSalonInfoBySlug = async (slug: string) => {
+    setLoading(true);
+    try {
+      // Try to fetch from API first
+      const apiSalonInfo = await publicApi.getSalonInfoBySlug(slug);
+      if (apiSalonInfo) {
+        setSalonInfo(apiSalonInfo);
+        return;
+      }
+
+      // For MVP, use mock data based on slug
+      // TODO: Replace with actual API call when tenant info endpoint is ready
+      const mockSalonInfo: SalonInfo = getMockSalonInfoBySlug(slug);
+      if (mockSalonInfo) {
+        setSalonInfo(mockSalonInfo);
+        if (mockSalonInfo.id) {
+          localStorage.setItem('public_tenant_id', mockSalonInfo.id);
+        }
+      } else {
+        setError(`Salon with URL "${slug}" not found`);
+      }
+    } catch (err) {
+      console.error('Failed to load salon info by slug:', err);
+      setError('Failed to load salon information');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const loadSalonInfo = async (id: string) => {
     setLoading(true);
     try {
-      // For MVP, we'll use mock data or fetch from API when available
+      // Try to fetch from API first
+      const apiSalonInfo = await publicApi.getSalonInfo(id);
+      if (apiSalonInfo) {
+        setSalonInfo(apiSalonInfo);
+        return;
+      }
+
+      // For MVP, use mock data
       // TODO: Replace with actual API call when tenant info endpoint is ready
       const mockSalonInfo: SalonInfo = {
         id,
@@ -82,14 +119,85 @@ export function LandingPage() {
         email: 'office@yaraspace.cz',
         businessHours: 'Po–Pá: 09:00–19:00, So: 10:00–16:00',
         description: 'Yara Space & Hair Spa – to je vaše dobrá nálada, sebevědomí a ten pocit, že jste to vy, jen ještě krásnější. Odvážné mikádo, nová energie, dokonalé svatební fotografie. První rande, na kterém se citíte jako královna. Účes, který vám opravdu sluší!',
+        theme_config: {
+          primaryColor: '#d4a574',
+          secondaryColor: '#f5c6cb',
+        },
       };
       setSalonInfo(mockSalonInfo);
       localStorage.setItem('public_tenant_id', id);
     } catch (err) {
       console.error('Failed to load salon info:', err);
+      setError('Failed to load salon information');
     } finally {
       setLoading(false);
     }
+  };
+
+  // Helper function to get mock salon info by slug (for MVP)
+  const getMockSalonInfoBySlug = (slug: string): SalonInfo | null => {
+    // Map known slugs to mock data
+    const mockSalons: Record<string, SalonInfo> = {
+      'yaraspace': {
+        id: 'af8ad504-0077-4da0-b3c0-7b903f15d944',
+        url_slug: 'yaraspace',
+        name: 'Yara Space & Hair Spa',
+        address: 'Križná 169/8, Kroměříž',
+        phone: '+420 776 886 466',
+        email: 'office@yaraspace.cz',
+        businessHours: 'Po–Pá: 09:00–19:00, So: 10:00–16:00',
+        description: 'Yara Space & Hair Spa – to je vaše dobrá nálada, sebevědomí a ten pocit, že jste to vy, jen ještě krásnější. Odvážné mikádo, nová energie, dokonalé svatební fotografie. První rande, na kterém se citíte jako královna. Účes, který vám opravdu sluší!',
+        theme_config: {
+          primaryColor: '#d4a574',
+          secondaryColor: '#f5c6cb',
+        },
+      },
+      'salon-1': {
+        id: 'af8ad504-0077-4da0-b3c0-7b903f15d944',
+        url_slug: 'salon-1',
+        name: 'Salon #1',
+        address: 'Križná 169/8, Kroměříž',
+        phone: '+420 776 886 466',
+        email: 'office@yaraspace.cz',
+        businessHours: 'Po–Pá: 09:00–19:00, So: 10:00–16:00',
+        description: 'Profesionální kadeřnický salon s moderním přístupem ke kráse.',
+        theme_config: {
+          primaryColor: '#d4a574',
+          secondaryColor: '#f5c6cb',
+        },
+      },
+    };
+
+    return mockSalons[slug] || null;
+  };
+
+  // Apply custom theme from tenant config
+  const customTheme = useMemo(() => {
+    if (!salonInfo?.theme_config) return null;
+
+    const config = salonInfo.theme_config;
+    return {
+      primary: {
+        main: config.primaryColor || '#d4a574',
+        light: config.secondaryColor || '#e8b4b8',
+        dark: config.primaryColor ? adjustBrightness(config.primaryColor, -20) : '#c8966a',
+      },
+      secondary: {
+        main: config.secondaryColor || '#f5c6cb',
+        light: config.secondaryColor ? adjustBrightness(config.secondaryColor, 20) : '#f8d7da',
+        dark: config.secondaryColor ? adjustBrightness(config.secondaryColor, -20) : '#e8b4b8',
+      },
+    };
+  }, [salonInfo?.theme_config]);
+
+  // Helper to adjust color brightness
+  const adjustBrightness = (hex: string, percent: number): string => {
+    const num = parseInt(hex.replace('#', ''), 16);
+    const amt = Math.round(2.55 * percent);
+    const R = Math.min(255, Math.max(0, (num >> 16) + amt));
+    const G = Math.min(255, Math.max(0, ((num >> 8) & 0x00FF) + amt));
+    const B = Math.min(255, Math.max(0, (num & 0x0000FF) + amt));
+    return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
   };
 
   const handleStartBooking = () => {

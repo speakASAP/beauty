@@ -1,212 +1,16 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import './globals.css'
-import { getTenantId, getTenantInfo } from '../lib/api'
+import '../globals.css'
+import './yaraspace.css'
 
-interface TenantInfo {
-  id: string;
-  name: string;
-  address?: string;
-  phone?: string;
-  email?: string;
-  state: string;
-  design: string;
-}
-
-export default function Home() {
-  const searchParams = useSearchParams()
-  const [tenantInfo, setTenantInfo] = useState<TenantInfo | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    async function loadTenant() {
-      try {
-        const tenantId = getTenantId()
-        
-        if (!tenantId) {
-          setError('Tenant ID is required. Please add ?tenant_id=... to the URL.')
-          setLoading(false)
-          return
-        }
-
-        const tenant = await getTenantInfo(tenantId)
-        if (!tenant) {
-          setError('Tenant not found or not active.')
-          setLoading(false)
-          return
-        }
-
-        setTenantInfo(tenant)
-        setLoading(false)
-      } catch (err: any) {
-        setError(err.message || 'Failed to load tenant information.')
-        setLoading(false)
-      }
-    }
-
-    loadTenant()
-  }, [searchParams])
-
-  // Load tenant-specific CSS based on design
-  useEffect(() => {
-    if (!tenantInfo?.design) return
-
-    // Remove any existing tenant CSS
-    const existingLink = document.getElementById('tenant-css')
-    if (existingLink) {
-      existingLink.remove()
-    }
-
-    // Load tenant-specific CSS
-    const link = document.createElement('link')
-    link.id = 'tenant-css'
-    link.rel = 'stylesheet'
-    link.href = `/${tenantInfo.design}/${tenantInfo.design}.css`
-    document.head.appendChild(link)
-
-    // Also add a class to body for tenant-specific styling
-    document.body.className = `tenant-${tenantInfo.design}`
-
-    return () => {
-      const linkToRemove = document.getElementById('tenant-css')
-      if (linkToRemove) {
-        linkToRemove.remove()
-      }
-    }
-  }, [tenantInfo?.design])
-
-  if (loading) {
-    return (
-      <div style={{ padding: '40px', textAlign: 'center' }}>
-        <p>Loading...</p>
-      </div>
-    )
-  }
-
-  if (error) {
-    return (
-      <div style={{ padding: '40px', textAlign: 'center' }}>
-        <h1>Error</h1>
-        <p>{error}</p>
-        <p style={{ marginTop: '20px', fontSize: '0.9rem', color: '#666' }}>
-          Example URL: <code>?tenant_id=af8ad504-0077-4da0-b3c0-7b903f15d944</code>
-        </p>
-      </div>
-    )
-  }
-
-  if (!tenantInfo) {
-    return (
-      <div style={{ padding: '40px', textAlign: 'center' }}>
-        <h1>Tenant Not Found</h1>
-        <p>The requested tenant could not be found or is not active.</p>
-      </div>
-    )
-  }
-
-  // Render tenant-specific page based on design
-  // For now, we'll use dynamic import based on design
-  // Each design should have its own component in the app directory
-  const TenantPage = getTenantPageComponent(tenantInfo.design)
-
-  return <TenantPage tenantInfo={tenantInfo} />
-}
-
-// Get the appropriate page component based on design
-function getTenantPageComponent(design: string) {
-  // Dynamic import based on design
-  // Each design has its own directory with page.tsx
-  switch (design) {
-    case 'salon1':
-      return Salon1Page
-    case 'salon2':
-      return Salon2Page
-    case 'salon3':
-      return Salon3Page
-    case 'yaraspace':
-      return YaraSpacePage
-    default:
-      return DefaultPage
-  }
-}
-
-// Default page component
-function DefaultPage({ tenantInfo }: { tenantInfo: TenantInfo }) {
-  return (
-    <div>
-      <header className="header">
-        <div className="container">
-          <h1>{tenantInfo.name}</h1>
-        </div>
-      </header>
-
-      <main className="main">
-        <div className="container">
-          <h2>Welcome to {tenantInfo.name}</h2>
-          <p>Book your appointment online easily and quickly.</p>
-
-          {tenantInfo.phone && (
-            <p>Phone: <a href={`tel:${tenantInfo.phone}`}>{tenantInfo.phone}</a></p>
-          )}
-          {tenantInfo.email && (
-            <p>Email: <a href={`mailto:${tenantInfo.email}`}>{tenantInfo.email}</a></p>
-          )}
-          {tenantInfo.address && (
-            <p>Address: {tenantInfo.address}</p>
-          )}
-
-          <div style={{ marginTop: '40px' }}>
-            <Link href={`/book?tenant_id=${tenantInfo.id}`} className="button">
-              Book Appointment
-            </Link>
-          </div>
-
-          <div style={{ marginTop: '40px' }}>
-            <Link href={`/availability?tenant_id=${tenantInfo.id}`}>
-              Check Availability
-            </Link>
-          </div>
-        </div>
-      </main>
-
-      <footer className="footer">
-        <div className="container">
-          <p>&copy; 2024 {tenantInfo.name}. All rights reserved.</p>
-        </div>
-      </footer>
-    </div>
-  )
-}
-
-// Import tenant-specific pages
-function Salon1Page({ tenantInfo }: { tenantInfo: TenantInfo }) {
-  // This will be handled by the CSS and the actual salon1 page component
-  // For now, redirect to the salon1 route or render inline
-  return <DefaultPage tenantInfo={tenantInfo} />
-}
-
-function Salon2Page({ tenantInfo }: { tenantInfo: TenantInfo }) {
-  return <DefaultPage tenantInfo={tenantInfo} />
-}
-
-function Salon3Page({ tenantInfo }: { tenantInfo: TenantInfo }) {
-  return <DefaultPage tenantInfo={tenantInfo} />
-}
-
-function YaraSpacePage({ tenantInfo }: { tenantInfo: TenantInfo }) {
-  // Import and render the yaraspace page
-  // For Next.js, we need to use dynamic import or create a separate route
-  // For now, we'll render the yaraspace content inline
+export default function YaraSpace() {
   return (
     <div className="salon-landing salon-yaraspace">
       {/* Navigation */}
       <nav className="salon-nav">
         <div className="container">
-          <a href={`/?tenant_id=${tenantInfo.id}`} className="nav-logo">{tenantInfo.name}</a>
+          <a href="/yaraspace" className="nav-logo">Yara Space & Hair Spa</a>
           <div className="nav-links">
             <a href="#about">O nás</a>
             <a href="#blog">Blog</a>
@@ -214,20 +18,18 @@ function YaraSpacePage({ tenantInfo }: { tenantInfo: TenantInfo }) {
             <a href="#pricing">Ceník</a>
             <a href="#testimonials">Zkušenosti</a>
             <a href="#contact">Kontakty</a>
-            <a href={`/book?tenant_id=${tenantInfo.id}`} className="btn-booking">Vytvořit rezervaci</a>
+            <a href="#booking" className="btn-booking">Vytvořit rezervaci</a>
           </div>
-          {tenantInfo.phone && (
-            <div className="nav-contact">
-              <a href={`tel:${tenantInfo.phone}`} className="nav-phone">{tenantInfo.phone}</a>
-            </div>
-          )}
+          <div className="nav-contact">
+            <a href="tel:+420776886466" className="nav-phone">+420 776 886 466</a>
+          </div>
         </div>
       </nav>
 
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-background">
-          <img src="https://yaraspace.cz/wp-content/uploads/2025/05/yaraspace_intro.webp" alt={tenantInfo.name} className="hero-image" />
+          <img src="https://yaraspace.cz/wp-content/uploads/2025/05/yaraspace_intro.webp" alt="Yara Space & Hair Spa" className="hero-image" />
         </div>
         <div className="container">
           <div className="hero-content">
@@ -412,7 +214,7 @@ function YaraSpacePage({ tenantInfo }: { tenantInfo: TenantInfo }) {
         <div className="container">
           <div className="footer-content">
             <div className="footer-logo">
-              <img src="https://yaraspace.cz/wp-content/uploads/2025/05/yaraspace_logo.webp" alt={tenantInfo.name} />
+              <img src="https://yaraspace.cz/wp-content/uploads/2025/05/yaraspace_logo.webp" alt="Yara Space & Hair Spa Logo" />
             </div>
             <div className="footer-social">
               <a href="https://www.instagram.com/yaraspace_hairspa" target="_blank" rel="noopener noreferrer">
@@ -421,7 +223,7 @@ function YaraSpacePage({ tenantInfo }: { tenantInfo: TenantInfo }) {
               <a href="https://www.facebook.com/people/Yara-Space-Hair-Spa/61566509807038/" target="_blank" rel="noopener noreferrer">
                 <img src="/facebook-icon.svg" alt="Facebook" />
               </a>
-              <a href={`http://wa.me/${tenantInfo.phone?.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer">
+              <a href="http://wa.me/420776886466" target="_blank" rel="noopener noreferrer">
                 <img src="/whatsapp-icon.svg" alt="WhatsApp" />
               </a>
             </div>
@@ -434,7 +236,7 @@ function YaraSpacePage({ tenantInfo }: { tenantInfo: TenantInfo }) {
               <a href="#contact">Kontakty</a>
             </nav>
             <div className="footer-bottom">
-              <p>{tenantInfo.name} © 2026</p>
+              <p>Yara Space & Hair Spa © 2026</p>
               <p>Všechna práva vyhrazena</p>
               <p>Vývoj a podpora - <a href="https://twox.pro/" target="_blank" rel="noopener noreferrer">TwoX</a></p>
               <a href="/privacy/">Zásady ochrany osobních údajů</a>

@@ -13,12 +13,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: smooth;
 }
 
 body {
-  color: #2d3748;
-  background: #fef7f0;
+  color: #333;
+  background: #fff;
 }
 
 a {

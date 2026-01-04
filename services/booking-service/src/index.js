@@ -268,6 +268,75 @@ app.get('/public/services', publicRateLimiter, publicTenantMiddleware, releaseDb
   }
 });
 
+// GET /public/tenant/:id - Get tenant information (public, no auth)
+// API Contract: GET /public/tenant/:id
+app.get('/public/tenant/:id', publicRateLimiter, async (req, res) => {
+  try {
+    const { logger } = req;
+    const { id } = req.params;
+
+    // Validate UUID format
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    if (!uuidRegex.test(id)) {
+      return res.status(400).json({
+        error: 'Invalid tenant ID format. Must be a valid UUID.',
+        code: 'INVALID_TENANT_ID'
+      });
+    }
+
+    // Query tenant from database (no tenant context needed - public endpoint)
+    const result = await db.query(`
+      SELECT 
+        id,
+        name,
+        address,
+        phone,
+        email,
+        state,
+        design,
+        created_at,
+        updated_at
+      FROM platform.tenants
+      WHERE id = $1 AND state = 'ACTIVE'
+    `, [id]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        error: 'Tenant not found or not active',
+        code: 'TENANT_NOT_FOUND'
+      });
+    }
+
+    const tenant = result.rows[0];
+
+    await logger.info('Public tenant info requested', { tenant_id: id });
+
+    res.json({
+      data: {
+        id: tenant.id,
+        name: tenant.name,
+        address: tenant.address,
+        phone: tenant.phone,
+        email: tenant.email,
+        state: tenant.state,
+        design: tenant.design,
+        created_at: tenant.created_at.toISOString(),
+        updated_at: tenant.updated_at.toISOString()
+      }
+    });
+  } catch (error) {
+    await logger.error('Error getting public tenant info', {
+      error: error.message,
+      stack: error.stack,
+      tenant_id: req.params.id
+    });
+    res.status(500).json({
+      error: 'Internal server error',
+      message: error.message
+    });
+  }
+});
+
 // GET /public/availability - Check availability (public, no auth)
 // API Contract: GET /public/availability?master_id&date
 app.get('/public/availability', publicRateLimiter, publicTenantMiddleware, releaseDbClient, async (req, res) => {

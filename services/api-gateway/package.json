@@ -17,6 +17,7 @@
     "cors": "^2.8.5",
     "express-rate-limit": "^7.1.5",
     "express-slow-down": "^2.0.1",
+    "pg": "^8.11.3",
     "@beauty/logger": "file:../../packages/logger"
   },
   "devDependencies": {

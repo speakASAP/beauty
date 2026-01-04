@@ -10,6 +10,7 @@ import rateLimit from 'express-rate-limit';
 import slowDown from 'express-slow-down';
 import jwt from 'jsonwebtoken';
 import { randomUUID } from 'crypto';
+import { Pool } from 'pg';
 import { createLogger } from '@beauty/logger';
 
 const app = express();
@@ -17,6 +18,11 @@ app.use(express.json());
 
 // Logger
 const logger = createLogger(process.env.SERVICE_NAME || 'api-gateway');
+
+// Database connection (for public tenant info endpoint)
+const db = process.env.DATABASE_URL ? new Pool({
+  connectionString: process.env.DATABASE_URL
+}) : null;
 
 // CORS configuration
 const corsOptions = {
@@ -45,6 +51,97 @@ app.get('/health', async (req, res) => {
     timestamp: new Date().toISOString(),
     service: 'api-gateway'
   });
+});
+
+// ============================================================================
+// PUBLIC TENANT INFO ENDPOINT (No Authentication Required)
+// ============================================================================
+
+/**
+ * GET /public/tenants/:tenant_id
+ * Get tenant information by tenant_id (public, no auth required)
+ * Used by public website to load tenant-specific landing pages
+ */
+app.get('/public/tenants/:tenant_id', async (req, res) => {
+  try {
+    const { tenant_id } = req.params;
+
+    // Validate UUID format
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    if (!uuidRegex.test(tenant_id)) {
+      return res.status(400).json({
+        error: 'Invalid tenant ID format',
+        code: 'INVALID_TENANT_ID',
+        status: 400,
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    if (!db) {
+      return res.status(503).json({
+        error: 'Database not configured',
+        code: 'DATABASE_NOT_AVAILABLE',
+        status: 503,
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    // Query tenant from database (no tenant context needed - public read)
+    const result = await db.query(`
+      SELECT 
+        id,
+        name,
+        address,
+        phone,
+        email,
+        state,
+        design_theme,
+        created_at,
+        updated_at
+      FROM platform.tenants
+      WHERE id = $1 AND state = 'ACTIVE'
+    `, [tenant_id]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        error: 'Tenant not found or not active',
+        code: 'TENANT_NOT_FOUND',
+        status: 404,
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    const tenant = result.rows[0];
+
+    // Return tenant info (public data only)
+    res.json({
+      data: {
+        id: tenant.id,
+        name: tenant.name,
+        address: tenant.address,
+        phone: tenant.phone,
+        email: tenant.email,
+        state: tenant.state,
+        design_theme: tenant.design_theme || 'salon1',
+        created_at: tenant.created_at.toISOString(),
+        updated_at: tenant.updated_at.toISOString()
+      },
+      status: 200,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    await logger.error('Error fetching tenant info', {
+      error: error.message,
+      tenant_id: req.params.tenant_id,
+      correlation_id: req.id
+    });
+    res.status(500).json({
+      error: 'Internal server error',
+      code: 'INTERNAL_ERROR',
+      status: 500,
+      timestamp: new Date().toISOString()
+    });
+  }
 });
 
 // ============================================================================

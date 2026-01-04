@@ -112,24 +112,31 @@ export interface PublicBooking {
 export interface SalonInfo {
   id: string;
   name: string;
+  url_slug?: string;
   address?: string;
   phone?: string;
   email?: string;
   description?: string;
+  businessHours?: string;
   state?: string;
+  theme_config?: {
+    primaryColor?: string;
+    secondaryColor?: string;
+    backgroundImage?: string;
+    logo?: string;
+    fontFamily?: string;
+    [key: string]: unknown;
+  };
 }
 
 export const publicApi = {
   /**
-   * Get salon/tenant information (public, no auth)
-   * Note: For MVP, this might need a public endpoint or tenant_id from URL
+   * Get salon/tenant information by ID (public, no auth)
    */
   getSalonInfo: async (tenantId: string): Promise<SalonInfo | null> => {
     // Store tenant_id for subsequent requests
     localStorage.setItem('public_tenant_id', tenantId);
     
-    // For MVP, this is a placeholder - actual implementation depends on platform service
-    // This would fetch from /public/tenants/:id or similar endpoint
     try {
       // TODO: Replace with actual API call when tenant info endpoint is ready
       // const response = await publicApiClient.get<ApiResponse<SalonInfo>>(
@@ -141,6 +148,29 @@ export const publicApi = {
       return null;
     } catch (error) {
       console.error('Failed to fetch salon info:', error);
+      return null;
+    }
+  },
+
+  /**
+   * Get salon/tenant information by URL slug (public, no auth)
+   */
+  getSalonInfoBySlug: async (slug: string): Promise<SalonInfo | null> => {
+    try {
+      // TODO: Replace with actual API call when tenant info endpoint is ready
+      // const response = await publicApiClient.get<ApiResponse<SalonInfo>>(
+      //   `/public/tenants/slug/${slug}`
+      // );
+      // const salonInfo = response.data.data;
+      // if (salonInfo) {
+      //   localStorage.setItem('public_tenant_id', salonInfo.id);
+      // }
+      // return salonInfo;
+      
+      // For now, return null to use mock data in component
+      return null;
+    } catch (error) {
+      console.error('Failed to fetch salon info by slug:', error);
       return null;
     }
   },

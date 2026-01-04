@@ -103,6 +103,15 @@ export function AppRoutes() {
                   </Suspense>
                 }
               />
+              {/* Tenant-specific routes by URL slug (e.g., /yaraspace, /salon-1) */}
+              <Route
+                path="/:tenantSlug"
+                element={
+                  <Suspense fallback={<PageLoader />}>
+                    <LandingPage />
+                  </Suspense>
+                }
+              />
               <Route
                 path="/booking"
                 element={

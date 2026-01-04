@@ -1,22 +1,24 @@
 services:
-  # Frontend (Blue Environment) - Simplified for fast deployment
-  frontend:
+  # Public Website (Blue Environment) - Next.js franchise landing page
+  public-website:
     build:
-      context: ./frontend
+      context: ./public-website
       dockerfile: Dockerfile
-      args:
-        VITE_API_URL: ${API_GATEWAY_URL:-http://localhost:4100}
-    container_name: beauty-frontend-blue
+    container_name: beauty-public-website-blue
+    environment:
+      NODE_ENV: production
+      BOOKING_API_URL: ${BOOKING_API_URL:-http://booking-service:4110}
+      NEXT_PUBLIC_TENANT_ID: ${NEXT_PUBLIC_TENANT_ID:-}
     ports:
-      - "${FRONTEND_PORT:-4102}:4173"
+      - "${PUBLIC_WEBSITE_PORT:-4102}:3000"
     networks:
       - nginx-network
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:4173/"]
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:3000/"]
       interval: 10s
       timeout: 5s
       retries: 5
-      start_period: 20s
+      start_period: 30s
 
 networks:
   nginx-network:
