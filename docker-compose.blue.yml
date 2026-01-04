@@ -9,6 +9,9 @@ services:
       NODE_ENV: production
       BOOKING_API_URL: ${BOOKING_API_URL:-http://booking-service:4110}
       NEXT_PUBLIC_TENANT_ID: ${NEXT_PUBLIC_TENANT_ID:-}
+      DATABASE_URL: ${DATABASE_URL}
+      POSTGRES_URL: ${DATABASE_URL}
+      DATABASE_SSL: ${DATABASE_SSL:-false}
     ports:
       - "${PUBLIC_WEBSITE_PORT:-4102}:3000"
     networks:
