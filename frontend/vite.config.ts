@@ -20,6 +20,15 @@ export default defineConfig({
       },
     },
   },
+  preview: {
+    host: '0.0.0.0',
+    port: 4173,
+    allowedHosts: [
+      'beauty.alfares.cz',
+      'www.beauty.alfares.cz',
+      'localhost',
+    ],
+  },
   build: {
     rollupOptions: {
       output: {

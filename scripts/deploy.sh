@@ -128,6 +128,14 @@ end_phase() {
 }
 
 print_phase_summary() {
+    # Check if file exists and has content
+    if [ ! -f "$PHASE_TIMING_FILE" ] || [ ! -s "$PHASE_TIMING_FILE" ]; then
+        echo ""
+        echo -e "${YELLOW}⚠️  No phase timing data available${NC}"
+        echo ""
+        return
+    fi
+    
     echo ""
     echo -e "${BLUE}════════════════════════════════════════════════════════════${NC}"
     echo -e "${BLUE}📊 DEPLOYMENT PHASE TIMING SUMMARY${NC}"
@@ -142,7 +150,7 @@ print_phase_summary() {
         if [ "$event" = "START" ]; then
             current_phase="$phase_name"
             start_time="$timestamp"
-        elif [ "$event" = "END" ] && [ -n "$start_time" ]; then
+        elif [ "$event" = "END" ] && [ -n "$start_time" ] && [ -n "$current_phase" ]; then
             # Use awk for calculation (more portable than bc)
             local duration=$(awk "BEGIN {printf \"%.2f\", $timestamp - $start_time}")
             total_phase_time=$(awk "BEGIN {printf \"%.2f\", $total_phase_time + $duration}")
@@ -152,8 +160,10 @@ print_phase_summary() {
         fi
     done < "$PHASE_TIMING_FILE"
     
-    echo -e "${BLUE}────────────────────────────────────────────────────────────${NC}"
-    printf "  ${GREEN}%-45s${NC} ${YELLOW}%10.2fs${NC}\n" "Total (all phases):" "$total_phase_time"
+    if [ "$(echo "$total_phase_time > 0" | bc 2>/dev/null || echo "0")" = "1" ]; then
+        echo -e "${BLUE}────────────────────────────────────────────────────────────${NC}"
+        printf "  ${GREEN}%-45s${NC} ${YELLOW}%10.2fs${NC}\n" "Total (all phases):" "$total_phase_time"
+    fi
     echo -e "${BLUE}════════════════════════════════════════════════════════════${NC}"
     echo ""
 }
@@ -239,9 +249,11 @@ DEPLOY_EXIT_CODE=$?
 END_TIME=$(get_timestamp_seconds)
 TOTAL_DURATION=$(awk "BEGIN {printf \"%.2f\", $END_TIME - $START_TIME}")
 
+# Ensure phase timing file is still accessible (don't remove it yet)
 if [ $DEPLOY_EXIT_CODE -eq 0 ]; then
     TOTAL_DURATION_FORMATTED=$(awk "BEGIN {printf \"%.2f\", $TOTAL_DURATION}")
-    print_phase_summary
+    # Print summary before final message
+    print_phase_summary 2>&1
     echo ""
     echo -e "${GREEN}╔════════════════════════════════════════════════════════════╗${NC}"
     echo -e "${GREEN}║     ✅ Deployment completed successfully!                 ║${NC}"
