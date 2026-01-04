@@ -7,6 +7,7 @@ import './salon.css'
 import Salon1Design from '../components/Salon1Design'
 import Salon2Design from '../components/Salon2Design'
 import Salon3Design from '../components/Salon3Design'
+import YaraSpaceDesign from '../components/YaraSpaceDesign'
 
 // Force dynamic rendering since we need tenant_id from search params
 export const dynamic = 'force-dynamic'
@@ -110,8 +111,10 @@ function SalonPageContent() {
       design: tenantInfo.design_theme,
     }
     
-    // Map various theme values to our 3 designs
-    if (theme === 'salon1' || theme === 'luna') {
+    // Map various theme values to our designs
+    if (theme === 'yaraspace') {
+      return <YaraSpaceDesign tenant={tenant} />
+    } else if (theme === 'salon1' || theme === 'luna') {
       return <Salon1Design tenant={tenant} />
     } else if (theme === 'salon2' || theme === 'aurora') {
       return <Salon2Design tenant={tenant} />
