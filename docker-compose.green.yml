@@ -1,10 +1,10 @@
 services:
   # Public Website (Green Environment) - Next.js franchise landing page
-  public-website:
+  frontend:
     build:
       context: ./public-website
       dockerfile: Dockerfile
-    container_name: beauty-public-website-green
+    container_name: beauty-frontend-green
     environment:
       NODE_ENV: production
       PORT: 4102
