@@ -20,5 +20,45 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          // Vendor chunks
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
+              return 'react-vendor';
+            }
+            if (id.includes('@mui') || id.includes('@emotion')) {
+              return 'mui-vendor';
+            }
+            if (id.includes('@tanstack')) {
+              return 'query-vendor';
+            }
+            // Other large vendor libraries
+            if (id.includes('axios') || id.includes('date-fns')) {
+              return 'utils-vendor';
+            }
+            // All other node_modules
+            return 'vendor';
+          }
+          // Feature-based chunks for our components
+          if (id.includes('/components/pos/')) {
+            return 'pos';
+          }
+          if (id.includes('/components/franchise/')) {
+            return 'franchise';
+          }
+          if (id.includes('/components/public/')) {
+            return 'public';
+          }
+          if (id.includes('/components/auth/')) {
+            return 'auth';
+          }
+        },
+      },
+    },
+    chunkSizeWarningLimit: 300,
+  },
 })
 

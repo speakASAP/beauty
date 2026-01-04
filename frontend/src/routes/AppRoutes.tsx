@@ -1,31 +1,42 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { CssBaseline, Box } from '@mui/material';
+import { CssBaseline, Box, CircularProgress } from '@mui/material';
 import { TenantProvider } from '../contexts/TenantContext';
 import { ProtectedRoute } from './ProtectedRoute';
 import { Navigation } from '../components/common/Navigation';
-import { Login } from '../components/auth/Login';
-import { TenantSelection } from '../components/auth/TenantSelection';
-import { Unauthorized } from '../components/common/Unauthorized';
-import { AppointmentCalendar } from '../components/pos/AppointmentCalendar';
-import { VisitManagement } from '../components/pos/VisitManagement';
-import { ShiftCloseDashboard } from '../components/pos/ShiftCloseDashboard';
-import { ClientRegistration } from '../components/pos/ClientRegistration';
-import { BookAppointmentForm } from '../components/pos/BookAppointmentForm';
-import { OrderDetails } from '../components/pos/OrderDetails';
-import { Checkout } from '../components/pos/Checkout';
-import { PaymentStatus } from '../components/pos/PaymentStatus';
-import { TenantOverview } from '../components/franchise/TenantOverview';
-import { KPIDashboard } from '../components/franchise/KPIDashboard';
-import { PricingControl } from '../components/franchise/PricingControl';
-import { CatalogGovernance } from '../components/franchise/CatalogGovernance';
-import { LandingPage } from '../components/public/LandingPage';
-import { ServiceCatalog } from '../components/public/ServiceCatalog';
-import { AvailabilityChecker } from '../components/public/AvailabilityChecker';
-import { BookingForm } from '../components/public/BookingForm';
-import { BookingConfirmation } from '../components/public/BookingConfirmation';
-import { BookingManagement } from '../components/public/BookingManagement';
+
+// Lazy load auth components
+const Login = lazy(() => import('../components/auth/Login').then(m => ({ default: m.Login })));
+const TenantSelection = lazy(() => import('../components/auth/TenantSelection').then(m => ({ default: m.TenantSelection })));
+
+// Lazy load common components
+const Unauthorized = lazy(() => import('../components/common/Unauthorized').then(m => ({ default: m.Unauthorized })));
+
+// Lazy load POS components
+const AppointmentCalendar = lazy(() => import('../components/pos/AppointmentCalendar').then(m => ({ default: m.AppointmentCalendar })));
+const VisitManagement = lazy(() => import('../components/pos/VisitManagement').then(m => ({ default: m.VisitManagement })));
+const ShiftCloseDashboard = lazy(() => import('../components/pos/ShiftCloseDashboard').then(m => ({ default: m.ShiftCloseDashboard })));
+const ClientRegistration = lazy(() => import('../components/pos/ClientRegistration').then(m => ({ default: m.ClientRegistration })));
+const BookAppointmentForm = lazy(() => import('../components/pos/BookAppointmentForm').then(m => ({ default: m.BookAppointmentForm })));
+const OrderDetails = lazy(() => import('../components/pos/OrderDetails').then(m => ({ default: m.OrderDetails })));
+const Checkout = lazy(() => import('../components/pos/Checkout').then(m => ({ default: m.Checkout })));
+const PaymentStatus = lazy(() => import('../components/pos/PaymentStatus').then(m => ({ default: m.PaymentStatus })));
+
+// Lazy load Franchise components
+const TenantOverview = lazy(() => import('../components/franchise/TenantOverview').then(m => ({ default: m.TenantOverview })));
+const KPIDashboard = lazy(() => import('../components/franchise/KPIDashboard').then(m => ({ default: m.KPIDashboard })));
+const PricingControl = lazy(() => import('../components/franchise/PricingControl').then(m => ({ default: m.PricingControl })));
+const CatalogGovernance = lazy(() => import('../components/franchise/CatalogGovernance').then(m => ({ default: m.CatalogGovernance })));
+
+// Lazy load Public components
+const LandingPage = lazy(() => import('../components/public/LandingPage').then(m => ({ default: m.LandingPage })));
+const ServiceCatalog = lazy(() => import('../components/public/ServiceCatalog').then(m => ({ default: m.ServiceCatalog })));
+const AvailabilityChecker = lazy(() => import('../components/public/AvailabilityChecker').then(m => ({ default: m.AvailabilityChecker })));
+const BookingForm = lazy(() => import('../components/public/BookingForm').then(m => ({ default: m.BookingForm })));
+const BookingConfirmation = lazy(() => import('../components/public/BookingConfirmation').then(m => ({ default: m.BookingConfirmation })));
+const BookingManagement = lazy(() => import('../components/public/BookingManagement').then(m => ({ default: m.BookingManagement })));
 
 // Create React Query client
 const queryClient = new QueryClient({
@@ -49,15 +60,23 @@ const theme = createTheme({
   },
 });
 
+// Loading fallback component
+const PageLoader = () => (
+  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '200px' }}>
+    <CircularProgress />
+  </Box>
+);
+
 /**
  * App Routes Component
  * 
- * Defines all application routes.
+ * Defines all application routes with code-splitting for optimal performance.
  * 
  * Rules:
  * - Protected routes require tenant context
  * - Role-based access control
  * - Tenant context explicit in routing
+ * - Components are lazy-loaded for better initial bundle size
  */
 export function AppRoutes() {
   return (
@@ -68,60 +87,84 @@ export function AppRoutes() {
           <BrowserRouter>
             <Routes>
               {/* Public Routes (No Authentication Required) */}
-              <Route path="/" element={<LandingPage />} />
+              <Route
+                path="/"
+                element={
+                  <Suspense fallback={<PageLoader />}>
+                    <LandingPage />
+                  </Suspense>
+                }
+              />
               <Route
                 path="/booking"
                 element={
-                  <Box>
-                    <Box sx={{ p: 3 }}>
-                      <ServiceCatalog />
+                  <Suspense fallback={<PageLoader />}>
+                    <Box>
+                      <Box sx={{ p: 3 }}>
+                        <ServiceCatalog />
+                      </Box>
                     </Box>
-                  </Box>
+                  </Suspense>
                 }
               />
               <Route
                 path="/booking/availability"
                 element={
-                  <Box>
-                    <Box sx={{ p: 3 }}>
-                      <AvailabilityChecker />
+                  <Suspense fallback={<PageLoader />}>
+                    <Box>
+                      <Box sx={{ p: 3 }}>
+                        <AvailabilityChecker />
+                      </Box>
                     </Box>
-                  </Box>
+                  </Suspense>
                 }
               />
               <Route
                 path="/booking/form"
                 element={
-                  <Box>
-                    <Box sx={{ p: 3 }}>
-                      <BookingForm />
+                  <Suspense fallback={<PageLoader />}>
+                    <Box>
+                      <Box sx={{ p: 3 }}>
+                        <BookingForm />
+                      </Box>
                     </Box>
-                  </Box>
+                  </Suspense>
                 }
               />
               <Route
                 path="/booking/confirm/:token"
                 element={
-                  <Box>
-                    <Box sx={{ p: 3 }}>
-                      <BookingConfirmation />
+                  <Suspense fallback={<PageLoader />}>
+                    <Box>
+                      <Box sx={{ p: 3 }}>
+                        <BookingConfirmation />
+                      </Box>
                     </Box>
-                  </Box>
+                  </Suspense>
                 }
               />
               <Route
                 path="/booking/manage/:token"
                 element={
-                  <Box>
-                    <Box sx={{ p: 3 }}>
-                      <BookingManagement />
+                  <Suspense fallback={<PageLoader />}>
+                    <Box>
+                      <Box sx={{ p: 3 }}>
+                        <BookingManagement />
+                      </Box>
                     </Box>
-                  </Box>
+                  </Suspense>
                 }
               />
 
               {/* Auth Routes */}
-              <Route path="/login" element={<Login />} />
+              <Route
+                path="/login"
+                element={
+                  <Suspense fallback={<PageLoader />}>
+                    <Login />
+                  </Suspense>
+                }
+              />
               <Route
                 path="/pos/dashboard"
                 element={
@@ -129,7 +172,9 @@ export function AppRoutes() {
                     <Box>
                       <Navigation />
                       <Box sx={{ p: 3 }}>
-                        <AppointmentCalendar />
+                        <Suspense fallback={<PageLoader />}>
+                          <AppointmentCalendar />
+                        </Suspense>
                       </Box>
                     </Box>
                   </ProtectedRoute>
@@ -142,7 +187,9 @@ export function AppRoutes() {
                     <Box>
                       <Navigation />
                       <Box sx={{ p: 3 }}>
-                        <BookAppointmentForm />
+                        <Suspense fallback={<PageLoader />}>
+                          <BookAppointmentForm />
+                        </Suspense>
                       </Box>
                     </Box>
                   </ProtectedRoute>
@@ -155,7 +202,9 @@ export function AppRoutes() {
                     <Box>
                       <Navigation />
                       <Box sx={{ p: 3 }}>
-                        <VisitManagement />
+                        <Suspense fallback={<PageLoader />}>
+                          <VisitManagement />
+                        </Suspense>
                       </Box>
                     </Box>
                   </ProtectedRoute>
@@ -168,7 +217,9 @@ export function AppRoutes() {
                     <Box>
                       <Navigation />
                       <Box sx={{ p: 3 }}>
-                        <ShiftCloseDashboard />
+                        <Suspense fallback={<PageLoader />}>
+                          <ShiftCloseDashboard />
+                        </Suspense>
                       </Box>
                     </Box>
                   </ProtectedRoute>
@@ -181,7 +232,9 @@ export function AppRoutes() {
                     <Box>
                       <Navigation />
                       <Box sx={{ p: 3 }}>
-                        <ClientRegistration />
+                        <Suspense fallback={<PageLoader />}>
+                          <ClientRegistration />
+                        </Suspense>
                       </Box>
                     </Box>
                   </ProtectedRoute>
@@ -194,7 +247,9 @@ export function AppRoutes() {
                     <Box>
                       <Navigation />
                       <Box sx={{ p: 3 }}>
-                        <OrderDetails />
+                        <Suspense fallback={<PageLoader />}>
+                          <OrderDetails />
+                        </Suspense>
                       </Box>
                     </Box>
                   </ProtectedRoute>
@@ -207,7 +262,9 @@ export function AppRoutes() {
                     <Box>
                       <Navigation />
                       <Box sx={{ p: 3 }}>
-                        <Checkout />
+                        <Suspense fallback={<PageLoader />}>
+                          <Checkout />
+                        </Suspense>
                       </Box>
                     </Box>
                   </ProtectedRoute>
@@ -220,7 +277,9 @@ export function AppRoutes() {
                     <Box>
                       <Navigation />
                       <Box sx={{ p: 3 }}>
-                        <PaymentStatus />
+                        <Suspense fallback={<PageLoader />}>
+                          <PaymentStatus />
+                        </Suspense>
                       </Box>
                     </Box>
                   </ProtectedRoute>
@@ -233,7 +292,9 @@ export function AppRoutes() {
                     <Box>
                       <Navigation />
                       <Box sx={{ p: 3 }}>
-                        <TenantOverview />
+                        <Suspense fallback={<PageLoader />}>
+                          <TenantOverview />
+                        </Suspense>
                       </Box>
                     </Box>
                   </ProtectedRoute>
@@ -246,7 +307,9 @@ export function AppRoutes() {
                     <Box>
                       <Navigation />
                       <Box sx={{ p: 3 }}>
-                        <KPIDashboard />
+                        <Suspense fallback={<PageLoader />}>
+                          <KPIDashboard />
+                        </Suspense>
                       </Box>
                     </Box>
                   </ProtectedRoute>
@@ -259,7 +322,9 @@ export function AppRoutes() {
                     <Box>
                       <Navigation />
                       <Box sx={{ p: 3 }}>
-                        <PricingControl />
+                        <Suspense fallback={<PageLoader />}>
+                          <PricingControl />
+                        </Suspense>
                       </Box>
                     </Box>
                   </ProtectedRoute>
@@ -272,7 +337,9 @@ export function AppRoutes() {
                     <Box>
                       <Navigation />
                       <Box sx={{ p: 3 }}>
-                        <CatalogGovernance />
+                        <Suspense fallback={<PageLoader />}>
+                          <CatalogGovernance />
+                        </Suspense>
                       </Box>
                     </Box>
                   </ProtectedRoute>
@@ -282,11 +349,20 @@ export function AppRoutes() {
                 path="/select-tenant"
                 element={
                   <ProtectedRoute>
-                    <TenantSelection />
+                    <Suspense fallback={<PageLoader />}>
+                      <TenantSelection />
+                    </Suspense>
                   </ProtectedRoute>
                 }
               />
-              <Route path="/unauthorized" element={<Unauthorized />} />
+              <Route
+                path="/unauthorized"
+                element={
+                  <Suspense fallback={<PageLoader />}>
+                    <Unauthorized />
+                  </Suspense>
+                }
+              />
               
               {/* Default route - redirect authenticated users to dashboard, others to landing */}
               <Route

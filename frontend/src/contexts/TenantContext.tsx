@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import type { TenantContext as TenantContextType, TenantId, UserId, Role } from '../types/domain';
+import { authApi } from '../api/auth';
 
 interface TenantContextValue extends TenantContextType {
   switchTenant: (tenantId: TenantId) => Promise<void>;
@@ -68,7 +69,6 @@ export function TenantProvider({ children }: TenantProviderProps) {
 
     try {
       // Get new JWT for new tenant from auth service
-      const { authApi } = await import('../api/auth');
       const response = await authApi.switchTenant(newTenantId);
 
       // Update JWT token
