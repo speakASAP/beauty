@@ -52,16 +52,9 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
           <div className="hero-content">
             <div className="hero-badge">KOSMETICKÝ SALON</div>
             <h1 className="hero-title">
-              Yara
-              <br />
-              <span className="hero-title-line2">Hair</span>
+              Yara Space & Hair Spa
             </h1>
             <div className="hero-subtitle-section">
-              <h2 className="hero-subtitle-title">
-                Space &
-                <br />
-                Spa
-              </h2>
               <div className="hero-subtitle-badge">Vlasový Wellness</div>
             </div>
             <p className="hero-description">
