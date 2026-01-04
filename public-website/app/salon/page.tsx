@@ -10,6 +10,7 @@ import Salon3Design from '../components/Salon3Design'
 
 // Force dynamic rendering since we need tenant_id from search params
 export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 interface TenantInfo {
   id: string
