@@ -92,7 +92,9 @@ get_timestamp_seconds() {
 }
 
 log_with_timestamp() {
-    echo "[$(get_timestamp)] $1" >&2
+    local message="[$(get_timestamp)] $1"
+    echo "$message" >&2
+    echo "$message"
 }
 
 # Phase timing tracking using temp file (works in subshells)
@@ -103,7 +105,9 @@ start_phase() {
     local phase_name="$1"
     local timestamp=$(get_timestamp_seconds)
     echo "$phase_name|START|$timestamp" >> "$PHASE_TIMING_FILE"
-    log_with_timestamp "⏱️  PHASE START: $phase_name"
+    local msg="⏱️  PHASE START: $phase_name"
+    echo -e "${YELLOW}$msg${NC}" >&2
+    echo -e "${YELLOW}$msg${NC}"
 }
 
 end_phase() {
@@ -117,19 +121,22 @@ end_phase() {
         local start_time=$(echo "$start_line" | cut -d'|' -f3)
         # Use awk for calculation (more portable than bc)
         local duration=$(awk "BEGIN {printf \"%.2f\", $timestamp - $start_time}")
-        log_with_timestamp "⏱️  PHASE END: $phase_name (duration: ${duration}s)"
+        local msg="⏱️  PHASE END: $phase_name (duration: ${duration}s)"
+        echo -e "${GREEN}$msg${NC}" >&2
+        echo -e "${GREEN}$msg${NC}"
     fi
 }
 
 print_phase_summary() {
     echo ""
-    echo "════════════════════════════════════════════════════════════" >&2
-    echo "📊 DEPLOYMENT PHASE TIMING SUMMARY" >&2
-    echo "════════════════════════════════════════════════════════════" >&2
+    echo -e "${BLUE}════════════════════════════════════════════════════════════${NC}"
+    echo -e "${BLUE}📊 DEPLOYMENT PHASE TIMING SUMMARY${NC}"
+    echo -e "${BLUE}════════════════════════════════════════════════════════════${NC}"
     
     # Process phase timings
     local current_phase=""
     local start_time=""
+    local total_phase_time=0
     
     while IFS='|' read -r phase_name event timestamp; do
         if [ "$event" = "START" ]; then
@@ -138,14 +145,17 @@ print_phase_summary() {
         elif [ "$event" = "END" ] && [ -n "$start_time" ]; then
             # Use awk for calculation (more portable than bc)
             local duration=$(awk "BEGIN {printf \"%.2f\", $timestamp - $start_time}")
-            printf "  %-45s %10.2fs\n" "$phase_name:" "$duration" >&2
+            total_phase_time=$(awk "BEGIN {printf \"%.2f\", $total_phase_time + $duration}")
+            printf "  ${GREEN}%-45s${NC} ${YELLOW}%10.2fs${NC}\n" "$phase_name:" "$duration"
             current_phase=""
             start_time=""
         fi
     done < "$PHASE_TIMING_FILE"
     
-    echo "════════════════════════════════════════════════════════════" >&2
-    echo "" >&2
+    echo -e "${BLUE}────────────────────────────────────────────────────────────${NC}"
+    printf "  ${GREEN}%-45s${NC} ${YELLOW}%10.2fs${NC}\n" "Total (all phases):" "$total_phase_time"
+    echo -e "${BLUE}════════════════════════════════════════════════════════════${NC}"
+    echo ""
 }
 
 # Change to nginx-microservice directory and run deployment
@@ -231,11 +241,11 @@ TOTAL_DURATION=$(awk "BEGIN {printf \"%.2f\", $END_TIME - $START_TIME}")
 
 if [ $DEPLOY_EXIT_CODE -eq 0 ]; then
     TOTAL_DURATION_FORMATTED=$(awk "BEGIN {printf \"%.2f\", $TOTAL_DURATION}")
-    log_with_timestamp "✅ Deployment script completed successfully in ${TOTAL_DURATION_FORMATTED}s"
     print_phase_summary
     echo ""
     echo -e "${GREEN}╔════════════════════════════════════════════════════════════╗${NC}"
     echo -e "${GREEN}║     ✅ Deployment completed successfully!                 ║${NC}"
+    echo -e "${GREEN}║     Total deployment time: ${TOTAL_DURATION_FORMATTED}s              ║${NC}"
     echo -e "${GREEN}╚════════════════════════════════════════════════════════════╝${NC}"
     echo ""
     echo "The beauty application has been deployed using blue/green deployment."
@@ -245,7 +255,11 @@ if [ $DEPLOY_EXIT_CODE -eq 0 ]; then
     exit 0
 else
     TOTAL_DURATION_FORMATTED=$(awk "BEGIN {printf \"%.2f\", $TOTAL_DURATION}")
-    log_with_timestamp "❌ Deployment script failed after ${TOTAL_DURATION_FORMATTED}s"
+    echo ""
+    echo -e "${RED}════════════════════════════════════════════════════════════${NC}"
+    echo -e "${RED}❌ Deployment failed!${NC}"
+    echo -e "${RED}   Failed after: ${TOTAL_DURATION_FORMATTED}s${NC}"
+    echo -e "${RED}════════════════════════════════════════════════════════════${NC}"
     print_phase_summary
     echo ""
     echo -e "${RED}╔════════════════════════════════════════════════════════════╗${NC}"
