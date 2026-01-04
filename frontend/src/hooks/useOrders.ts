@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { posApi } from '../api/pos';
 import { useTenantContext } from '../contexts/TenantContext';
-import type { Order, CreateOrderRequest } from '../types/api';
+import type { CreateOrderRequest } from '../types/api';
 
 /**
  * Hook for fetching orders
@@ -27,7 +27,7 @@ export function useCreateOrder() {
   return useMutation({
     mutationFn: (data: CreateOrderRequest) => posApi.createOrder(data),
     onSuccess: () => {
-      queryClient.invalidateQueries(['orders', tenantId]);
+      queryClient.invalidateQueries({ queryKey: ['orders', tenantId] });
     },
   });
 }
@@ -42,7 +42,7 @@ export function useCloseOrder() {
   return useMutation({
     mutationFn: (id: string) => posApi.closeOrder(id),
     onSuccess: () => {
-      queryClient.invalidateQueries(['orders', tenantId]);
+      queryClient.invalidateQueries({ queryKey: ['orders', tenantId] });
     },
   });
 }

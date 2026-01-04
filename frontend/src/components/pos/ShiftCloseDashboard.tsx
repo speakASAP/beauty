@@ -18,7 +18,6 @@ import { useOrders } from '../../hooks/useOrders';
 import { usePayments } from '../../hooks/usePayments';
 import { useDailySales } from '../../hooks/useAnalytics';
 import { LoadingSpinner } from '../common/LoadingSpinner';
-import { ErrorAlert } from '../common/ErrorAlert';
 import { format } from 'date-fns';
 
 /**

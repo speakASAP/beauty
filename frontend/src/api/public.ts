@@ -130,7 +130,7 @@ export const publicApi = {
    */
   checkAvailability: async (
     tenantId: string,
-    params: {
+    _params: {
       service_id: string;
       master_id?: string;
       date: string;

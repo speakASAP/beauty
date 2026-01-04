@@ -26,11 +26,11 @@ import type { Appointment } from '../../types/api';
  * - No business logic (just renders data)
  */
 export function AppointmentCalendar() {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate] = useState(new Date());
   const { data: appointments, isLoading, error } = useAppointments({
     date: format(selectedDate, 'yyyy-MM-dd'),
   });
-  const bookAppointment = useBookAppointment();
+  useBookAppointment(); // Placeholder for future booking functionality
 
   if (isLoading) {
     return <LoadingSpinner />;

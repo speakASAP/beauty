@@ -4,7 +4,6 @@ import {
   Paper,
   Typography,
   Chip,
-  CircularProgress,
   Alert,
   Button,
 } from '@mui/material';

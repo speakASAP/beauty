@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { bookingApi } from '../api/booking';
 import { useTenantContext } from '../contexts/TenantContext';
-import type { Appointment, BookAppointmentRequest } from '../types/api';
+import type { BookAppointmentRequest } from '../types/api';
 
 /**
  * Hook for fetching appointments
@@ -34,7 +34,7 @@ export function useBookAppointment() {
     mutationFn: (data: BookAppointmentRequest) => bookingApi.bookAppointment(data),
     onSuccess: () => {
       // Invalidate appointments query to refetch (event will update backend)
-      queryClient.invalidateQueries(['appointments', tenantId]);
+      queryClient.invalidateQueries({ queryKey: ['appointments', tenantId] });
     },
   });
 }
@@ -50,7 +50,7 @@ export function useConfirmAppointment() {
     mutationFn: ({ id, confirmation_method }: { id: string; confirmation_method?: string }) =>
       bookingApi.confirmAppointment(id, confirmation_method),
     onSuccess: () => {
-      queryClient.invalidateQueries(['appointments', tenantId]);
+      queryClient.invalidateQueries({ queryKey: ['appointments', tenantId] });
     },
   });
 }
@@ -65,7 +65,7 @@ export function useStartAppointment() {
   return useMutation({
     mutationFn: (id: string) => bookingApi.startAppointment(id),
     onSuccess: () => {
-      queryClient.invalidateQueries(['appointments', tenantId]);
+      queryClient.invalidateQueries({ queryKey: ['appointments', tenantId] });
     },
   });
 }
@@ -80,7 +80,7 @@ export function useCompleteAppointment() {
   return useMutation({
     mutationFn: (id: string) => bookingApi.completeAppointment(id),
     onSuccess: () => {
-      queryClient.invalidateQueries(['appointments', tenantId]);
+      queryClient.invalidateQueries({ queryKey: ['appointments', tenantId] });
     },
   });
 }
@@ -96,7 +96,7 @@ export function useCancelAppointment() {
     mutationFn: ({ id, reason }: { id: string; reason?: string }) =>
       bookingApi.cancelAppointment(id, reason),
     onSuccess: () => {
-      queryClient.invalidateQueries(['appointments', tenantId]);
+      queryClient.invalidateQueries({ queryKey: ['appointments', tenantId] });
     },
   });
 }

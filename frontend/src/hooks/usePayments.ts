@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { paymentsApi } from '../api/payments';
 import { useTenantContext } from '../contexts/TenantContext';
-import type { Payment, InitiatePaymentRequest } from '../types/api';
+import type { InitiatePaymentRequest } from '../types/api';
 
 /**
  * Hook for fetching payments
@@ -41,8 +41,8 @@ export function useInitiatePayment() {
   return useMutation({
     mutationFn: (data: InitiatePaymentRequest) => paymentsApi.initiatePayment(data),
     onSuccess: (payment) => {
-      queryClient.invalidateQueries(['payments', tenantId]);
-      queryClient.invalidateQueries(['payment', tenantId, payment.id]);
+      queryClient.invalidateQueries({ queryKey: ['payments', tenantId] });
+      queryClient.invalidateQueries({ queryKey: ['payment', tenantId, payment.id] });
     },
   });
 }

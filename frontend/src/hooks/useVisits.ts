@@ -1,7 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { posApi } from '../api/pos';
 import { useTenantContext } from '../contexts/TenantContext';
-import type { Visit } from '../types/api';
 
 /**
  * Hook for fetching visits
@@ -28,7 +27,7 @@ export function useStartVisit() {
     mutationFn: (data: { appointment_id?: string; client_id: string; master_id: string }) =>
       posApi.startVisit(data),
     onSuccess: () => {
-      queryClient.invalidateQueries(['visits', tenantId]);
+      queryClient.invalidateQueries({ queryKey: ['visits', tenantId] });
     },
   });
 }
@@ -43,7 +42,7 @@ export function useCloseVisit() {
   return useMutation({
     mutationFn: (id: string) => posApi.closeVisit(id),
     onSuccess: () => {
-      queryClient.invalidateQueries(['visits', tenantId]);
+      queryClient.invalidateQueries({ queryKey: ['visits', tenantId] });
     },
   });
 }

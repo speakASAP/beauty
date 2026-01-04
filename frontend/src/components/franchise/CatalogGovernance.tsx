@@ -43,8 +43,8 @@ interface CatalogItem {
 
 export function CatalogGovernance() {
   const [tabValue, setTabValue] = useState(0);
-  const [services, setServices] = useState<CatalogItem[]>([]);
-  const [products, setProducts] = useState<CatalogItem[]>([]);
+  const [services] = useState<CatalogItem[]>([]);
+  const [products] = useState<CatalogItem[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: '',

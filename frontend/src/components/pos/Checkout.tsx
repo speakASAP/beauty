@@ -28,8 +28,9 @@ import type { Order } from '../../types/api';
  */
 export function Checkout({ orderId: orderIdProp }: { orderId?: string }) {
   const { orderId: orderIdParam } = useParams<{ orderId: string }>();
+  const navigate = useNavigate();
   const orderId = orderIdProp || orderIdParam || '';
-  const { data: orders } = useOrders();
+  const { data: orders, isLoading } = useOrders();
   const order = orders?.find((o: Order) => o.id === orderId);
   const closeOrder = useCloseOrder();
   const initiatePayment = useInitiatePayment();

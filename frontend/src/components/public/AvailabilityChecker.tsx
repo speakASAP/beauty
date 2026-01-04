@@ -5,14 +5,13 @@ import {
   Grid,
   Card,
   CardContent,
-  Button,
   TextField,
   MenuItem,
   Alert,
   Chip,
 } from '@mui/material';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { format, addDays, startOfDay } from 'date-fns';
+import { format } from 'date-fns';
 import { publicApi } from '../../api/public';
 import type { AvailabilitySlot } from '../../api/public';
 import { LoadingSpinner } from '../common/LoadingSpinner';

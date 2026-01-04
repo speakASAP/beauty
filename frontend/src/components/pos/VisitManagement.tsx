@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   Box,
   Paper,
@@ -30,7 +29,7 @@ import type { Visit } from '../../types/api';
  */
 export function VisitManagement() {
   const { data: visits, isLoading, error } = useVisits({ status: 'open' });
-  const startVisit = useStartVisit();
+  useStartVisit(); // Placeholder for future functionality
   const closeVisit = useCloseVisit();
 
   const handleStartVisit = () => {

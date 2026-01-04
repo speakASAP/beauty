@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import type { TenantContext as TenantContextType, TenantId, UserId, Role } from '../types/domain';
 import { authApi } from '../api/auth';

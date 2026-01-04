@@ -7,7 +7,6 @@ import {
   Card,
   CardContent,
   TextField,
-  MenuItem,
   Table,
   TableBody,
   TableCell,
@@ -19,7 +18,6 @@ import { useDailySales } from '../../hooks/useAnalytics';
 import { useMasterUtilization } from '../../hooks/useAnalytics';
 import { useClientLTV } from '../../hooks/useAnalytics';
 import { LoadingSpinner } from '../common/LoadingSpinner';
-import { ErrorAlert } from '../common/ErrorAlert';
 import { format, subDays } from 'date-fns';
 
 /**

@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { analyticsApi } from '../api/analytics';
 import { useTenantContext } from '../contexts/TenantContext';
-import type { DailySales, MasterUtilization, ClientLTV } from '../types/api';
 
 /**
  * Hook for fetching daily sales

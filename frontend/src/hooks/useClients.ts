@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { customerApi } from '../api/customer';
 import { useTenantContext } from '../contexts/TenantContext';
-import type { Client, RegisterClientRequest } from '../types/api';
+import type { RegisterClientRequest } from '../types/api';
 
 /**
  * Hook for fetching clients
@@ -39,7 +39,7 @@ export function useRegisterClient() {
   return useMutation({
     mutationFn: (data: RegisterClientRequest) => customerApi.registerClient(data),
     onSuccess: () => {
-      queryClient.invalidateQueries(['clients', tenantId]);
+      queryClient.invalidateQueries({ queryKey: ['clients', tenantId] });
     },
   });
 }

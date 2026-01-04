@@ -10,7 +10,6 @@ import {
   Container,
   CircularProgress,
   Alert,
-  Chip,
 } from '@mui/material';
 import { useTenantContext } from '../../contexts/TenantContext';
 import { useNavigate } from 'react-router-dom';

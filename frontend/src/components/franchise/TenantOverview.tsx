@@ -43,7 +43,7 @@ interface Tenant {
 export function TenantOverview() {
   const [searchTerm, setSearchTerm] = useState('');
   // In real implementation, would fetch from API
-  const [tenants, setTenants] = useState<Tenant[]>([]);
+  const [tenants] = useState<Tenant[]>([]);
   const isLoading = false;
   const error = null;
 

@@ -38,7 +38,7 @@ interface Service {
 }
 
 export function PricingControl() {
-  const [services, setServices] = useState<Service[]>([]);
+  const [services] = useState<Service[]>([]);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [price, setPrice] = useState(0);
