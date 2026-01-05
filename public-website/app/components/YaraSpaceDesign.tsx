@@ -70,7 +70,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
         </div>
         <div className="container relative z-10">
           <div className="max-w-4xl ml-auto mr-[10%]">
-            <div className="relative rounded-2xl p-8 md:p-12 border border-[#be845f] shadow-2xl" style={{ backgroundColor: 'rgba(219, 184, 156, 0.3)' }}>
+            <div className="relative rounded-2xl p-8 md:p-12 border border-[#dbb89c] shadow-2xl" style={{ backgroundColor: 'rgba(219, 184, 156, 0.7)' }}>
               <div className="text-white text-center md:text-left">
                 <div className="inline-block px-4 py-2 mb-8 bg-accent/60 rounded-full text-white font-semibold text-sm tracking-wider uppercase font-poppins">
                   {t('hero.badge')}
