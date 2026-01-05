@@ -1023,12 +1023,11 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2605.1234567890123!2d17.394814!3d49.297924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4713e5c5c5c5c5c5%3A0x5c5c5c5c5c5c5c5c!2sKrižn%C3%A1%20169%2F8%2C%20Krom%C4%9B%C5%99%C3%AD%C5%BE!5e0!3m2!1scs!2scz!4v1234567890123!5m2!1scs!2scz"
               width="100%"
               height="400"
-              className="border-0"
+              className="border-0 w-full"
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               title="Yara Space & Hair Spa Location"
-              className="w-full"
             />
           </div>
         </div>

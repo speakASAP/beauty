@@ -1,8 +1,46 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap");
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+:root {
+  /* Colors */
+  --color-light: #faf8f5;
+  --color-base: #ffffff;
+  --color-soft: #3a3a3a;
+  --color-dark: #1a1a1a;
+  --color-accent: #dbb89c;
+  --color-border-light: #e4dfda;
+
+  /* Font Families */
+  --font-family-heading: 'Manrope', sans-serif;
+  --font-family-body: 'Inter', sans-serif;
+  --font-family-poppins: 'Poppins', sans-serif;
+
+  /* Font Sizes - Desktop */
+  --font-size-h1-desktop: 56px;
+  --font-size-h2-desktop: 40px;
+  --font-size-h3-desktop: 32px;
+  --font-size-body-desktop: 20px;
+  --font-size-button-desktop: 18px;
+
+  /* Font Sizes - Mobile */
+  --font-size-h1-mobile: 36px;
+  --font-size-h2-mobile: 28px;
+  --font-size-h3-mobile: 28px;
+  --font-size-body-mobile: 18px;
+  --font-size-button-mobile: 18px;
+
+  /* Spacing */
+  --spacing-section-desktop: 80px;
+  --spacing-section-mobile: 48px;
+
+  /* Border Radius */
+  --radius-button: 8px;
+  --radius-button-lg: 12px;
+
+  /* Max Width */
+  --max-width-content: 1300px;
+}
 
 @layer base {
   * {
@@ -20,7 +58,8 @@
   }
 
   body {
-    @apply text-dark bg-light;
+    color: var(--color-dark);
+    background-color: var(--color-light);
   }
 
   h1, h2, h3 {
@@ -28,19 +67,35 @@
   }
 
   h1 {
-    @apply text-h1-mobile md:text-h1-desktop font-bold;
+    @apply font-bold;
+    font-size: var(--font-size-h1-mobile);
+    @media (min-width: 768px) {
+      font-size: var(--font-size-h1-desktop);
+    }
   }
 
   h2 {
-    @apply text-h2-mobile md:text-h2-desktop font-semibold;
+    @apply font-semibold;
+    font-size: var(--font-size-h2-mobile);
+    @media (min-width: 768px) {
+      font-size: var(--font-size-h2-desktop);
+    }
   }
 
   h3 {
-    @apply text-h3-mobile md:text-h3-desktop font-semibold;
+    @apply font-semibold;
+    font-size: var(--font-size-h3-mobile);
+    @media (min-width: 768px) {
+      font-size: var(--font-size-h3-desktop);
+    }
   }
 
   p, span, div, a, li, label, input, textarea, select, button {
-    @apply text-body-mobile md:text-body-desktop font-body;
+    font-size: var(--font-size-body-mobile);
+    @media (min-width: 768px) {
+      font-size: var(--font-size-body-desktop);
+    }
+    font-family: var(--font-family-body);
   }
 
   a {
@@ -50,24 +105,53 @@
 
 @layer components {
   .container {
-    @apply max-w-content w-[90%] mx-auto px-5;
+    max-width: var(--max-width-content);
+    @apply w-[90%] mx-auto px-5;
   }
 
   .btn {
-    @apply inline-block px-6 py-[14px] min-h-[56px] rounded-button text-button-mobile md:text-button-desktop font-semibold transition-all duration-300 cursor-pointer;
-    @apply bg-dark text-base hover:bg-accent;
+    @apply inline-block px-6 py-[14px] min-h-[56px] font-semibold transition-all duration-300 cursor-pointer;
+    border-radius: var(--radius-button);
+    font-size: var(--font-size-button-mobile);
+    @media (min-width: 768px) {
+      font-size: var(--font-size-button-desktop);
+    }
+    background-color: var(--color-dark);
+    color: var(--color-base);
+  }
+
+  .btn:hover {
+    background-color: var(--color-accent);
   }
 
   .btn-primary {
-    @apply bg-dark text-base hover:bg-accent;
+    background-color: var(--color-dark);
+    color: var(--color-base);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-accent);
   }
 
   .btn-secondary {
-    @apply bg-base text-dark border-2 border-accent hover:bg-accent hover:text-base;
+    background-color: var(--color-base);
+    color: var(--color-dark);
+    border: 2px solid var(--color-accent);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--color-accent);
+    color: var(--color-base);
   }
 
   .section {
-    @apply py-section-mobile md:py-section-desktop border-b border-borderLight;
+    padding-top: var(--spacing-section-mobile);
+    padding-bottom: var(--spacing-section-mobile);
+    @media (min-width: 768px) {
+      padding-top: var(--spacing-section-desktop);
+      padding-bottom: var(--spacing-section-desktop);
+    }
+    border-bottom: 1px solid var(--color-border-light);
   }
 
   .btn-large {
@@ -75,18 +159,18 @@
   }
 
   .subheading {
-    @apply font-poppins;
+    font-family: var(--font-family-poppins);
   }
 
   .hero-text {
-    @apply font-poppins;
+    font-family: var(--font-family-poppins);
   }
 
   .hero-description {
-    @apply font-poppins;
+    font-family: var(--font-family-poppins);
   }
 
   .hero-badge {
-    @apply font-poppins;
+    font-family: var(--font-family-poppins);
   }
 }
