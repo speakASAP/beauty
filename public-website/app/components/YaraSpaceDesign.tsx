@@ -65,22 +65,22 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       <section className="relative min-h-[90vh] flex items-center justify-center py-section-mobile md:py-section-desktop overflow-hidden mt-20">
         <div className="absolute inset-0 z-0">
           <img src="https://yaraspace.cz/wp-content/uploads/2025/05/yaraspace_intro.webp" alt={salonName} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-dark/60"></div>
+          <div className="absolute inset-0 bg-light/80"></div>
         </div>
         <div className="container relative z-10">
           <div className="text-center max-w-4xl mx-auto">
-            <div className="relative bg-light/80 rounded-2xl p-8 md:p-12 border border-[#be845f]">
+            <div className="relative bg-dark/95 rounded-2xl p-8 md:p-12 border border-[#be845f] shadow-xl">
               <div className="text-white">
-                <div className="inline-block px-4 py-2 mb-8 bg-accent/40 rounded-full text-white font-semibold text-sm tracking-wider uppercase font-poppins">
+                <div className="inline-block px-4 py-2 mb-8 bg-accent/60 rounded-full text-white font-semibold text-sm tracking-wider uppercase font-poppins">
                   {t('hero.badge')}
                 </div>
-                <h1 className="mb-8 text-white drop-shadow-lg text-4xl md:text-6xl lg:text-7xl font-bold">
+                <h1 className="mb-8 text-white text-4xl md:text-6xl lg:text-7xl font-bold">
                   {t('hero.title')}
                 </h1>
                 <div className="mb-8">
-                  <div className="inline-block px-4 py-2 bg-accent/50 rounded-full text-white font-semibold text-sm md:text-base font-poppins">{t('hero.subtitle')}</div>
+                  <div className="inline-block px-4 py-2 bg-accent/70 rounded-full text-white font-semibold text-sm md:text-base font-poppins">{t('hero.subtitle')}</div>
                 </div>
-                <p className="text-white max-w-3xl mx-auto font-poppins drop-shadow-md text-lg md:text-xl leading-relaxed">
+                <p className="text-white max-w-3xl mx-auto font-poppins text-lg md:text-xl leading-relaxed">
                   {t('hero.description')}
                 </p>
               </div>
@@ -160,12 +160,12 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       <section className="py-16 md:py-20 bg-accent/10 border-b border-borderLight mt-16">
         <div className="container text-center">
           <h2 className="mb-6">{t('newsletter.title')}</h2>
-          <button className="btn btn-primary">{t('newsletter.button')}</button>
+          <button className="btn btn-primary mb-12">{t('newsletter.button')}</button>
         </div>
       </section>
 
       {/* Spacing between Newsletter and Services */}
-      <div className="h-16 md:h-24 bg-light"></div>
+      <div className="h-24 md:h-32 bg-light"></div>
 
       {/* Services Section */}
       <section id="services" className="pt-16 pb-16 md:pt-20 md:pb-20 bg-light border-b border-borderLight">
@@ -925,7 +925,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               <p className="font-semibold text-dark">Kate Prokopenko</p>
             </div>
           </div>
-          <div className="text-center mt-12">
+          <div className="text-center mt-12 mb-12">
             <button className="btn btn-secondary">{t('testimonials.loadMore')}</button>
           </div>
         </div>
@@ -1059,9 +1059,20 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       <footer className="bg-base border-t border-borderLight py-section-mobile md:py-section-desktop">
         <div className="container">
           <div className="space-y-8">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-              <div className="flex items-center">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-8">
+              <div className="flex items-center gap-4 md:gap-6">
                 <img src="https://yaraspace.cz/wp-content/uploads/2025/01/logo.svg" alt="Yara Space & Hair Spa Logo" className="h-12 w-auto" />
+                <nav className="flex flex-wrap items-center gap-4 md:gap-6 text-soft">
+                  <a href="/" className="hover:text-accent transition-colors">Beauty Franchise</a>
+                  <a href="/#features" className="hover:text-accent transition-colors">Funkce</a>
+                  <a href="/#franchise-form" className="hover:text-accent transition-colors">Kontakt</a>
+                  <a href="#about" className="hover:text-accent transition-colors">{t('nav.about')}</a>
+                  <Link href={`/salon/blog?tenant_id=${tenantId}`} className="hover:text-accent transition-colors">{t('nav.blog')}</Link>
+                  <a href="#services" className="hover:text-accent transition-colors">{t('nav.services')}</a>
+                  <a href="#pricing" className="hover:text-accent transition-colors">{t('nav.pricing')}</a>
+                  <a href="#testimonials" className="hover:text-accent transition-colors">{t('nav.testimonials')}</a>
+                  <a href="#contact" className="hover:text-accent transition-colors">{t('nav.contact')}</a>
+                </nav>
               </div>
               <div className="flex gap-6">
                 <a href="https://www.instagram.com/yaraspace_hairspa" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-accent hover:text-dark transition-colors">
@@ -1081,17 +1092,6 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
                 </a>
               </div>
             </div>
-            <nav className="flex flex-wrap justify-center gap-6 text-soft">
-              <a href="/" className="hover:text-accent transition-colors">Beauty Franchise</a>
-              <a href="/#features" className="hover:text-accent transition-colors">Funkce</a>
-              <a href="/#franchise-form" className="hover:text-accent transition-colors">Kontakt</a>
-              <a href="#about" className="hover:text-accent transition-colors">{t('nav.about')}</a>
-              <Link href={`/salon/blog?tenant_id=${tenantId}`} className="hover:text-accent transition-colors">{t('nav.blog')}</Link>
-              <a href="#services" className="hover:text-accent transition-colors">{t('nav.services')}</a>
-              <a href="#pricing" className="hover:text-accent transition-colors">{t('nav.pricing')}</a>
-              <a href="#testimonials" className="hover:text-accent transition-colors">{t('nav.testimonials')}</a>
-              <a href="#contact" className="hover:text-accent transition-colors">{t('nav.contact')}</a>
-            </nav>
             <div className="border-t border-borderLight pt-8 text-center space-y-2">
               <p className="text-soft font-poppins">Yara Space & Hair Spa © 2026</p>
               <p className="text-soft font-poppins">{t('footer.rights')}</p>
