@@ -1,0 +1,73 @@
+{
+  "nav": {
+    "about": "About Us",
+    "blog": "Blog",
+    "services": "Services",
+    "pricing": "Pricing",
+    "testimonials": "Testimonials",
+    "contact": "Contact",
+    "booking": "Make a Reservation"
+  },
+  "hero": {
+    "badge": "COSMETIC SALON",
+    "title": "Yara Space & Hair Spa",
+    "subtitle": "Hair Wellness",
+    "description": "Yara Space & Hair Spa – this is your good mood, self-confidence, and the feeling that it's you, just even more beautiful. Bold mikado, new energy, perfect wedding photos. The first date where you feel like a queen. A hairstyle that really suits you! Behind all this are people who love their work and do it with heart. I am a team of professionals who see beauty in everyone and know how to highlight it. Your beauty deserves to shine. We know how to do it."
+  },
+  "about": {
+    "title": "Yara Hair Space & Spa",
+    "description1": "Yara Space & Hair Spa is not just an ordinary beauty salon. It is a place where talented professionals meet, who do their work with love and care. True professionals never work according to a template. Our team creates with attention to detail and seeks individual solutions for each client according to hair structure, skin tone, and personal style.",
+    "description2": "Our philosophy is based on respect for your unique beauty and health. We use safe and effective products, modern techniques, and work only with certified professionals who know exactly how to achieve your dream result and bring a smile to your face. Every visit to Yara Space & Hair Spa is like a small vacation for the soul and a transformation that gives you new energy."
+  },
+  "founder": {
+    "badge": "Founder of Yara Space & Hair SPA Beauty Salon",
+    "name": "Ing. Yaroslava Vlasova",
+    "description1": "Yaroslava Vlasova (@yaroslava_vlasova) is a stylist, hairdresser, and makeup artist who stands behind the concept of Yara Space & Hair SPA salons and for whom working with each person's individuality is something more. Yaroslava is a person with a big heart, for whom the client's peace of mind comes first.",
+    "description2": "Yara Space & Hair SPA is a salon where professionalism, eco-friendly products, and an individual approach to each client come together. The entire team constantly improves by attending professional courses and learning new hair techniques, using new products, and new coloring techniques.",
+    "description3": "Our salon is not only beautiful, but we have also created a cozy and pleasant environment for you. We give special attention and an individual approach to each client with care and attention.",
+    "description4": "✨ Yara Space & Hair SPA is a place where harmony and beauty reign."
+  },
+  "employees": {
+    "title": "Key Employees",
+    "annaTitle": "Anna Bulatko - Top Stylist of Yara Space & Hair Spa",
+    "annaDescription1": "Anna Bulatko — Top Stylist of Yara Space & Hair SPA salon, for whom working with hair is an art and a way to emphasize each client's individuality. She is characterized by a subtle sense of style, attention to detail, and the ability to create harmonious images that emphasize natural beauty.",
+    "annaDescription2": "Anna constantly improves her skills, learns new cutting and coloring techniques, and also works with modern products so that clients always achieve premium-level results."
+  },
+  "newsletter": {
+    "title": "Follow news and promotional offers!",
+    "button": "Subscribe to newsletter"
+  },
+  "services": {
+    "title": "Services",
+    "description": "Whether you're looking for a fresh manicure, modern coloring, a wedding hairstyle, or just need to trim your ends, you can choose any service with us without worrying about quality and safety. We use gentle products, proven techniques, and our stylists constantly improve their skills so that the result is always exactly what you want."
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "Discover the latest trends in skincare, makeup, and hair coloring. We'll advise you on how to choose cosmetics that really suit you, and share news from our salon. Welcome to the Yara Space & Hair Spa blog, where you'll find inspiration, practical tips, and advice from our experts."
+  },
+  "pricing": {
+    "title": "Pricing",
+    "description": "Our transparent pricing policy and open price list will allow you to easily plan your budget for your favorite care and new beauty experiences. If you're considering multiple procedures or want to take advantage of our discounted packages, call us or write to us directly here on the website - we'll be happy to advise you."
+  },
+  "testimonials": {
+    "title": "Testimonials",
+    "description": "Every satisfied client is a small success for us, which means more to us than any award. Thank you for trusting us and allowing our work to highlight your natural beauty. Your feedback is our daily inspiration and driving force for why we do this.",
+    "button": "Leave a comment",
+    "loadMore": "Load more"
+  },
+  "whyChoose": {
+    "title": "Why choose us?"
+  },
+  "contact": {
+    "title": "Contact",
+    "email": "Email",
+    "phone": "Phone number",
+    "name": "Name",
+    "message": "Your message",
+    "send": "Send"
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "privacy": "Privacy Policy"
+  }
+}

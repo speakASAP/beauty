@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { LanguageProvider } from '../lib/contexts/LanguageContext'
 
 export const metadata: Metadata = {
   title: 'Beauty Franchise Platform - Vlastní Beauty Salon',
@@ -20,16 +21,18 @@ export default function RootLayout({
   return (
     <html lang="cs">
       <body>
-        <nav className="main-nav hidden bg-base/95 backdrop-blur-sm border-b border-borderLight sticky top-0 z-[100] shadow-sm py-5">
-          <div className="container flex justify-between items-center">
-            <a href="/" className="text-2xl font-bold font-heading text-dark">Beauty Franchise</a>
-            <div className="flex gap-8">
-              <a href="/#features" className="text-soft font-medium hover:text-accent transition-colors">Funkce</a>
-              <a href="/#franchise-form" className="text-soft font-medium hover:text-accent transition-colors">Kontakt</a>
+        <LanguageProvider>
+          <nav className="main-nav hidden bg-base/95 backdrop-blur-sm border-b border-borderLight sticky top-0 z-[100] shadow-sm py-5">
+            <div className="container flex justify-between items-center">
+              <a href="/" className="text-2xl font-bold font-heading text-dark">Beauty Franchise</a>
+              <div className="flex gap-8">
+                <a href="/#features" className="text-soft font-medium hover:text-accent transition-colors">Funkce</a>
+                <a href="/#franchise-form" className="text-soft font-medium hover:text-accent transition-colors">Kontakt</a>
+              </div>
             </div>
-          </div>
-        </nav>
-        {children}
+          </nav>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   )

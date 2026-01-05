@@ -1,0 +1,73 @@
+{
+  "nav": {
+    "about": "O nás",
+    "blog": "Blog",
+    "services": "Služby",
+    "pricing": "Ceník",
+    "testimonials": "Zkušenosti",
+    "contact": "Kontakty",
+    "booking": "Vytvořit rezervaci"
+  },
+  "hero": {
+    "badge": "KOSMETICKÝ SALON",
+    "title": "Yara Space & Hair Spa",
+    "subtitle": "Vlasový Wellness",
+    "description": "Yara Space & Hair Spa – to je vaše dobrá nálada, sebevědomí a ten pocit, že jste to vy, jen ještě krásnější. Odvážné mikádo, nová energie, dokonalé svatební fotografie. První rande, na kterém se citíte jako královna. Účes, který vám opravdu sluší! Za tím vším stojí lidé, kteří milují svou práci a dělají ji srdcem. Jsem tým profesionálů, který vidí krásu v každém a ví, jak ji zvýraznit. Vaše krása si zaslouží zazářit. My víme, jak na to."
+  },
+  "about": {
+    "title": "Yara Hair Space & Spa",
+    "description1": "Yara Space & Hair Spa není jen obyčejný salon krásy. Je to místo, kde se setkávají talentovaní odborníci, kteří svou práci dělají s láskou a péčí. Skuteční profesionálové nikdy nepracují podle šablony. Náš tým tvoří s citem pro detail a hledá individuální řešení pro každého klienta podle struktury vlasů, tónu pleti i osobního stylu.",
+    "description2": "Naše filozofie stojí na respektu k vaší jedinečné kráse a zdraví. Používáme bezpečné a účinné produkty, moderní techniky a spolupracujeme pouze s certifikovanými odborníky, kteří přesně vědí, jak dosáhnout vašeho vysněného výsledku a vykouzlit vám úsměv na tváři. Každá návštěva Yara Space & Hair Spa je jako malé prázdniny pro duši a proměna, která vám dodá novou energii."
+  },
+  "founder": {
+    "badge": "Zakladatelka salónu krásy Yara Space & Hair SPA",
+    "name": "Ing. Yaroslava Vlasová",
+    "description1": "Yaroslava Vlasova (@yaroslava_vlasova) je stylistka, kadeřnice a vizážistka, která stojí za konceptem salonů Yara Space & Hair SPA a pro kterou je práce s individualitou každého člověka něco víc. Yaroslava je člověk s velkým srdcem, pro kterého je klid klienta na prvním místě.",
+    "description2": "Yara Space & Hair SPA je salon, kde se snoubí profesionalita, ekologické produkty a individuální přístup ke každému klientovi. Celý tým se neustále zdokonaluje tím, že navštěvuje odborné kurzy a učí se nové vlasové techniky, používání nových produktů a nové techniky barvení.",
+    "description3": "Náš salon je nejen krásný, ale vytvořili jsme pro vás také útulné a příjemné prostředí. Každému klientovi věnujeme zvláštní pozornost a individuální přístup s péčí a pozorností.",
+    "description4": "✨ Yara Space & Hair SPA je místem, kde vládne harmonie a krása."
+  },
+  "employees": {
+    "title": "Klíčoví zaměstnanci",
+    "annaTitle": "Anna Bulatko - Top Stylist of Yara Space & Hair Spa",
+    "annaDescription1": "Anna Bulatko — Top Stylist salonu Yara Space & Hair SPA, pro kterou je práce s vlasy uměním a způsobem, jak zdůraznit individualitu každého klienta. Vyznačuje se jemným smyslem pro styl, smyslem pro detail a schopností vytvářet harmonické obrazy, které zdůrazňují přirozenou krásu.",
+    "annaDescription2": "Anna neustále zlepšuje své dovednosti, učí se novým technikám stříhání a barvení a také pracuje s moderními produkty, aby klienti vždy dosáhli výsledku prémiové úrovně."
+  },
+  "newsletter": {
+    "title": "Sledujte novinky a propagační akce!",
+    "button": "Přihlaste se k odběru newsletteru"
+  },
+  "services": {
+    "title": "Služby",
+    "description": "Ať už toužíte po čerstvé manikúře, moderním barvení, svatebním účesu nebo jen potřebujete upravit konečky, u nás si můžete vybrat jakoukoli službu bez obav o kvalitu a bezpečnost. Používáme šetrné produkty, ověřené techniky a naši stylisté neustále zdokonalují své dovednosti, aby byl výsledek vždy přesně takový, jaký si přejete."
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "Objevte nejnovější trendy v péči o pleť, líčení i barvení vlasů. Poradíme vám, jak si vybrat kosmetiku, která vám opravdu sedne, a podělíme se o novinky z našeho salonu. Vítejte na blogu Yara Space & Hair Spa, kde najdete inspiraci, praktické tipy a rady od našich odborníků."
+  },
+  "pricing": {
+    "title": "Ceník",
+    "description": "Naše transparentní cenová politika a otevřený ceník vám umožní snadno si naplánovat rozpočet na vaši oblíbenou péči i nové beauty zážitky. Pokud uvažujete o více procedurách nebo chcete využít naše zvýhodněné balíčky, zavolejte nắm nebo nám napište přímo zde na webu - rádi vám poradíme."
+  },
+  "testimonials": {
+    "title": "Zkušenosti",
+    "description": "Každý spokojený klient je pro nás malým úspěchem, který pro nás znamená víc než jakékoli ocenění. Děkujeme, že nám důvěřujete a umožňujete naší práci podtrhnout vaši přirozenou krásu. Vaše zpětná vazba je pro nás každodenní inspirací a hnací silou, proč to děláme.",
+    "button": "Zanechat komentář",
+    "loadMore": "Stáhnout více"
+  },
+  "whyChoose": {
+    "title": "Proč si vybrat právě nás?"
+  },
+  "contact": {
+    "title": "Kontakty",
+    "email": "E-mail",
+    "phone": "Telefonní číslo",
+    "name": "Název",
+    "message": "Vaše zpráva",
+    "send": "Odeslat"
+  },
+  "footer": {
+    "rights": "Všechna práva vyhrazena",
+    "privacy": "Zásady ochrany osobních údajů"
+  }
+}

@@ -2,6 +2,8 @@
 
 import Link from 'next/link'
 import { blogArticles } from './yaraSpaceBlogData'
+import { useLanguage } from '../../lib/contexts/LanguageContext'
+import LanguageSwitcher from './LanguageSwitcher'
 
 interface TenantInfo {
   id: string
@@ -17,6 +19,7 @@ interface YaraSpaceDesignProps {
 }
 
 export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
+  const { t } = useLanguage()
   const salonName = tenant.name || 'Yara Space & Hair Spa'
   const tenantId = tenant.id
   const phone = tenant.phone || '+420 776 886 466'
@@ -24,22 +27,23 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
   return (
     <div className="min-h-screen bg-light">
       {/* Navigation */}
-      <nav className="bg-base/95 backdrop-blur-sm border-b border-borderLight fixed top-0 left-0 right-0 z-[100] shadow-sm py-5">
+      <nav className="bg-light border-b border-borderLight fixed top-0 left-0 right-0 z-[100] shadow-sm py-5">
         <div className="container flex justify-between items-center flex-wrap gap-4">
           <a href={`/salon?tenant_id=${tenantId}`} className="flex items-center gap-3">
             <img src="https://yaraspace.cz/wp-content/uploads/2025/01/logo.svg" alt="Yara Space & Hair Spa Logo" className="h-8 w-auto" />
             <span className="text-2xl font-bold font-heading text-dark">{salonName}</span>
           </a>
           <div className="flex gap-6 items-center flex-wrap">
-            <a href="#about" className="text-soft font-medium hover:text-accent transition-colors">O nás</a>
-            <Link href={`/salon/blog?tenant_id=${tenantId}`} className="text-soft font-medium hover:text-accent transition-colors">Blog</Link>
-            <a href="#services" className="text-soft font-medium hover:text-accent transition-colors">Služby</a>
-            <a href="#pricing" className="text-soft font-medium hover:text-accent transition-colors">Ceník</a>
-            <a href="#testimonials" className="text-soft font-medium hover:text-accent transition-colors">Zkušenosti</a>
-            <a href="#contact" className="text-soft font-medium hover:text-accent transition-colors">Kontakty</a>
-            <a href="#booking" className="btn btn-primary">Vytvořit rezervaci</a>
+            <a href="#about" className="text-soft font-medium hover:text-accent transition-colors">{t('nav.about')}</a>
+            <Link href={`/salon/blog?tenant_id=${tenantId}`} className="text-soft font-medium hover:text-accent transition-colors">{t('nav.blog')}</Link>
+            <a href="#services" className="text-soft font-medium hover:text-accent transition-colors">{t('nav.services')}</a>
+            <a href="#pricing" className="text-soft font-medium hover:text-accent transition-colors">{t('nav.pricing')}</a>
+            <a href="#testimonials" className="text-soft font-medium hover:text-accent transition-colors">{t('nav.testimonials')}</a>
+            <a href="#contact" className="text-soft font-medium hover:text-accent transition-colors">{t('nav.contact')}</a>
+            <a href="#booking" className="btn btn-primary">{t('nav.booking')}</a>
           </div>
           <div className="w-full md:w-auto flex items-center gap-3">
+            <LanguageSwitcher />
             <a href={`tel:${phone.replace(/\s/g, '')}`} className="text-accent font-semibold hover:text-dark transition-colors">{phone}</a>
             <a 
               href={`http://wa.me/${phone.replace(/\s/g, '').replace('+', '')}`} 
@@ -68,16 +72,16 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
             <div className="relative bg-dark/70 backdrop-blur-md rounded-2xl p-8 md:p-12 border border-white/20">
               <div className="text-white">
                 <div className="inline-block px-4 py-2 mb-6 bg-accent/40 rounded-full text-white font-semibold text-sm tracking-wider uppercase font-poppins">
-                  KOSMETICKÝ SALON
+                  {t('hero.badge')}
                 </div>
                 <h1 className="mb-6 text-white drop-shadow-lg text-4xl md:text-6xl lg:text-7xl font-bold">
-                  Yara Space & Hair Spa
+                  {t('hero.title')}
                 </h1>
                 <div className="mb-6">
-                  <div className="inline-block px-4 py-2 bg-accent/50 rounded-full text-white font-semibold text-sm md:text-base font-poppins">Vlasový Wellness</div>
+                  <div className="inline-block px-4 py-2 bg-accent/50 rounded-full text-white font-semibold text-sm md:text-base font-poppins">{t('hero.subtitle')}</div>
                 </div>
                 <p className="text-white max-w-3xl mx-auto font-poppins drop-shadow-md text-lg md:text-xl leading-relaxed">
-                  Yara Space & Hair Spa – to je vaše dobrá nálada, sebevědomí a ten pocit, že jste to vy, jen ještě krásnější. Odvážné mikádo, nová energie, dokonalé svatební fotografie. První rande, na kterém se citíte jako královna. Účes, který vám opravdu sluší! Za tím vším stojí lidé, kteří milují svou práci a dělají ji srdcem. Jsem tým profesionálů, který vidí krásu v každém a ví, jak ji zvýraznit. Vaše krása si zaslouží zazářit. My víme, jak na to.
+                  {t('hero.description')}
                 </p>
               </div>
             </div>
@@ -86,7 +90,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight">
+      <section id="about" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight mt-16">
         <div className="container">
           <div className="flex justify-center mb-16 mt-12">
             <img src="https://yaraspace.cz/wp-content/uploads/2025/01/logo.svg" alt="Yara Space & Hair Spa Logo" className="h-16 w-auto" />
@@ -98,11 +102,11 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
             </div>
             <div>
               <h2 className="mb-8">
-                <div className="text-5xl md:text-6xl font-bold font-heading text-dark mb-2">Yara Hair Space & Spa</div>
+                <div className="text-5xl md:text-6xl font-bold font-heading text-dark mb-2">{t('about.title')}</div>
               </h2>
               <div className="space-y-4">
-                <p className="text-soft font-poppins">Yara Space & Hair Spa není jen obyčejný salon krásy. Je to místo, kde se setkávají talentovaní odborníci, kteří svou práci dělají s láskou a péčí. Skuteční profesionálové nikdy nepracují podle šablony. Náš tým tvoří s citem pro detail a hledá individuální řešení pro každého klienta podle struktury vlasů, tónu pleti i osobního stylu.</p>
-                <p className="text-soft font-poppins">Naše filozofie stojí na respektu k vaší jedinečné kráse a zdraví. Používáme bezpečné a účinné produkty, moderní techniky a spolupracujeme pouze s certifikovanými odborníky, kteří přesně vědí, jak dosáhnout vašeho vysněného výsledku a vykouzlit vám úsměv na tváři. Každá návštěva Yara Space & Hair Spa je jako malé prázdniny pro duši a proměna, která vám dodá novou energii.</p>
+                <p className="text-soft font-poppins">{t('about.description1')}</p>
+                <p className="text-soft font-poppins">{t('about.description2')}</p>
               </div>
             </div>
           </div>
@@ -114,20 +118,24 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               <div className="absolute inset-0 bg-gradient-to-t from-dark/20 to-transparent"></div>
             </div>
             <div>
-              <div className="text-sm text-accent font-semibold mb-4 uppercase tracking-wider font-poppins">Zakladatelka salónu krásy Yara Space & Hair SPA</div>
-              <h2 className="mb-6">Ing. Yaroslava Vlasová</h2>
+              <div className="text-sm text-accent font-semibold mb-4 uppercase tracking-wider font-poppins">{t('founder.badge')}</div>
+              <h2 className="mb-6">{t('founder.name')}</h2>
               <div className="space-y-4">
-                <p className="text-soft font-poppins">Yaroslava Vlasova (<a href="https://www.instagram.com/yaroslava_vlasova" target="_blank" rel="noopener noreferrer" className="text-accent hover:text-dark transition-colors">@yaroslava_vlasova</a>) je stylistka, kadeřnice a vizážistka, která stojí za konceptem salonů Yara Space & Hair SPA a pro kterou je práce s individualitou každého člověka něco víc. Yaroslava je člověk s velkým srdcem, pro kterého je klid klienta na prvním místě.</p>
-                <p className="text-soft font-poppins">Yara Space & Hair SPA je salon, kde se snoubí profesionalita, ekologické produkty a individuální přístup ke každému klientovi. Celý tým se neustále zdokonaluje tím, že navštěvuje odborné kurzy a učí se nové vlasové techniky, používání nových produktů a nové techniky barvení.</p>
-                <p className="text-soft font-poppins">Náš salon je nejen krásný, ale vytvořili jsme pro vás také útulné a příjemné prostředí. Každému klientovi věnujeme zvláštní pozornost a individuální přístup s péčí a pozorností.</p>
-                <p className="text-soft font-poppins">✨ Yara Space & Hair SPA je místem, kde vládne harmonie a krása.</p>
+                <p className="text-soft font-poppins">
+                  {t('founder.description1').split('(@yaroslava_vlasova)')[0]}
+                  (<a href="https://www.instagram.com/yaroslava_vlasova" target="_blank" rel="noopener noreferrer" className="text-accent hover:text-dark transition-colors">@yaroslava_vlasova</a>)
+                  {t('founder.description1').split('(@yaroslava_vlasova)')[1]}
+                </p>
+                <p className="text-soft font-poppins">{t('founder.description2')}</p>
+                <p className="text-soft font-poppins">{t('founder.description3')}</p>
+                <p className="text-soft font-poppins">{t('founder.description4')}</p>
               </div>
             </div>
           </div>
 
           {/* Key Employees Section */}
           <div className="mt-16">
-            <h2 className="text-center mb-12">Klíčoví zaměstnanci</h2>
+            <h2 className="text-center mb-12">{t('employees.title')}</h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="relative">
                 <div className="absolute top-4 left-4 z-10 px-4 py-2 bg-accent text-base font-semibold rounded-lg font-poppins">Top Stylist</div>
@@ -137,10 +145,10 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
                 </div>
               </div>
               <div>
-                <h3 className="mb-6">Anna Bulatko - Top Stylist of Yara Space & Hair Spa</h3>
+                <h3 className="mb-6">{t('employees.annaTitle')}</h3>
                 <div className="space-y-4">
-                  <p className="text-soft font-poppins">Anna Bulatko — Top Stylist salonu Yara Space & Hair SPA, pro kterou je práce s vlasy uměním a způsobem, jak zdůraznit individualitu každého klienta. Vyznačuje se jemným smyslem pro styl, smyslem pro detail a schopností vytvářet harmonické obrazy, které zdůrazňují přirozenou krásu.</p>
-                  <p className="text-soft font-poppins">Anna neustále zlepšuje své dovednosti, učí se novým technikám stříhání a barvení a také pracuje s moderními produkty, aby klienti vždy dosáhli výsledku prémiové úrovně.</p>
+                  <p className="text-soft font-poppins">{t('employees.annaDescription1')}</p>
+                  <p className="text-soft font-poppins">{t('employees.annaDescription2')}</p>
                 </div>
               </div>
             </div>
@@ -149,19 +157,19 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-section-mobile md:py-section-desktop bg-accent/10 border-b border-borderLight my-24">
+      <section className="py-section-mobile md:py-section-desktop bg-accent/10 border-b border-borderLight mt-24">
         <div className="container text-center">
-          <h2 className="mb-6">Sledujte novinky a propagační akce!</h2>
-          <button className="btn btn-primary">Přihlaste se k odběru newsletteru</button>
+          <h2 className="mb-6">{t('newsletter.title')}</h2>
+          <button className="btn btn-primary">{t('newsletter.button')}</button>
         </div>
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-section-mobile md:py-section-desktop bg-light border-b border-borderLight mt-16">
+      <section id="services" className="py-section-mobile md:py-section-desktop bg-light border-b border-borderLight mt-24">
         <div className="container">
-          <h1 className="text-center mb-6">Služby</h1>
+          <h1 className="text-center mb-6">{t('services.title')}</h1>
           <p className="text-center text-soft max-w-3xl mx-auto mb-16 font-poppins">
-            Ať už toužíte po čerstvé manikúře, moderním barvení, svatebním účesu nebo jen potřebujete upravit konečky, u nás si můžete vybrat jakoukoli službu bez obav o kvalitu a bezpečnost. Používáme šetrné produkty, ověřené techniky a naši stylisté neustále zdokonalují své dovednosti, aby byl výsledek vždy přesně takový, jaký si přejete.
+            {t('services.description')}
           </p>
 
           {/* Zasvětlující techniky */}
@@ -372,11 +380,11 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* Blog Section */}
-      <section id="blog" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight mt-16">
+      <section id="blog" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight mt-24">
         <div className="container">
-          <h1 className="text-center mb-6">Blog</h1>
+          <h1 className="text-center mb-6">{t('blog.title')}</h1>
           <p className="text-center text-soft max-w-3xl mx-auto mb-16">
-            Objevte nejnovější trendy v péči o pleť, líčení i barvení vlasů. Poradíme vám, jak si vybrat kosmetiku, která vám opravdu sedne, a podělíme se o novinky z našeho salonu. Vítejte na blogu Yara Space & Hair Spa, kde najdete inspiraci, praktické tipy a rady od našich odborníků.
+            {t('blog.description')}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogArticles.map((article) => (
@@ -400,11 +408,11 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-section-mobile md:py-section-desktop bg-light border-b border-borderLight mt-16">
+      <section id="pricing" className="py-section-mobile md:py-section-desktop bg-light border-b border-borderLight mt-24">
         <div className="container">
-          <h1 className="text-center mb-6">Ceník</h1>
+          <h1 className="text-center mb-6">{t('pricing.title')}</h1>
           <p className="text-center text-soft max-w-3xl mx-auto mb-16">
-            Naše transparentní cenová politika a otevřený ceník vám umožní snadno si naplánovat rozpočet na vaši oblíbenou péči i nové beauty zážitky. Pokud uvažujete o více procedurách nebo chcete využít naše zvýhodněné balíčky, zavolejte nắm nebo nám napište přímo zde na webu - rádi vám poradíme.
+            {t('pricing.description')}
           </p>
 
           {/* Krátké vlasy do 10 cm */}
@@ -849,14 +857,14 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight mt-16">
+      <section id="testimonials" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight mt-24">
         <div className="container">
-          <h1 className="text-center mb-6">Zkušenosti</h1>
+          <h1 className="text-center mb-6">{t('testimonials.title')}</h1>
           <p className="text-center text-soft max-w-3xl mx-auto mb-8">
-            Každý spokojený klient je pro nás malým úspěchem, který pro nás znamená víc než jakékoli ocenění. Děkujeme, že nám důvěřujete a umožňujete naší práci podtrhnout vaši přirozenou krásu. Vaše zpětná vazba je pro nás každodenní inspirací a hnací silou, proč to děláme.
+            {t('testimonials.description')}
           </p>
           <div className="text-center mb-12">
-            <button className="btn btn-secondary">Zanechat komentář</button>
+            <button className="btn btn-secondary">{t('testimonials.button')}</button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-light p-8 rounded-2xl shadow-sm">
@@ -915,15 +923,15 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
             </div>
           </div>
           <div className="text-center mt-12">
-            <button className="btn btn-secondary">Stáhnout více</button>
+            <button className="btn btn-secondary">{t('testimonials.loadMore')}</button>
           </div>
         </div>
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight mt-16">
+      <section className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight mt-24">
         <div className="container">
-          <h2 className="text-center mb-12">Proč si vybrat právě nás?</h2>
+          <h2 className="text-center mb-12">{t('whyChoose.title')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-light p-8 rounded-2xl shadow-sm">
               <h3 className="text-xl font-semibold text-dark mb-4">Bezpečí</h3>
@@ -946,9 +954,9 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-section-mobile md:py-section-desktop bg-light border-b border-borderLight mt-16">
+      <section id="contact" className="py-section-mobile md:py-section-desktop bg-light border-b border-borderLight mt-24">
         <div className="container">
-          <h1 className="text-center mb-12">Kontakty</h1>
+          <h1 className="text-center mb-12">{t('contact.title')}</h1>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
             <div className="bg-base p-8 rounded-2xl shadow-sm">
               <form className="space-y-6" onSubmit={(e) => {
@@ -959,41 +967,41 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
                 <input
                   type="text"
                   name="name"
-                  placeholder="Název *"
+                  placeholder={`${t('contact.name')} *`}
                   required
                   className="w-full px-4 py-3 rounded-lg border border-borderLight bg-light text-dark placeholder:text-soft focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
                 />
                 <input
                   type="tel"
                   name="phone"
-                  placeholder="Telefonní číslo *"
+                  placeholder={`${t('contact.phone')} *`}
                   required
                   className="w-full px-4 py-3 rounded-lg border border-borderLight bg-light text-dark placeholder:text-soft focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
                 />
                 <input
                   type="email"
                   name="email"
-                  placeholder="E-mail"
+                  placeholder={t('contact.email')}
                   className="w-full px-4 py-3 rounded-lg border border-borderLight bg-light text-dark placeholder:text-soft focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
                 />
                 <textarea
                   name="message"
-                  placeholder="Vaše zpráva"
+                  placeholder={t('contact.message')}
                   rows={5}
                   className="w-full px-4 py-3 rounded-lg border border-borderLight bg-light text-dark placeholder:text-soft focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-none"
                 />
-                <button type="submit" className="btn btn-primary w-full">Odeslat</button>
+                <button type="submit" className="btn btn-primary w-full">{t('contact.send')}</button>
               </form>
             </div>
             <div className="space-y-8">
               <div className="bg-base p-8 rounded-2xl shadow-sm">
                 <div className="space-y-6">
                   <div>
-                    <h3 className="text-lg font-semibold text-dark mb-2">E-mail</h3>
+                    <h3 className="text-lg font-semibold text-dark mb-2">{t('contact.email')}</h3>
                     <a href="mailto:office@yaraspace.cz" className="text-accent hover:text-dark transition-colors">office@yaraspace.cz</a>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-dark mb-2">Telefonní číslo</h3>
+                    <h3 className="text-lg font-semibold text-dark mb-2">{t('contact.phone')}</h3>
                     <a href={`tel:${phone.replace(/\s/g, '')}`} className="text-accent hover:text-dark transition-colors">{phone}</a>
                   </div>
                 </div>
@@ -1074,17 +1082,17 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               <a href="/" className="hover:text-accent transition-colors">Beauty Franchise</a>
               <a href="/#features" className="hover:text-accent transition-colors">Funkce</a>
               <a href="/#franchise-form" className="hover:text-accent transition-colors">Kontakt</a>
-              <a href="#about" className="hover:text-accent transition-colors">O nás</a>
-              <Link href={`/salon/blog?tenant_id=${tenantId}`} className="hover:text-accent transition-colors">Blog</Link>
-              <a href="#services" className="hover:text-accent transition-colors">Služby</a>
-              <a href="#pricing" className="hover:text-accent transition-colors">Ceník</a>
-              <a href="#testimonials" className="hover:text-accent transition-colors">Zkušenosti</a>
-              <a href="#contact" className="hover:text-accent transition-colors">Kontakty</a>
+              <a href="#about" className="hover:text-accent transition-colors">{t('nav.about')}</a>
+              <Link href={`/salon/blog?tenant_id=${tenantId}`} className="hover:text-accent transition-colors">{t('nav.blog')}</Link>
+              <a href="#services" className="hover:text-accent transition-colors">{t('nav.services')}</a>
+              <a href="#pricing" className="hover:text-accent transition-colors">{t('nav.pricing')}</a>
+              <a href="#testimonials" className="hover:text-accent transition-colors">{t('nav.testimonials')}</a>
+              <a href="#contact" className="hover:text-accent transition-colors">{t('nav.contact')}</a>
             </nav>
             <div className="border-t border-borderLight pt-8 text-center space-y-2">
               <p className="text-soft font-poppins">Yara Space & Hair Spa © 2026</p>
-              <p className="text-soft font-poppins">Všechna práva vyhrazena</p>
-              <a href="/privacy/" className="text-accent hover:text-dark transition-colors">Zásady ochrany osobních údajů</a>
+              <p className="text-soft font-poppins">{t('footer.rights')}</p>
+              <a href="/privacy/" className="text-accent hover:text-dark transition-colors">{t('footer.privacy')}</a>
             </div>
           </div>
         </div>

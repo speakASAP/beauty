@@ -5,6 +5,8 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import '../../globals.css'
 import { blogArticles } from '../../components/yaraSpaceBlogData'
+import { useLanguage } from '../../../lib/contexts/LanguageContext'
+import LanguageSwitcher from '../../components/LanguageSwitcher'
 
 // Force dynamic rendering since we need tenant_id from search params
 export const dynamic = 'force-dynamic'
@@ -92,6 +94,7 @@ function BlogPageContent() {
     )
   }
 
+  const { t } = useLanguage()
   const salonName = tenantInfo.name || 'Yara Space & Hair Spa'
   const phone = tenantInfo.phone || '+420 776 886 466'
 
@@ -105,15 +108,16 @@ function BlogPageContent() {
             <span className="text-2xl font-bold font-heading text-dark">{salonName}</span>
           </Link>
           <div className="flex gap-6 items-center flex-wrap">
-            <a href={`/salon?tenant_id=${tenantId}#about`} className="text-soft font-medium hover:text-accent transition-colors">O nás</a>
-            <Link href={`/salon/blog?tenant_id=${tenantId}`} className="text-soft font-medium hover:text-accent transition-colors">Blog</Link>
-            <a href={`/salon?tenant_id=${tenantId}#services`} className="text-soft font-medium hover:text-accent transition-colors">Služby</a>
-            <a href={`/salon?tenant_id=${tenantId}#pricing`} className="text-soft font-medium hover:text-accent transition-colors">Ceník</a>
-            <a href={`/salon?tenant_id=${tenantId}#testimonials`} className="text-soft font-medium hover:text-accent transition-colors">Zkušenosti</a>
-            <a href={`/salon?tenant_id=${tenantId}#contact`} className="text-soft font-medium hover:text-accent transition-colors">Kontakty</a>
-            <a href={`/salon?tenant_id=${tenantId}#booking`} className="btn btn-primary">Vytvořit rezervaci</a>
+            <a href={`/salon?tenant_id=${tenantId}#about`} className="text-soft font-medium hover:text-accent transition-colors">{t('nav.about')}</a>
+            <Link href={`/salon/blog?tenant_id=${tenantId}`} className="text-soft font-medium hover:text-accent transition-colors">{t('nav.blog')}</Link>
+            <a href={`/salon?tenant_id=${tenantId}#services`} className="text-soft font-medium hover:text-accent transition-colors">{t('nav.services')}</a>
+            <a href={`/salon?tenant_id=${tenantId}#pricing`} className="text-soft font-medium hover:text-accent transition-colors">{t('nav.pricing')}</a>
+            <a href={`/salon?tenant_id=${tenantId}#testimonials`} className="text-soft font-medium hover:text-accent transition-colors">{t('nav.testimonials')}</a>
+            <a href={`/salon?tenant_id=${tenantId}#contact`} className="text-soft font-medium hover:text-accent transition-colors">{t('nav.contact')}</a>
+            <a href={`/salon?tenant_id=${tenantId}#booking`} className="btn btn-primary">{t('nav.booking')}</a>
           </div>
           <div className="w-full md:w-auto flex items-center gap-3">
+            <LanguageSwitcher />
             <a href={`tel:${phone.replace(/\s/g, '')}`} className="text-accent font-semibold hover:text-dark transition-colors">{phone}</a>
             <a 
               href={`http://wa.me/${phone.replace(/\s/g, '').replace('+', '')}`} 
@@ -134,9 +138,9 @@ function BlogPageContent() {
       {/* Blog Section */}
       <section className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight mt-20">
         <div className="container">
-          <h1 className="text-center mb-6">Blog</h1>
+          <h1 className="text-center mb-6">{t('blog.title')}</h1>
           <p className="text-center text-soft max-w-3xl mx-auto mb-16 font-poppins">
-            Objevte nejnovější trendy v péči o pleť, líčení i barvení vlasů. Poradíme vám, jak si vybrat kosmetiku, která vám opravdu sedne, a podělíme se o novinky z našeho salonu. Vítejte na blogu Yara Space & Hair Spa, kde najdete inspiraci, praktické tipy a rady od našich odborníků.
+            {t('blog.description')}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogArticles.map((article) => (
