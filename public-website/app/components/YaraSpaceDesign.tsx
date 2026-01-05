@@ -24,7 +24,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
   return (
     <div className="min-h-screen bg-light">
       {/* Navigation */}
-      <nav className="bg-base/95 backdrop-blur-sm border-b border-borderLight sticky top-0 z-[100] shadow-sm py-5">
+      <nav className="bg-base/95 backdrop-blur-sm border-b border-borderLight fixed top-0 left-0 right-0 z-[100] shadow-sm py-5">
         <div className="container flex justify-between items-center flex-wrap gap-4">
           <a href={`/salon?tenant_id=${tenantId}`} className="flex items-center gap-3">
             <img src="https://yaraspace.cz/wp-content/uploads/2025/01/logo.svg" alt="Yara Space & Hair Spa Logo" className="h-8 w-auto" />
@@ -39,32 +39,48 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
             <a href="#contact" className="text-soft font-medium hover:text-accent transition-colors">Kontakty</a>
             <a href="#booking" className="btn btn-primary">Vytvořit rezervaci</a>
           </div>
-          <div className="w-full md:w-auto">
+          <div className="w-full md:w-auto flex items-center gap-3">
             <a href={`tel:${phone.replace(/\s/g, '')}`} className="text-accent font-semibold hover:text-dark transition-colors">{phone}</a>
+            <a 
+              href={`http://wa.me/${phone.replace(/\s/g, '').replace('+', '')}`} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              aria-label="WhatsApp" 
+              className="text-accent hover:text-dark transition-colors flex items-center"
+              title="Kontaktovat přes WhatsApp"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+              </svg>
+            </a>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center justify-center py-section-mobile md:py-section-desktop overflow-hidden">
+      <section className="relative min-h-[90vh] flex items-center justify-center py-section-mobile md:py-section-desktop overflow-hidden mt-20">
         <div className="absolute inset-0 z-0">
           <img src="https://yaraspace.cz/wp-content/uploads/2025/05/yaraspace_intro.webp" alt={salonName} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-dark/60"></div>
         </div>
         <div className="container relative z-10">
-          <div className="text-center max-w-4xl mx-auto text-white">
-            <div className="inline-block px-4 py-2 mb-6 bg-accent/30 rounded-full text-white font-semibold text-sm tracking-wider uppercase font-poppins">
-              KOSMETICKÝ SALON
+          <div className="text-center max-w-4xl mx-auto">
+            <div className="relative bg-dark/70 backdrop-blur-md rounded-2xl p-8 md:p-12 border border-white/20">
+              <div className="text-white">
+                <div className="inline-block px-4 py-2 mb-6 bg-accent/40 rounded-full text-white font-semibold text-sm tracking-wider uppercase font-poppins">
+                  KOSMETICKÝ SALON
+                </div>
+                <h1 className="mb-6 text-white drop-shadow-lg text-4xl md:text-6xl lg:text-7xl font-bold">
+                  Yara Space & Hair Spa
+                </h1>
+                <div className="mb-6">
+                  <div className="inline-block px-4 py-2 bg-accent/50 rounded-full text-white font-semibold text-sm md:text-base font-poppins">Vlasový Wellness</div>
+                </div>
+                <p className="text-white max-w-3xl mx-auto font-poppins drop-shadow-md text-lg md:text-xl leading-relaxed">
+                  Yara Space & Hair Spa – to je vaše dobrá nálada, sebevědomí a ten pocit, že jste to vy, jen ještě krásnější. Odvážné mikádo, nová energie, dokonalé svatební fotografie. První rande, na kterém se citíte jako královna. Účes, který vám opravdu sluší! Za tím vším stojí lidé, kteří milují svou práci a dělají ji srdcem. Jsem tým profesionálů, který vidí krásu v každém a ví, jak ji zvýraznit. Vaše krása si zaslouží zazářit. My víme, jak na to.
+                </p>
+              </div>
             </div>
-            <h1 className="mb-6 text-white drop-shadow-lg">
-              Yara Space & Hair Spa
-            </h1>
-            <div className="mb-6">
-              <div className="inline-block px-4 py-2 bg-accent/40 rounded-full text-white font-semibold text-sm font-poppins">Vlasový Wellness</div>
-            </div>
-            <p className="text-white/95 max-w-3xl mx-auto font-poppins drop-shadow-md">
-              Yara Space & Hair Spa – to je vaše dobrá nálada, sebevědomí a ten pocit, že jste to vy, jen ještě krásnější. Odvážné mikádo, nová energie, dokonalé svatební fotografie. První rande, na kterém se citíte jako královna. Účes, který vám opravdu sluší! Za tím vším stojí lidé, kteří milují svou práci a dělají ji srdcem. Jsem tým profesionálů, který vidí krásu v každém a ví, jak ji zvýraznit. Vaše krása si zaslouží zazářit. My víme, jak na to.
-            </p>
           </div>
         </div>
       </section>
@@ -82,10 +98,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
             </div>
             <div>
               <h2 className="mb-8">
-                <div className="text-5xl md:text-6xl font-bold font-heading text-dark mb-2">Yara</div>
-                <div className="text-5xl md:text-6xl font-bold font-heading text-accent">Hair</div>
-                <div className="text-4xl md:text-5xl font-bold font-heading text-dark mb-2">Space &</div>
-                <div className="text-4xl md:text-5xl font-bold font-heading text-accent">Spa</div>
+                <div className="text-5xl md:text-6xl font-bold font-heading text-dark mb-2">Yara Hair Space & Spa</div>
               </h2>
               <div className="space-y-4">
                 <p className="text-soft font-poppins">Yara Space & Hair Spa není jen obyčejný salon krásy. Je to místo, kde se setkávají talentovaní odborníci, kteří svou práci dělají s láskou a péčí. Skuteční profesionálové nikdy nepracují podle šablony. Náš tým tvoří s citem pro detail a hledá individuální řešení pro každého klienta podle struktury vlasů, tónu pleti i osobního stylu.</p>
@@ -119,7 +132,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
               <div className="relative">
                 <div className="absolute top-4 left-4 z-10 px-4 py-2 bg-accent text-base font-semibold rounded-lg font-poppins">Top Stylist</div>
                 <div className="relative rounded-2xl overflow-hidden">
-                  <img src="https://yaraspace.cz/wp-content/uploads/2025/09/anna-bulatko-scaled.jpg" alt="Anna Bulatko - Top Stylist of Yara Space & Hair Spa" className="w-full h-auto object-cover" />
+                  <img src="https://yaraspace.cz/wp-content/uploads/2025/09/bulatko.jpeg-scaled.jpg" alt="Anna Bulatko - Top Stylist of Yara Space & Hair Spa" className="w-full h-auto object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-dark/20 to-transparent"></div>
                 </div>
               </div>
@@ -136,7 +149,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-section-mobile md:py-section-desktop bg-accent/10 border-b border-borderLight my-16">
+      <section className="py-section-mobile md:py-section-desktop bg-accent/10 border-b border-borderLight my-24">
         <div className="container text-center">
           <h2 className="mb-6">Sledujte novinky a propagační akce!</h2>
           <button className="btn btn-primary">Přihlaste se k odběru newsletteru</button>
