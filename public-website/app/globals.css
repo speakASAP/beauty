@@ -173,4 +173,11 @@
   .hero-badge {
     font-family: var(--font-family-poppins);
   }
+
+  /* Navigation background */
+  .yaraspace-nav {
+    background-color: var(--color-light);
+    background: var(--color-light);
+    opacity: 1;
+  }
 }

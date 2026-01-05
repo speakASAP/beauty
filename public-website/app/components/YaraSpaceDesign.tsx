@@ -27,7 +27,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
   return (
     <div className="min-h-screen bg-light">
       {/* Navigation */}
-      <nav className="bg-light border-b border-borderLight fixed top-0 left-0 right-0 z-[100] shadow-sm py-5">
+      <nav className="yaraspace-nav bg-light border-b border-borderLight fixed top-0 left-0 right-0 z-[100] shadow-sm py-5">
         <div className="container flex justify-between items-center flex-wrap gap-4">
           <a href={`/salon?tenant_id=${tenantId}`} className="flex items-center gap-3">
             <img src="https://yaraspace.cz/wp-content/uploads/2025/01/logo.svg" alt="Yara Space & Hair Spa Logo" className="h-8 w-auto" />
@@ -69,15 +69,15 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
         </div>
         <div className="container relative z-10">
           <div className="text-center max-w-4xl mx-auto">
-            <div className="relative bg-dark/70 backdrop-blur-md rounded-2xl p-8 md:p-12 border border-white/20">
+            <div className="relative bg-dark rounded-2xl p-8 md:p-12 border border-white/20">
               <div className="text-white">
-                <div className="inline-block px-4 py-2 mb-6 bg-accent/40 rounded-full text-white font-semibold text-sm tracking-wider uppercase font-poppins">
+                <div className="inline-block px-4 py-2 mb-8 bg-accent/40 rounded-full text-white font-semibold text-sm tracking-wider uppercase font-poppins">
                   {t('hero.badge')}
                 </div>
-                <h1 className="mb-6 text-white drop-shadow-lg text-4xl md:text-6xl lg:text-7xl font-bold">
+                <h1 className="mb-8 text-white drop-shadow-lg text-4xl md:text-6xl lg:text-7xl font-bold">
                   {t('hero.title')}
                 </h1>
-                <div className="mb-6">
+                <div className="mb-8">
                   <div className="inline-block px-4 py-2 bg-accent/50 rounded-full text-white font-semibold text-sm md:text-base font-poppins">{t('hero.subtitle')}</div>
                 </div>
                 <p className="text-white max-w-3xl mx-auto font-poppins drop-shadow-md text-lg md:text-xl leading-relaxed">
@@ -90,7 +90,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight mt-16">
+      <section id="about" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight mt-16 mb-24">
         <div className="container">
           <div className="flex justify-center mb-16 mt-12">
             <img src="https://yaraspace.cz/wp-content/uploads/2025/01/logo.svg" alt="Yara Space & Hair Spa Logo" className="h-16 w-auto" />
@@ -113,10 +113,6 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
 
           {/* Founder Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-16">
-            <div className="relative rounded-2xl overflow-hidden">
-              <img src="https://yaraspace.cz/wp-content/uploads/2025/09/vlasova-.jpeg-scaled.jpg" alt="Yaroslava Vlasova - founder of Yara Space & Hair Spa" className="w-full h-auto object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-dark/20 to-transparent"></div>
-            </div>
             <div>
               <div className="text-sm text-accent font-semibold mb-4 uppercase tracking-wider font-poppins">{t('founder.badge')}</div>
               <h2 className="mb-6">{t('founder.name')}</h2>
@@ -131,6 +127,10 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
                 <p className="text-soft font-poppins">{t('founder.description4')}</p>
               </div>
             </div>
+            <div className="relative rounded-2xl overflow-hidden">
+              <img src="https://yaraspace.cz/wp-content/uploads/2025/09/vlasova-.jpeg-scaled.jpg" alt="Yaroslava Vlasova - founder of Yara Space & Hair Spa" className="w-full h-auto object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-dark/20 to-transparent"></div>
+            </div>
           </div>
 
           {/* Key Employees Section */}
@@ -138,7 +138,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
             <h2 className="text-center mb-12">{t('employees.title')}</h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="relative">
-                <div className="absolute top-4 left-4 z-10 px-4 py-2 bg-accent text-base font-semibold rounded-lg font-poppins">Top Stylist</div>
+                <div className="absolute top-4 left-4 z-10 px-4 py-2 bg-accent text-base font-semibold rounded-lg font-poppins"></div>
                 <div className="relative rounded-2xl overflow-hidden">
                   <img src="https://yaraspace.cz/wp-content/uploads/2025/09/bulatko.jpeg-scaled.jpg" alt="Anna Bulatko - Top Stylist of Yara Space & Hair Spa" className="w-full h-auto object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-dark/20 to-transparent"></div>
@@ -157,15 +157,18 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-section-mobile md:py-section-desktop bg-accent/10 border-b border-borderLight mt-24">
+      <section className="py-16 md:py-20 bg-accent/10 border-b border-borderLight mt-16">
         <div className="container text-center">
           <h2 className="mb-6">{t('newsletter.title')}</h2>
           <button className="btn btn-primary">{t('newsletter.button')}</button>
         </div>
       </section>
 
+      {/* Spacing between Newsletter and Services */}
+      <div className="h-16 md:h-24 bg-light"></div>
+
       {/* Services Section */}
-      <section id="services" className="py-section-mobile md:py-section-desktop bg-light border-b border-borderLight mt-24">
+      <section id="services" className="pt-16 pb-16 md:pt-20 md:pb-20 bg-light border-b border-borderLight">
         <div className="container">
           <h1 className="text-center mb-6">{t('services.title')}</h1>
           <p className="text-center text-soft max-w-3xl mx-auto mb-16 font-poppins">
@@ -380,7 +383,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* Blog Section */}
-      <section id="blog" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight mt-24">
+      <section id="blog" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight mt-32">
         <div className="container">
           <h1 className="text-center mb-6">{t('blog.title')}</h1>
           <p className="text-center text-soft max-w-3xl mx-auto mb-16">
@@ -408,7 +411,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-section-mobile md:py-section-desktop bg-light border-b border-borderLight mt-24">
+      <section id="pricing" className="py-section-mobile md:py-section-desktop bg-light border-b border-borderLight mt-32">
         <div className="container">
           <h1 className="text-center mb-6">{t('pricing.title')}</h1>
           <p className="text-center text-soft max-w-3xl mx-auto mb-16">
@@ -857,7 +860,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight mt-24">
+      <section id="testimonials" className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight mt-32">
         <div className="container">
           <h1 className="text-center mb-6">{t('testimonials.title')}</h1>
           <p className="text-center text-soft max-w-3xl mx-auto mb-8">
@@ -929,7 +932,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight mt-24">
+      <section className="py-section-mobile md:py-section-desktop bg-base border-b border-borderLight mt-32">
         <div className="container">
           <h2 className="text-center mb-12">{t('whyChoose.title')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -954,7 +957,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-section-mobile md:py-section-desktop bg-light border-b border-borderLight mt-24">
+      <section id="contact" className="py-section-mobile md:py-section-desktop bg-light border-b border-borderLight mt-32">
         <div className="container">
           <h1 className="text-center mb-12">{t('contact.title')}</h1>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
