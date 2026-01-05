@@ -69,5 +69,12 @@
   "footer": {
     "rights": "All rights reserved",
     "privacy": "Privacy Policy"
+  },
+  "instagram": {
+    "title": "Instagram",
+    "description": "Follow us on Instagram and stay up to date with the latest news and work from our salon",
+    "followText": "Follow us on Instagram to see our latest work",
+    "apiNotConfigured": "To display posts, configure Instagram API in environment variables",
+    "loading": "Loading Instagram posts..."
   }
 }

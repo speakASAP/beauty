@@ -69,5 +69,12 @@
   "footer": {
     "rights": "Всі права захищені",
     "privacy": "Політика конфіденційності"
+  },
+  "instagram": {
+    "title": "Instagram",
+    "description": "Слідкуйте за нами в Instagram і будьте в курсі останніх новин та робіт нашого салону",
+    "followText": "Слідкуйте за нами в Instagram, щоб бачити наші останні роботи",
+    "apiNotConfigured": "Для відображення постів налаштуйте Instagram API у змінних середовища",
+    "loading": "Завантаження постів з Instagram..."
   }
 }

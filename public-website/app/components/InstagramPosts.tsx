@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useLanguage } from '../../lib/contexts/LanguageContext'
 
 interface InstagramPost {
   id: string
@@ -18,6 +19,7 @@ interface InstagramPostsProps {
 }
 
 export default function InstagramPosts({ username = 'yaraspace_hairspa', limit = 4 }: InstagramPostsProps) {
+  const { t } = useLanguage()
   const [posts, setPosts] = useState<InstagramPost[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -51,7 +53,7 @@ export default function InstagramPosts({ username = 'yaraspace_hairspa', limit =
     return (
       <div className="text-center py-12">
         <div className="inline-block w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin mb-4"></div>
-        <p className="text-soft">Loading Instagram posts...</p>
+        <p className="text-soft">{t('instagram.loading') || 'Loading Instagram posts...'}</p>
       </div>
     )
   }
@@ -61,7 +63,7 @@ export default function InstagramPosts({ username = 'yaraspace_hairspa', limit =
     // Note: To show actual posts, configure INSTAGRAM_ACCESS_TOKEN and INSTAGRAM_USER_ID in .env
     return (
       <div className="text-center py-12">
-        <p className="text-soft mb-6 font-poppins">Следите за нами в Instagram, чтобы видеть наши последние работы</p>
+        <p className="text-soft mb-6 font-poppins">{t('instagram.followText')}</p>
         <a
           href={`https://www.instagram.com/${username}/`}
           target="_blank"
@@ -74,7 +76,7 @@ export default function InstagramPosts({ username = 'yaraspace_hairspa', limit =
           @{username}
         </a>
         <div className="text-sm text-soft font-poppins">
-          <p>Для отображения постов настройте Instagram API в переменных окружения</p>
+          <p>{t('instagram.apiNotConfigured')}</p>
         </div>
       </div>
     )

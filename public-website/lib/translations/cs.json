@@ -69,5 +69,12 @@
   "footer": {
     "rights": "Všechna práva vyhrazena",
     "privacy": "Zásady ochrany osobních údajů"
+  },
+  "instagram": {
+    "title": "Instagram",
+    "description": "Sledujte nás na Instagramu a buďte v obraze o nejnovějších novinkách a pracích našeho salonu",
+    "followText": "Sledujte nás na Instagramu, abyste viděli naše nejnovější práce",
+    "apiNotConfigured": "Pro zobrazení příspěvků nastavte Instagram API v proměnných prostředí",
+    "loading": "Načítání příspěvků z Instagramu..."
   }
 }

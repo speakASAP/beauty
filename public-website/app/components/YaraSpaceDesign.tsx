@@ -415,9 +415,9 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
       <section id="instagram" className="py-section-mobile md:py-section-desktop bg-light border-b border-borderLight mt-32">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold font-heading text-dark mb-4">Instagram</h2>
+            <h2 className="text-4xl md:text-5xl font-bold font-heading text-dark mb-4">{t('instagram.title')}</h2>
             <p className="text-soft max-w-3xl mx-auto font-poppins">
-              Следите за нами в Instagram и будьте в курсе последних новостей и работ нашего салона
+              {t('instagram.description')}
             </p>
             <a
               href="https://www.instagram.com/yaraspace_hairspa/"
