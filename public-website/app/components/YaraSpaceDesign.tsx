@@ -69,7 +69,7 @@ export default function YaraSpaceDesign({ tenant }: YaraSpaceDesignProps) {
         </div>
         <div className="container relative z-10">
           <div className="text-center max-w-4xl mx-auto">
-            <div className="relative bg-dark/95 rounded-2xl p-8 md:p-12 border border-[#be845f] shadow-xl">
+            <div className="relative rounded-2xl p-8 md:p-12 border border-[#be845f] shadow-xl" style={{ backgroundColor: '#22c55e' }}>
               <div className="text-white">
                 <div className="inline-block px-4 py-2 mb-8 bg-accent/60 rounded-full text-white font-semibold text-sm tracking-wider uppercase font-poppins">
                   {t('hero.badge')}
