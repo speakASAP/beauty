@@ -17,7 +17,7 @@ module.exports = {
         // Accent color
         accent: '#dbb89c',
         // Border color
-        borderLight: '#e4dfda',
+        borderLight: '#be845f',
       },
       fontFamily: {
         heading: ['Manrope', 'sans-serif'],

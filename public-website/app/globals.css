@@ -9,7 +9,7 @@
   --color-soft: #3a3a3a;
   --color-dark: #1a1a1a;
   --color-accent: #dbb89c;
-  --color-border-light: #e4dfda;
+  --color-border-light: #be845f;
 
   /* Font Families */
   --font-family-heading: 'Manrope', sans-serif;
@@ -116,21 +116,21 @@
     @media (min-width: 768px) {
       font-size: var(--font-size-button-desktop);
     }
-    background-color: var(--color-dark);
+    background-color: var(--color-accent);
     color: var(--color-base);
   }
 
   .btn:hover {
-    background-color: var(--color-accent);
+    background-color: #be845f;
   }
 
   .btn-primary {
-    background-color: var(--color-dark);
+    background-color: var(--color-accent);
     color: var(--color-base);
   }
 
   .btn-primary:hover {
-    background-color: var(--color-accent);
+    background-color: #be845f;
   }
 
   .btn-secondary {
