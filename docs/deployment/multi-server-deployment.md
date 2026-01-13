@@ -40,6 +40,7 @@ git clone <auth-microservice-repo-url> ~/auth-microservice
 Create `.env` files for each service with domain-specific values:
 
 #### Database Server (.env)
+
 ```bash
 cd ~/database-server
 cat > .env << EOF
@@ -51,6 +52,7 @@ EOF
 ```
 
 #### Nginx Microservice (.env)
+
 ```bash
 cd ~/nginx-microservice
 cat > .env << EOF
@@ -65,6 +67,7 @@ EOF
 ```
 
 #### Auth Microservice (.env)
+
 ```bash
 cd ~/auth-microservice
 cat > .env << EOF
@@ -158,18 +161,21 @@ cd ~/nginx-microservice
 ## Environment Variables Reference
 
 ### Database Server
+
 - `DB_SERVER_ADMIN_USER` - PostgreSQL admin user
 - `DB_SERVER_ADMIN_PASSWORD` - PostgreSQL admin password
 - `DB_SERVER_PORT` - PostgreSQL port (default: 5432)
 - `NGINX_NETWORK_NAME` - Docker network name
 
 ### Nginx Microservice
+
 - `DEFAULT_DOMAIN_SUFFIX` - Default domain suffix (e.g., `yourdomain.com`)
 - `CERTBOT_EMAIL` - Email for Let's Encrypt certificates
 - `NETWORK_NAME` - Docker network name
 - `DOCKER_VOLUMES_BASE_PATH` - Base path for Docker volumes
 
 ### Microservices (Auth, Logging, etc.)
+
 - `DOMAIN` - Service domain (e.g., `auth.yourdomain.com`)
 - `DB_HOST` - Database container name
 - `DB_NAME` - Database name
@@ -183,12 +189,14 @@ cd ~/nginx-microservice
 ### Different Domains on Same Server
 
 Use different domain suffixes in nginx-microservice `.env`:
+
 ```bash
 DEFAULT_DOMAIN_SUFFIX=domain1.com
 # Deploy services for domain1.com
 ```
 
 Then change for domain2:
+
 ```bash
 DEFAULT_DOMAIN_SUFFIX=domain2.com
 # Deploy services for domain2.com
@@ -203,6 +211,7 @@ DEFAULT_DOMAIN_SUFFIX=domain2.com
 ## Database Naming Conventions
 
 For multi-server deployments, consider:
+
 - `auth` - Auth microservice database
 - `logging` - Logging microservice database
 - `{service-name}` - Generic pattern for any service
@@ -210,6 +219,7 @@ For multi-server deployments, consider:
 ## Troubleshooting
 
 ### Database Connection Issues
+
 ```bash
 # Check database container
 docker ps | grep db-server-postgres
@@ -222,6 +232,7 @@ docker exec db-server-postgres psql -U dbadmin -d postgres -c "SELECT 1;"
 ```
 
 ### Nginx Configuration Issues
+
 ```bash
 # Test nginx config
 docker exec nginx-microservice nginx -t
@@ -234,6 +245,7 @@ docker exec nginx-microservice nginx -s reload
 ```
 
 ### Service Health Checks
+
 ```bash
 # Check all services
 cd ~/nginx-microservice

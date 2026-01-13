@@ -1,34 +1,13 @@
 version: '3.8'
 
 services:
-  # PostgreSQL Database (shared, RLS enabled)
-  database:
-    image: postgres:15-alpine
-    container_name: beauty-database
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-beauty_platform}
-      POSTGRES_USER: ${POSTGRES_USER:-beauty_user}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-beauty_password}
-    ports:
-      - "${DATABASE_PORT:-4101}:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./scripts/database/init.sql:/docker-entrypoint-initdb.d/init.sql
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-beauty_user}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    networks:
-      - beauty-network
-
   # NATS Event Bus
   nats:
     image: nats:2.10-alpine
     container_name: beauty-nats
     ports:
-      - "${NATS_PORT:-4102}:4222"
-      - "${NATS_HTTP_PORT:-4103}:8222"
+      - "${NATS_PORT:-4104}:4222"
+      - "${NATS_HTTP_PORT:-4105}:8222"
     command: ["-js", "-m", "8222"]
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8222/healthz"]
@@ -48,7 +27,7 @@ services:
       NODE_ENV: ${NODE_ENV:-development}
       PORT: ${API_GATEWAY_PORT:-4100}
       JWT_SECRET: ${JWT_SECRET:-}
-      AUTH_SERVICE_URL: ${AUTH_SERVICE_URL:-http://auth-microservice:3367}
+      AUTH_SERVICE_URL: ${AUTH_SERVICE_URL:-http://auth-microservice:${AUTH_MICROSERVICE_PORT:-3370}}
       CORS_ORIGIN: ${CORS_ORIGIN:-*}
       BOOKING_SERVICE_URL: ${BOOKING_SERVICE_URL:-http://booking-service:4110}
       POS_SERVICE_URL: ${POS_SERVICE_URL:-http://beauty-pos-service:4111}
@@ -58,7 +37,7 @@ services:
       BI_SERVICE_URL: ${BI_SERVICE_URL:-http://bi-service:4115}
       INTEGRATION_HUB_SERVICE_URL: ${INTEGRATION_HUB_SERVICE_URL:-http://integration-hub-service:4116}
       STAFF_SERVICE_URL: ${STAFF_SERVICE_URL:-http://staff-service:4117}
-      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:3367}
+      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:${LOGGING_MICROSERVICE_PORT:-3367}}
       SERVICE_NAME: api-gateway
     ports:
       - "${API_GATEWAY_PORT:-4100}:4100"
@@ -74,6 +53,7 @@ services:
     networks:
       - beauty-network
       - nginx-network
+      # nginx-network required for shared database-server and microservices access
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4100/health"]
       interval: 30s
@@ -89,21 +69,20 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       PORT: ${BOOKING_SERVICE_PORT:-4110}
-      DATABASE_URL: postgresql://${POSTGRES_USER:-beauty_user}:${POSTGRES_PASSWORD:-beauty_password}@database:5432/${POSTGRES_DB:-beauty_platform}
+      DATABASE_URL: postgresql://${DB_USER:-dbadmin}:${DB_PASSWORD}@${DB_HOST:-db-server-postgres}:${DB_PORT:-5432}/${DB_NAME:-beauty_platform}
       NATS_URL: nats://nats:4222
       CUSTOMER_SERVICE_URL: ${CUSTOMER_SERVICE_URL:-http://customer-service:4114}
-      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:3367}
+      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:${LOGGING_MICROSERVICE_PORT:-3367}}
       SERVICE_NAME: booking-service
     ports:
       - "${BOOKING_SERVICE_PORT:-4110}:4110"
     depends_on:
-      database:
-        condition: service_healthy
       nats:
         condition: service_healthy
     networks:
       - beauty-network
       - nginx-network
+      # nginx-network required for shared database-server and microservices access
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4110/health"]
       interval: 30s
@@ -119,20 +98,19 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       PORT: ${POS_SERVICE_PORT:-4111}
-      DATABASE_URL: postgresql://${POSTGRES_USER:-beauty_user}:${POSTGRES_PASSWORD:-beauty_password}@database:5432/${POSTGRES_DB:-beauty_platform}
+      DATABASE_URL: postgresql://${DB_USER:-dbadmin}:${DB_PASSWORD}@${DB_HOST:-db-server-postgres}:${DB_PORT:-5432}/${DB_NAME:-beauty_platform}
       NATS_URL: nats://nats:4222
-      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:3367}
+      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:${LOGGING_MICROSERVICE_PORT:-3367}}
       SERVICE_NAME: beauty-pos-service
     ports:
       - "${POS_SERVICE_PORT:-4111}:4111"
     depends_on:
-      database:
-        condition: service_healthy
       nats:
         condition: service_healthy
     networks:
       - beauty-network
       - nginx-network
+      # nginx-network required for shared database-server and microservices access
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4111/health"]
       interval: 30s
@@ -148,21 +126,20 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       PORT: ${PAYMENTS_SERVICE_PORT:-4112}
-      DATABASE_URL: postgresql://${POSTGRES_USER:-beauty_user}:${POSTGRES_PASSWORD:-beauty_password}@database:5432/${POSTGRES_DB:-beauty_platform}
+      DATABASE_URL: postgresql://${DB_USER:-dbadmin}:${DB_PASSWORD}@${DB_HOST:-db-server-postgres}:${DB_PORT:-5432}/${DB_NAME:-beauty_platform}
       NATS_URL: nats://nats:4222
-      PAYMENTS_MICROSERVICE_URL: ${PAYMENTS_MICROSERVICE_URL:-http://payments-microservice:3367}
-      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:3367}
+      PAYMENTS_MICROSERVICE_URL: ${PAYMENTS_MICROSERVICE_URL:-http://payments-microservice:${PAYMENTS_MICROSERVICE_PORT:-3468}}
+      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:${LOGGING_MICROSERVICE_PORT:-3367}}
       SERVICE_NAME: payments-service
     ports:
       - "${PAYMENTS_SERVICE_PORT:-4112}:4112"
     depends_on:
-      database:
-        condition: service_healthy
       nats:
         condition: service_healthy
     networks:
       - beauty-network
       - nginx-network
+      # nginx-network required for shared database-server and microservices access
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4112/health"]
       interval: 30s
@@ -178,21 +155,20 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       PORT: ${INVENTORY_SERVICE_PORT:-4113}
-      DATABASE_URL: postgresql://${POSTGRES_USER:-beauty_user}:${POSTGRES_PASSWORD:-beauty_password}@database:5432/${POSTGRES_DB:-beauty_platform}
+      DATABASE_URL: postgresql://${DB_USER:-dbadmin}:${DB_PASSWORD}@${DB_HOST:-db-server-postgres}:${DB_PORT:-5432}/${DB_NAME:-beauty_platform}
       NATS_URL: nats://nats:4222
-      WAREHOUSE_MICROSERVICE_URL: ${WAREHOUSE_MICROSERVICE_URL:-http://warehouse-microservice:3367}
-      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:3367}
+      WAREHOUSE_MICROSERVICE_URL: ${WAREHOUSE_MICROSERVICE_URL:-http://warehouse-microservice:${WAREHOUSE_MICROSERVICE_PORT:-3201}}
+      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:${LOGGING_MICROSERVICE_PORT:-3367}}
       SERVICE_NAME: inventory-service
     ports:
       - "${INVENTORY_SERVICE_PORT:-4113}:4113"
     depends_on:
-      database:
-        condition: service_healthy
       nats:
         condition: service_healthy
     networks:
       - beauty-network
       - nginx-network
+      # nginx-network required for shared database-server and microservices access
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4113/health"]
       interval: 30s
@@ -208,20 +184,19 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       PORT: ${CUSTOMER_SERVICE_PORT:-4114}
-      DATABASE_URL: postgresql://${POSTGRES_USER:-beauty_user}:${POSTGRES_PASSWORD:-beauty_password}@database:5432/${POSTGRES_DB:-beauty_platform}
+      DATABASE_URL: postgresql://${DB_USER:-dbadmin}:${DB_PASSWORD}@${DB_HOST:-db-server-postgres}:${DB_PORT:-5432}/${DB_NAME:-beauty_platform}
       NATS_URL: nats://nats:4222
-      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:3367}
+      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:${LOGGING_MICROSERVICE_PORT:-3367}}
       SERVICE_NAME: customer-service
     ports:
       - "${CUSTOMER_SERVICE_PORT:-4114}:4114"
     depends_on:
-      database:
-        condition: service_healthy
       nats:
         condition: service_healthy
     networks:
       - beauty-network
       - nginx-network
+      # nginx-network required for shared database-server and microservices access
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4114/health"]
       interval: 30s
@@ -237,20 +212,19 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       PORT: ${STAFF_SERVICE_PORT:-4117}
-      DATABASE_URL: postgresql://${POSTGRES_USER:-beauty_user}:${POSTGRES_PASSWORD:-beauty_password}@database:5432/${POSTGRES_DB:-beauty_platform}
+      DATABASE_URL: postgresql://${DB_USER:-dbadmin}:${DB_PASSWORD}@${DB_HOST:-db-server-postgres}:${DB_PORT:-5432}/${DB_NAME:-beauty_platform}
       NATS_URL: nats://nats:4222
-      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:3367}
+      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:${LOGGING_MICROSERVICE_PORT:-3367}}
       SERVICE_NAME: staff-service
     ports:
       - "${STAFF_SERVICE_PORT:-4117}:4117"
     depends_on:
-      database:
-        condition: service_healthy
       nats:
         condition: service_healthy
     networks:
       - beauty-network
       - nginx-network
+      # nginx-network required for shared database-server and microservices access
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4117/health"]
       interval: 30s
@@ -266,20 +240,19 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       PORT: ${BI_SERVICE_PORT:-4115}
-      DATABASE_URL: postgresql://${POSTGRES_USER:-beauty_user}:${POSTGRES_PASSWORD:-beauty_password}@database:5432/${POSTGRES_DB:-beauty_platform}
+      DATABASE_URL: postgresql://${DB_USER:-dbadmin}:${DB_PASSWORD}@${DB_HOST:-db-server-postgres}:${DB_PORT:-5432}/${DB_NAME:-beauty_platform}
       NATS_URL: nats://nats:4222
-      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:3367}
+      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:${LOGGING_MICROSERVICE_PORT:-3367}}
       SERVICE_NAME: bi-service
     ports:
       - "${BI_SERVICE_PORT:-4115}:4115"
     depends_on:
-      database:
-        condition: service_healthy
       nats:
         condition: service_healthy
     networks:
       - beauty-network
       - nginx-network
+      # nginx-network required for shared database-server and microservices access
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4115/health"]
       interval: 30s
@@ -295,32 +268,28 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       PORT: ${INTEGRATION_HUB_SERVICE_PORT:-4116}
-      DATABASE_URL: postgresql://${POSTGRES_USER:-beauty_user}:${POSTGRES_PASSWORD:-beauty_password}@database:5432/${POSTGRES_DB:-beauty_platform}
+      DATABASE_URL: postgresql://${DB_USER:-dbadmin}:${DB_PASSWORD}@${DB_HOST:-db-server-postgres}:${DB_PORT:-5432}/${DB_NAME:-beauty_platform}
       NATS_URL: nats://nats:4222
-      NOTIFICATIONS_MICROSERVICE_URL: ${NOTIFICATIONS_MICROSERVICE_URL:-http://notifications-microservice:3367}
-      CATALOG_MICROSERVICE_URL: ${CATALOG_MICROSERVICE_URL:-http://catalog-microservice:3367}
-      ACCOUNTING_SERVICE_URL: ${ACCOUNTING_SERVICE_URL:-http://accounting-service:3367}
+      NOTIFICATIONS_MICROSERVICE_URL: ${NOTIFICATIONS_MICROSERVICE_URL:-http://notifications-microservice:${NOTIFICATIONS_MICROSERVICE_PORT:-3368}}
+      CATALOG_MICROSERVICE_URL: ${CATALOG_MICROSERVICE_URL:-http://catalog-microservice:${CATALOG_MICROSERVICE_PORT:-3200}}
+      ACCOUNTING_SERVICE_URL: ${ACCOUNTING_SERVICE_URL:-http://accounting-service:${ACCOUNTING_SERVICE_PORT:-3367}}
       ACCOUNTING_SYSTEM: ${ACCOUNTING_SYSTEM:-money_s3}
-      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:3367}
+      LOGGING_SERVICE_URL: ${LOGGING_SERVICE_URL:-http://logging-microservice:${LOGGING_MICROSERVICE_PORT:-3367}}
       SERVICE_NAME: integration-hub-service
     ports:
       - "${INTEGRATION_HUB_SERVICE_PORT:-4116}:4116"
     depends_on:
-      database:
-        condition: service_healthy
       nats:
         condition: service_healthy
     networks:
       - beauty-network
       - nginx-network
+      # nginx-network required for shared database-server and microservices access
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4116/health"]
       interval: 30s
       timeout: 10s
       retries: 3
-
-volumes:
-  postgres_data:
 
 networks:
   beauty-network:
@@ -328,4 +297,5 @@ networks:
   nginx-network:
     external: true
     name: nginx-network
+    # Services need nginx-network to access shared database-server and microservices
 
