@@ -9,6 +9,7 @@
 ## Executive Summary
 
 P1.6 (BI Read Model) is fully implemented and operational:
+
 - ✅ Event subscribers implemented for all domain events
 - ✅ Aggregated tables created with proper schema and RLS
 - ✅ Tenant-scoped analytics enforced via RLS policies
@@ -41,6 +42,7 @@ const eventTypes = [
 ```
 
 **Event Subscriptions:**
+
 - ✅ `appointment.*` - All appointment events (booked, completed, cancelled, no_show)
 - ✅ `order.*` - All order events (created, closed)
 - ✅ `payment.*` - All payment events (received, confirmed, failed)
@@ -49,6 +51,7 @@ const eventTypes = [
 - ✅ `client.*` - All client events (registered, visit_recorded)
 
 **Event Processing:**
+
 - ✅ Events processed via `processEvent()` function
 - ✅ Tenant context set from event (`SET app.tenant_id`)
 - ✅ Idempotency check via `bi.event_processing_log`
@@ -72,6 +75,7 @@ All aggregated tables are created in `scripts/database/migrations/006_bi_schema.
 **Purpose:** Sales by tenant/day (P1.6 requirement)
 
 **Schema:**
+
 - `tenant_id` (UUID, NOT NULL)
 - `sale_date` (DATE, NOT NULL)
 - `total_amount` (BIGINT) - Amount in smallest unit (cents/haléře)
@@ -82,11 +86,13 @@ All aggregated tables are created in `scripts/database/migrations/006_bi_schema.
 - UNIQUE constraint: `(tenant_id, sale_date)`
 
 **Indexes:**
+
 - ✅ `idx_daily_sales_tenant_id`
 - ✅ `idx_daily_sales_sale_date`
 - ✅ `idx_daily_sales_tenant_date` (composite)
 
 **RLS Policies:**
+
 - ✅ SELECT policy (tenant-scoped)
 - ✅ INSERT policy (tenant-scoped)
 - ✅ UPDATE policy (tenant-scoped)
@@ -100,6 +106,7 @@ All aggregated tables are created in `scripts/database/migrations/006_bi_schema.
 **Purpose:** LTV skeleton (P1.6 requirement)
 
 **Schema:**
+
 - `tenant_id` (UUID, NOT NULL)
 - `client_id` (UUID, NOT NULL)
 - `total_visits` (INTEGER)
@@ -111,11 +118,13 @@ All aggregated tables are created in `scripts/database/migrations/006_bi_schema.
 - UNIQUE constraint: `(tenant_id, client_id)`
 
 **Indexes:**
+
 - ✅ `idx_client_ltv_tenant_id`
 - ✅ `idx_client_ltv_client_id`
 - ✅ `idx_client_ltv_total_spent` (DESC for top clients)
 
 **RLS Policies:**
+
 - ✅ SELECT policy (tenant-scoped)
 - ✅ INSERT policy (tenant-scoped)
 - ✅ UPDATE policy (tenant-scoped)
@@ -125,19 +134,23 @@ All aggregated tables are created in `scripts/database/migrations/006_bi_schema.
 #### 2.3 Additional Aggregated Tables ✅
 
 **Master Utilization Table:** `bi.master_utilization`
+
 - Tracks master utilization by date
 - Aggregates from `appointment.completed` events
 
 **Inventory Usage Table:** `bi.inventory_usage`
+
 - Tracks inventory usage by date
 - Aggregates from `inventory.decreased` events
 
 **Appointment Aggregates Table:** `bi.appointment_aggregates`
+
 - Tracks appointment metrics by date
 - Aggregates from `appointment.*` events
 - Calculates cancellation_rate and no_show_rate
 
 **Event Processing Log Table:** `bi.event_processing_log`
+
 - Ensures idempotency
 - Tracks processed events
 
@@ -152,17 +165,20 @@ All aggregated tables are created in `scripts/database/migrations/006_bi_schema.
 All aggregated tables enforce tenant isolation via RLS:
 
 **RLS Implementation:**
+
 - ✅ All tables have RLS enabled
 - ✅ All tables have SELECT policies: `tenant_id = current_setting('app.tenant_id')::uuid`
 - ✅ All tables have INSERT policies: `WITH CHECK (tenant_id = current_setting('app.tenant_id')::uuid)`
 - ✅ All tables have UPDATE policies: `USING` and `WITH CHECK` clauses
 
 **Event Processing:**
+
 - ✅ Tenant context set from event: `SET app.tenant_id = $1`
 - ✅ All aggregate updates use tenant_id from event
 - ✅ All queries filtered by tenant_id via RLS
 
 **API Endpoints:**
+
 - ✅ All endpoints use `current_setting('app.tenant_id')::uuid` in queries
 - ✅ RLS policies automatically filter results by tenant
 - ✅ No cross-tenant data access possible
@@ -176,6 +192,7 @@ All aggregated tables enforce tenant isolation via RLS:
 **Validation Results:**
 
 **Implementation:**
+
 - ✅ `bi.daily_sales` table created
 - ✅ Updated from `order.created` events (amount, VAT, order_count)
 - ✅ Updated from `payment.received` events (payment_count)
@@ -183,6 +200,7 @@ All aggregated tables enforce tenant isolation via RLS:
 - ✅ API endpoint: `GET /analytics/daily-sales?from_date=...&to_date=...`
 
 **Event Handlers:**
+
 ```javascript
 // order.created event
 await updateDailySales(client, event.tenant_id, saleDate, totalAmount, vatAmount, 1, 0);
@@ -192,6 +210,7 @@ await updateDailySales(client, event.tenant_id, saleDate, 0, 0, 0, 1);
 ```
 
 **Aggregate Update Function:**
+
 ```javascript
 async function updateDailySales(client, tenantId, saleDate, amount, vatAmount, orderCount, paymentCount) {
   await client.query(`
@@ -213,6 +232,7 @@ async function updateDailySales(client, tenantId, saleDate, amount, vatAmount, o
 **Validation Results:**
 
 **Implementation:**
+
 - ✅ `bi.client_ltv` table created
 - ✅ Initialized from `client.registered` events
 - ✅ Updated from `order.closed` events (total_spent, total_visits)
@@ -221,6 +241,7 @@ async function updateDailySales(client, tenantId, saleDate, amount, vatAmount, o
 - ✅ API endpoint: `GET /analytics/client-ltv?client_id=...&limit=...`
 
 **Event Handlers:**
+
 ```javascript
 // client.registered event
 // Initialize LTV record with zero values
@@ -230,6 +251,7 @@ await updateClientLTV(client, event.tenant_id, clientId, finalTotalAmount, saleD
 ```
 
 **LTV Update Function:**
+
 ```javascript
 async function updateClientLTV(client, tenantId, clientId, visitAmount, visitDate) {
   // Get current LTV
@@ -240,6 +262,7 @@ async function updateClientLTV(client, tenantId, clientId, visitAmount, visitDat
 ```
 
 **Order-to-Client Mapping:**
+
 - ✅ Uses in-memory cache (`orderClientCache`) to map `order_id` → `client_id`
 - ✅ Cache populated from `order.created` events
 - ✅ Fallback: Queries database if not in cache
@@ -284,30 +307,35 @@ async function updateClientLTV(client, tenantId, clientId, visitAmount, visitDat
 ### Aggregate Update Functions
 
 #### Daily Sales ✅
+
 - **Function:** `updateDailySales(client, tenantId, saleDate, amount, vatAmount, orderCount, paymentCount)`
 - **Table:** `bi.daily_sales`
 - **Strategy:** `INSERT ... ON CONFLICT ... DO UPDATE` (upsert)
 - **Aggregation:** Sums amounts, counts orders/payments by date
 
 #### Client LTV ✅
+
 - **Function:** `updateClientLTV(client, tenantId, clientId, visitAmount, visitDate)`
 - **Table:** `bi.client_ltv`
 - **Strategy:** `INSERT` for first visit, `UPDATE` for subsequent visits
 - **Aggregation:** Tracks total_visits, total_spent, calculates average_visit_value
 
 #### Master Utilization ✅
+
 - **Function:** `updateMasterUtilization(client, tenantId, masterId, utilizationDate, durationMinutes)`
 - **Table:** `bi.master_utilization`
 - **Strategy:** `INSERT ... ON CONFLICT ... DO UPDATE` (upsert)
 - **Aggregation:** Counts appointments, sums duration by master and date
 
 #### Inventory Usage ✅
+
 - **Function:** `updateInventoryUsage(client, tenantId, itemId, usageDate, quantity)`
 - **Table:** `bi.inventory_usage`
 - **Strategy:** `INSERT ... ON CONFLICT ... DO UPDATE` (upsert)
 - **Aggregation:** Sums quantity_used by item and date
 
 #### Appointment Aggregates ✅
+
 - **Function:** `updateAppointmentAggregates(client, tenantId, appointmentDate, status)`
 - **Table:** `bi.appointment_aggregates`
 - **Strategy:** `INSERT ... ON CONFLICT ... DO UPDATE` (upsert)
@@ -318,10 +346,12 @@ async function updateClientLTV(client, tenantId, clientId, visitAmount, visitDat
 ### API Endpoints
 
 #### GET /analytics/daily-sales ✅
+
 - **Query Parameters:** `from_date`, `to_date` (required)
 - **Returns:** Daily sales aggregated by date
 - **Tenant-Scoped:** ✅ (via RLS)
 - **Response Format:**
+
 ```json
 {
   "daily_sales": [
@@ -337,10 +367,12 @@ async function updateClientLTV(client, tenantId, clientId, visitAmount, visitDat
 ```
 
 #### GET /analytics/client-ltv ✅
+
 - **Query Parameters:** `client_id` (optional), `limit` (default: 100)
 - **Returns:** Client lifetime value data
 - **Tenant-Scoped:** ✅ (via RLS)
 - **Response Format:**
+
 ```json
 {
   "client_ltv": [
@@ -357,6 +389,7 @@ async function updateClientLTV(client, tenantId, clientId, visitAmount, visitDat
 ```
 
 #### Additional Endpoints ✅
+
 - `GET /analytics/master-utilization` - Master utilization by date range
 - `GET /analytics/appointment-aggregates` - Appointment metrics by date range
 - `GET /analytics/inventory-usage` - Inventory usage by date range
@@ -417,6 +450,7 @@ async function updateClientLTV(client, tenantId, clientId, visitAmount, visitDat
 **✅ P1.6 — BI Read Model — COMPLETE**
 
 The BI Read Model is fully implemented:
+
 - All event subscribers operational
 - All aggregated tables created with RLS
 - Sales by tenant/day working
@@ -426,6 +460,7 @@ The BI Read Model is fully implemented:
 - Tenant isolation enforced
 
 **Next Steps:**
+
 - Proceed to P1.7 — Validation & Hardening
 - Run contract validation tests
 - Run tenant isolation tests
@@ -434,4 +469,3 @@ The BI Read Model is fully implemented:
 ---
 
 **Status:** ✅ **APPROVED** — P1.6 is complete and operational.
-

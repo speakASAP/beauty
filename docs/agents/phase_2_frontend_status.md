@@ -18,6 +18,7 @@ Phase 2 has implemented **POS UI** and **Franchise Portal**, but the **Public We
 **Status:** ✅ **COMPLETE**
 
 **Components (8):**
+
 - ✅ AppointmentCalendar.tsx
 - ✅ BookAppointmentForm.tsx
 - ✅ ClientRegistration.tsx
@@ -28,6 +29,7 @@ Phase 2 has implemented **POS UI** and **Franchise Portal**, but the **Public We
 - ✅ ShiftCloseDashboard.tsx
 
 **Routes (8):**
+
 - ✅ `/pos/dashboard` - Appointment calendar
 - ✅ `/pos/book-appointment` - Book appointment (staff)
 - ✅ `/pos/visits` - Visit management
@@ -38,6 +40,7 @@ Phase 2 has implemented **POS UI** and **Franchise Portal**, but the **Public We
 - ✅ `/pos/payments/:paymentId` - Payment status
 
 **Features:**
+
 - ✅ All booking workflows functional
 - ✅ Client management
 - ✅ Visit management
@@ -52,18 +55,21 @@ Phase 2 has implemented **POS UI** and **Franchise Portal**, but the **Public We
 **Status:** ✅ **COMPLETE**
 
 **Components (4):**
+
 - ✅ TenantOverview.tsx
 - ✅ KPIDashboard.tsx
 - ✅ PricingControl.tsx
 - ✅ CatalogGovernance.tsx
 
 **Routes (4):**
+
 - ✅ `/franchise/tenants` - Tenant overview
 - ✅ `/franchise/kpis` - KPI dashboard
 - ✅ `/franchise/pricing` - Pricing control
 - ✅ `/franchise/catalog` - Catalog governance
 
 **Features:**
+
 - ✅ Tenant management (UI ready)
 - ✅ Cross-tenant analytics
 - ✅ Pricing management (UI ready)
@@ -76,15 +82,18 @@ Phase 2 has implemented **POS UI** and **Franchise Portal**, but the **Public We
 **Status:** ✅ **COMPLETE**
 
 **Components (2):**
+
 - ✅ Login.tsx
 - ✅ TenantSelection.tsx
 
 **Routes (3):**
+
 - ✅ `/login` - Login page
 - ✅ `/select-tenant` - Tenant selection
 - ✅ `/unauthorized` - Unauthorized access
 
 **Features:**
+
 - ✅ JWT authentication
 - ✅ Tenant context management
 - ✅ Role-based access control
@@ -99,10 +108,12 @@ Phase 2 has implemented **POS UI** and **Franchise Portal**, but the **Public We
 **Status:** ❌ **NOT IMPLEMENTED**
 
 **Required Per MVP Scope:**
+
 - ✅ **Public website + online booking** (from business-goal.md)
 - ✅ **Online Booking (public website)** (from event-storming.md)
 
 **Missing Components:**
+
 - ❌ Public landing page
 - ❌ Service catalog (public view)
 - ❌ Availability checker
@@ -111,6 +122,7 @@ Phase 2 has implemented **POS UI** and **Franchise Portal**, but the **Public We
 - ❌ Booking management (client view)
 
 **Missing Routes:**
+
 - ❌ `/` - Public landing page
 - ❌ `/booking` - Online booking
 - ❌ `/booking/availability` - Check availability
@@ -118,6 +130,7 @@ Phase 2 has implemented **POS UI** and **Franchise Portal**, but the **Public We
 - ❌ `/booking/manage/:token` - Manage booking (cancel, reschedule)
 
 **Missing Features:**
+
 - ❌ Public service catalog display
 - ❌ Master availability display
 - ❌ Time slot selection
@@ -132,6 +145,7 @@ Phase 2 has implemented **POS UI** and **Franchise Portal**, but the **Public We
 ### From Event Storming
 
 **Online Booking Flow:**
+
 ```
 slot.requested
 → availability.checked
@@ -179,15 +193,18 @@ slot.requested
 ### Available APIs ✅
 
 **Booking Service:**
+
 - ✅ `POST /appointments` - Book appointment (can be used by public)
 - ✅ `GET /appointments` - View appointments (needs tenant context)
 
 **Customer Service:**
+
 - ✅ `POST /clients` - Register client (can be used by public)
 
 ### Missing APIs ⏳
 
 **Public Booking APIs (Need to be created or exposed):**
+
 - ⏳ `GET /public/services` - Get services catalog (public, no auth)
 - ⏳ `GET /public/availability` - Check availability (public, no auth)
 - ⏳ `POST /public/bookings` - Create booking (public, no auth)
@@ -216,6 +233,7 @@ slot.requested
 ### Option 1: Implement Public Website Now
 
 **Scope:**
+
 1. Create public landing page component
 2. Create service catalog component (public view)
 3. Create availability checker component
@@ -230,11 +248,13 @@ slot.requested
 ### Option 2: Defer to Phase 3
 
 **Rationale:**
+
 - Public website may require different architecture (MPA for SEO)
 - May need separate deployment
 - Can be built after core platform is validated
 
 **Risk:**
+
 - MVP scope includes "Public website + online booking"
 - May need to adjust MVP scope if deferring
 
@@ -250,6 +270,7 @@ slot.requested
 4. **Consistency:** Completes the full user journey (public booking → salon management → franchise oversight)
 
 **Implementation Approach:**
+
 - Use same React SPA architecture
 - Public routes (no authentication)
 - Tenant context from URL/subdomain (e.g., `salon1.beauty.cz/booking`)
@@ -305,4 +326,3 @@ frontend/
 
 **Status:** 🔄 **PARTIAL** - Public Website Missing  
 **Recommendation:** Implement Public Website to complete MVP scope
-

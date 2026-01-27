@@ -9,6 +9,7 @@
 ## Executive Summary
 
 All SYNC F criteria have been validated and implemented. The business flows work end-to-end via events:
+
 - ✅ Booking → Visit → Payment → Accounting flow implemented
 - ✅ Inventory reservation & deduction flow implemented
 - ✅ Notifications sent flow implemented
@@ -47,6 +48,7 @@ accounting.export_completed (integration-hub-service via AccountingAdapter)
 **Service:** `booking-service`
 
 **Events Published:**
+
 - ✅ `appointment.booked` - When appointment is created
 - ✅ `appointment.confirmed` - When appointment is confirmed
 - ✅ `appointment.started` - When appointment starts
@@ -55,6 +57,7 @@ accounting.export_completed (integration-hub-service via AccountingAdapter)
 - ✅ `slot.released` - When slot is released
 
 **Implementation:**
+
 - ✅ `POST /appointments` creates appointment and publishes `appointment.booked`
 - ✅ Events include all required fields: `tenant_id`, `aggregate_id`, `event_id`, `occurred_at`, `payload`
 - ✅ Tenant context properly propagated
@@ -66,13 +69,16 @@ accounting.export_completed (integration-hub-service via AccountingAdapter)
 **Service:** `beauty-pos-service`
 
 **Events Published:**
+
 - ✅ `visit.started` - When visit starts (walk-in or from appointment)
 - ✅ `visit.closed` - When visit is closed
 
 **Events Consumed:**
+
 - ✅ `appointment.completed` - Subscribed (currently logs, visit creation via API)
 
 **Implementation:**
+
 - ✅ `POST /visits` creates visit and publishes `visit.started`
 - ✅ `POST /visits/:id/close` closes visit and publishes `visit.closed`
 - ✅ Events include all required fields
@@ -85,10 +91,12 @@ accounting.export_completed (integration-hub-service via AccountingAdapter)
 **Service:** `beauty-pos-service`
 
 **Events Published:**
+
 - ✅ `order.created` - When order is created from visit
 - ✅ `order.closed` - When order is closed (all payments received)
 
 **Implementation:**
+
 - ✅ `POST /orders` creates order and publishes `order.created`
 - ✅ `POST /orders/:id/close` closes order and publishes `order.closed`
 - ✅ Order includes items (services/products), amounts, VAT
@@ -102,15 +110,18 @@ accounting.export_completed (integration-hub-service via AccountingAdapter)
 **Service:** `payments-service`
 
 **Events Consumed:**
+
 - ✅ `order.created` - Subscribed, triggers automatic payment processing
 
 **Events Published:**
+
 - ✅ `payment.initiated` - When payment is initiated
 - ✅ `payment.received` - When payment is received (via PaymentAdapter)
 - ✅ `payment.confirmed` - When payment is confirmed
 - ✅ `payment.failed` - When payment fails
 
 **Implementation:**
+
 - ✅ Subscribes to `order.created` events
 - ✅ Uses `PaymentAdapter` to process payments via `payments-microservice`
 - ✅ Publishes `payment.received` when payment succeeds
@@ -124,15 +135,18 @@ accounting.export_completed (integration-hub-service via AccountingAdapter)
 **Service:** `integration-hub-service`
 
 **Events Consumed:**
+
 - ✅ `payment.received` - Subscribed, publishes `accounting.export_requested`
 - ✅ `order.closed` - Subscribed, exports to accounting system
 
 **Events Published:**
+
 - ✅ `accounting.export_requested` - When export is requested
 - ✅ `accounting.export_completed` - When export succeeds
 - ✅ `integration.failed` - When export fails
 
 **Implementation:**
+
 - ✅ Subscribes to `order.closed` events
 - ✅ Queries order items from database
 - ✅ Queries payment method from payments table
@@ -162,12 +176,15 @@ inventory.decreased (inventory-service)
 **Service:** `inventory-service`
 
 **Events Consumed:**
+
 - ✅ `order.created` - Subscribed, triggers inventory decrease for products
 
 **Events Published:**
+
 - ✅ `inventory.decreased` - When inventory is decreased for a product
 
 **Implementation:**
+
 - ✅ Subscribes to `order.created` events
 - ✅ Processes each product in order items
 - ✅ Checks idempotency (prevents duplicate decreases)
@@ -178,7 +195,8 @@ inventory.decreased (inventory-service)
 - ✅ Handles insufficient stock gracefully (logs warning, continues with other items)
 - ✅ Tenant context properly propagated
 
-**Note:** 
+**Note:**
+
 - Only products consume inventory (services don't)
 - Product ID maps directly to inventory item ID (in production, would query catalog service or mapping table)
 
@@ -189,6 +207,7 @@ inventory.decreased (inventory-service)
 **Service:** `inventory-service`
 
 **Implementation:**
+
 - ✅ `POST /inventory/items/:id/increase` - Manual inventory increase
 - ✅ Publishes `inventory.increased` event
 - ✅ Creates inventory movement record
@@ -221,14 +240,17 @@ email.sent (integration-hub-service via NotificationAdapter)
 **Service:** `integration-hub-service`
 
 **Events Consumed:**
+
 - ✅ `appointment.booked` - Subscribed, sends SMS confirmation
 
 **Events Published:**
+
 - ✅ `sms.sent` - When SMS is sent
 - ✅ `notification.sent` - When notification is sent (generic)
 - ✅ `integration.failed` - When SMS sending fails
 
 **Implementation:**
+
 - ✅ Subscribes to `appointment.booked` events
 - ✅ Queries client phone from database
 - ✅ Uses `NotificationAdapter.sendSms()` to send SMS via `notifications-microservice`
@@ -244,13 +266,16 @@ email.sent (integration-hub-service via NotificationAdapter)
 **Service:** `integration-hub-service`
 
 **Events Consumed:**
+
 - ✅ `client.registered` - Subscribed, sends welcome email
 
 **Events Published:**
+
 - ✅ `email.sent` - When email is sent
 - ✅ `integration.failed` - When email sending fails
 
 **Implementation:**
+
 - ✅ Subscribes to `client.registered` events
 - ✅ Extracts client email from event payload
 - ✅ Uses `NotificationAdapter.sendEmail()` to send email via `notifications-microservice`
@@ -276,6 +301,7 @@ email.sent (integration-hub-service via NotificationAdapter)
 - ✅ Services react to events asynchronously
 
 **Verified:**
+
 - ✅ `booking-service` publishes `appointment.booked` → doesn't wait for response
 - ✅ `beauty-pos-service` subscribes to `appointment.completed` → reacts asynchronously
 - ✅ `payments-service` subscribes to `order.created` → processes payment asynchronously
@@ -293,6 +319,7 @@ email.sent (integration-hub-service via NotificationAdapter)
 - ✅ Event handlers handle errors gracefully (non-blocking)
 
 **Verified:**
+
 - ✅ Event handlers check idempotency before processing
 - ✅ Event handlers set tenant context from events
 - ✅ Event handlers release DB clients in `finally` blocks
@@ -357,11 +384,13 @@ email.sent (integration-hub-service via NotificationAdapter)
 
 ### Issue 1: Inventory Service Not Decreasing Inventory ✅ FIXED
 
-**Problem:** 
+**Problem:**
+
 - Inventory service subscribed to `visit.closed` but didn't actually decrease inventory
 - Comment said "inventory will be decreased when order is created" but no implementation
 
 **Fix:**
+
 - Changed subscription from `visit.closed` to `order.created`
 - Implemented inventory decrease logic:
   - Processes each product in order items
@@ -426,6 +455,7 @@ email.sent (integration-hub-service via NotificationAdapter)
 **✅ SYNC F — BUSINESS FLOW WORKS**
 
 All business flows are operational and event-driven:
+
 - Complete Booking → Visit → Payment → Accounting flow implemented
 - Inventory decreases automatically when orders are created
 - Notifications (SMS/email) sent automatically
@@ -433,6 +463,7 @@ All business flows are operational and event-driven:
 - No synchronous coupling between services
 
 **Next Steps:**
+
 - Proceed to P1.6 — BI Read Model
 - Implement event subscribers for BI aggregations
 - Create read models for analytics
@@ -440,4 +471,3 @@ All business flows are operational and event-driven:
 ---
 
 **Status:** ✅ **APPROVED** — Business flows work end-to-end via events.
-
