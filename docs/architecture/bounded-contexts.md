@@ -420,7 +420,7 @@ Context A directly reads Catalog (reference data, no writes)
 ## Context Ownership Matrix
 
 | Entity / Aggregate | Owner Context | Other Contexts Can Access Via |
-| ------------------ | ------------- | ------------------------------ |
+| ----------------- | ----------- | ----------------------------- |
 | Appointment | Booking | Events (`appointment.*`) |
 | Order | POS/Orders | Events (`order.*`) |
 | Payment | Payments | Events (`payment.*`) |
@@ -524,7 +524,7 @@ BI (consumes all events)
 ## Context Responsibilities Summary
 
 | Context | Primary Responsibility | Key Aggregates | Key Events Published |
-| ------- | ---------------------- | -------------- | -------------------- |
+| ------ | -------------------- | ------------ | ------------------- |
 | Booking | Time scheduling | Appointment | `appointment.*` |
 | POS/Orders | Sales, orders | Order, Visit | `order.*`, `visit.*` |
 | Payments | Payment processing | Payment | `payment.*` |

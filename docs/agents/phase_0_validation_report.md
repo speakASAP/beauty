@@ -409,7 +409,7 @@ All Phase 0 exit criteria are met:
 ## Validation Summary
 
 | Artifact | Status | Violations | Notes |
-|----------|--------|------------|-------|
+| -------- | ------ | ---------- | ----- |
 | Domain Glossary | ✅ APPROVED | 0 | Complete and immutable |
 | Bounded Contexts | ✅ APPROVED | 0 | Pure and isolated |
 | Tenant Model | ✅ APPROVED | 0 | Complete with RLS policies |

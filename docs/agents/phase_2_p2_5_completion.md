@@ -268,7 +268,7 @@ Redirect to login
 ### Auth Service Endpoints
 
 | Endpoint | Method | Purpose | Status |
-|----------|--------|---------|--------|
+| -------- | ------ | ------- | ------ |
 | `/auth/login` | POST | Authenticate user | ✅ Integrated |
 | `/auth/logout` | POST | Logout user | ✅ Integrated |
 | `/auth/me` | GET | Get current user | ✅ Integrated |

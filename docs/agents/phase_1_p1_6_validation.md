@@ -405,7 +405,7 @@ async function updateClientLTV(client, tenantId, clientId, visitAmount, visitDat
 ### P1.6 Requirements Status
 
 | Requirement | Status | Notes |
-|-------------|--------|-------|
+| ----------- | ------ | ----- |
 | Event subscribers | ✅ APPROVED | Subscribes to all domain events |
 | Aggregated tables | ✅ APPROVED | All tables created with proper schema |
 | Tenant-scoped analytics | ✅ APPROVED | RLS policies enforce tenant isolation |

@@ -201,7 +201,7 @@ slot.requested
 ## Implementation Status Summary
 
 | Component | Status | Completion |
-|-----------|--------|------------|
+| --------- | ------ | ---------- |
 | POS UI | ✅ Complete | 100% |
 | Franchise Portal | ✅ Complete | 100% |
 | Auth & Tenant UX | ✅ Complete | 100% |

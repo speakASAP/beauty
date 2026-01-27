@@ -155,7 +155,7 @@ Booking Management (/booking/manage/:token)
 ## Component Status
 
 | Component | Status | API Integration |
-|-----------|--------|----------------|
+| --------- | ------ | -------------- |
 | LandingPage | ✅ Complete | N/A (no API) |
 | ServiceCatalog | ✅ Complete | ⏳ Pending (needs services API) |
 | AvailabilityChecker | ✅ Complete | ⏳ Pending (needs availability API) |

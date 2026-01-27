@@ -283,7 +283,7 @@ P1.7 (Validation & Hardening) validation complete:
 ### P1.7 Validation Status
 
 | Category | Status | Notes |
-|----------|--------|-------|
+| -------- | ------ | ----- |
 | Contract Validation | ✅ PASSED | All contracts validated |
 | Tenant Isolation | ✅ PASSED | RLS enforced, cross-tenant access prevented |
 | Failure Scenarios | ✅ PASSED | All failure scenarios handled gracefully |

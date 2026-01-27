@@ -5,7 +5,7 @@ Complete reference of all environment variables used across the beauty platform.
 ## Database Server
 
 | Variable | Description | Default | Required |
-|----------|-------------|---------|----------|
+| -------- | ----------- | ------- | -------- |
 | `DB_SERVER_ADMIN_USER` | PostgreSQL admin username | `dbadmin` | No |
 | `DB_SERVER_ADMIN_PASSWORD` | PostgreSQL admin password | - | Yes |
 | `DB_SERVER_PORT` | PostgreSQL port | `5432` | No |
@@ -15,7 +15,7 @@ Complete reference of all environment variables used across the beauty platform.
 ## Nginx Microservice
 
 | Variable | Description | Default | Required |
-|----------|-------------|---------|----------|
+| -------- | ----------- | ------- | -------- |
 | `DEFAULT_DOMAIN_SUFFIX` | Default domain suffix | - | Yes |
 | `CERTBOT_EMAIL` | Email for Let's Encrypt | - | Yes |
 | `CERTBOT_STAGING` | Use Let's Encrypt staging | `false` | No |
@@ -27,7 +27,7 @@ Complete reference of all environment variables used across the beauty platform.
 ## Auth Microservice
 
 | Variable | Description | Default | Required |
-|----------|-------------|---------|----------|
+| -------- | ----------- | ------- | -------- |
 | `NODE_ENV` | Node environment | `production` | No |
 | `DOMAIN` | Service domain | - | Yes |
 | `SERVICE_NAME` | Service name | `auth-microservice` | No |
@@ -50,7 +50,7 @@ Complete reference of all environment variables used across the beauty platform.
 ## Database Creation Scripts
 
 | Variable | Description | Default | Required |
-|----------|-------------|---------|----------|
+| -------- | ----------- | ------- | -------- |
 | `DB_CONTAINER` | Database container name | `db-server-postgres` | No |
 | `DB_SERVER_ADMIN_USER` | Admin user | `dbadmin` | No |
 | `DOCKER_NETWORK` | Docker network | `nginx-network` | No |
@@ -63,7 +63,7 @@ Complete reference of all environment variables used across the beauty platform.
 All services use environment variables with defaults. Key variables:
 
 | Variable | Description | Default |
-|----------|-------------|---------|
+| -------- | ----------- | ------- |
 | `POSTGRES_DB` | Main database name | `beauty_platform` |
 | `POSTGRES_USER` | Database user | `beauty_user` |
 | `POSTGRES_PASSWORD` | Database password | `beauty_password` |

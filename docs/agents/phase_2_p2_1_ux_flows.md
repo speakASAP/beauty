@@ -971,7 +971,7 @@ Service Template Saved
 ### Salon (POS UI) APIs
 
 | User Intent | API Endpoint | Method | Service | Event Subscription |
-|-------------|--------------|--------|---------|-------------------|
+| ----------- | ------------ | ------ | ------- | ----------------- |
 | View appointments | `/appointments?from_date=...&to_date=...&master_id=...&status=...` | GET | booking-service (4110) | `appointment.*` |
 | Book appointment | `/appointments` | POST | booking-service (4110) | `appointment.booked` |
 | Confirm appointment | `/appointments/:id/confirm` | POST | booking-service (4110) | `appointment.confirmed` |
@@ -998,7 +998,7 @@ Service Template Saved
 ### Franchise Portal APIs
 
 | User Intent | API Endpoint | Method | Service | Event Subscription |
-|-------------|--------------|--------|---------|-------------------|
+| ----------- | ------------ | ------ | ------- | ----------------- |
 | View tenant list | **Future:** `/tenants` | GET | **Future:** platform-service | Tenant lifecycle events |
 | View tenant details | **Future:** `/tenants/:id` | GET | **Future:** platform-service | Tenant state events |
 | View cross-tenant sales | **Future:** `/analytics/daily-sales?tenant_id=...` | GET | **Future:** bi-service (franchisor) | `order.*`, `payment.*` (all tenants) |

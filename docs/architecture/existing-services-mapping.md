@@ -384,7 +384,7 @@ These services already exist and are production-ready. They must NOT be modified
 ## Decision Matrix
 
 | Service | Decision | Adapter | ACL Required | Changes | Integration Method |
-| ------- | -------- | ------- | ------------ | ------- | ------------------ |
+| ------ | ------ | ----- | ---------- | ----- | ----------------- |
 | Auth | KEEP | No | No | None | Direct API |
 | Catalog | WRAP | Yes | Yes | None | HTTP via adapter |
 | Orders | REPLACE | No | No | New service | New Beauty POS Service |

@@ -56,7 +56,7 @@ Excluded (post-MVP):
 > See [Domain Glossary](domain-glossary.md) for the complete immutable glossary.
 
 | Term | Context | Definition | Invariants |
-|----|----|----|----|
+| -- | -- | -- | -- |
 | Tenant | Platform | One salon / franchise unit | Data isolated |
 | Client | Customer | End customer | GDPR consent required |
 | Appointment | Booking | Reserved time slot | Time-based |
@@ -95,7 +95,7 @@ appointment.booked
 ### 4.1 Core Domains
 
 | Context | Responsibility | Knows About | Does NOT Know |
-|------|------|------|------|
+| ---- | ---- | ---- | ---- |
 | Booking | Time & resources | Slots, masters | Payments, stock |
 | POS / Orders | Sales logic | Services, prices | Accounting |
 | Payments | Payment execution | Orders | Booking |

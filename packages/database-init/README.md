@@ -76,7 +76,7 @@ await initializer.initialize();
 ## Environment Variables
 
 | Variable | Description | Default |
-|----------|-------------|---------|
+| -------- | ----------- | ------- |
 | `DB_HOST` | Database host | `db-server-postgres` |
 | `DB_PORT` | Database port | `5432` |
 | `DB_USER` | Database user | `dbadmin` |

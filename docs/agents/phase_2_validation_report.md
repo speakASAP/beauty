@@ -263,7 +263,7 @@ npm test
 ## Compliance Summary
 
 | Category | Status | Evidence |
-|----------|--------|----------|
+| -------- | ------ | -------- |
 | **Tenant Isolation** | ✅ PASS | All API calls include tenant_id, queries scoped |
 | **Role-Based Access** | ✅ PASS | Route guards, role-based UI, backend source of truth |
 | **Event-Driven UX** | ✅ PASS | Polling configured, no optimistic updates |

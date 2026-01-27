@@ -274,7 +274,7 @@ All Franchise Portal components are implemented and functional:
 ### POS UI Components ✅
 
 | Component | File | Status | API Integration |
-|-----------|------|--------|----------------|
+| --------- | ---- | ------ | -------------- |
 | AppointmentCalendar | `components/pos/AppointmentCalendar.tsx` | ✅ Complete | ✅ Booking API |
 | BookAppointmentForm | `components/pos/BookAppointmentForm.tsx` | ✅ Complete | ✅ Booking API |
 | ClientRegistration | `components/pos/ClientRegistration.tsx` | ✅ Complete | ✅ Customer API |
@@ -289,7 +289,7 @@ All Franchise Portal components are implemented and functional:
 ### Franchise Portal Components ✅
 
 | Component | File | Status | API Integration |
-|-----------|------|--------|----------------|
+| --------- | ---- | ------ | -------------- |
 | TenantOverview | `components/franchise/TenantOverview.tsx` | ✅ Complete | ⏳ API Pending |
 | KPIDashboard | `components/franchise/KPIDashboard.tsx` | ✅ Complete | ✅ BI API |
 | PricingControl | `components/franchise/PricingControl.tsx` | ✅ Complete | ⏳ API Pending |
@@ -300,7 +300,7 @@ All Franchise Portal components are implemented and functional:
 ### Auth Components ✅
 
 | Component | File | Status | API Integration |
-|-----------|------|--------|----------------|
+| --------- | ---- | ------ | -------------- |
 | Login | `components/auth/Login.tsx` | ✅ Complete | ✅ Auth API |
 | TenantSelection | `components/auth/TenantSelection.tsx` | ✅ Complete | ✅ Auth API |
 
@@ -313,7 +313,7 @@ All Franchise Portal components are implemented and functional:
 ### POS Routes ✅
 
 | Route | Component | Access | Status |
-|-------|-----------|--------|--------|
+| ----- | --------- | ------ | ------ |
 | `/pos/dashboard` | AppointmentCalendar | Staff | ✅ |
 | `/pos/book-appointment` | BookAppointmentForm | Staff | ✅ |
 | `/pos/visits` | VisitManagement | Staff | ✅ |
@@ -328,7 +328,7 @@ All Franchise Portal components are implemented and functional:
 ### Franchise Portal Routes ✅
 
 | Route | Component | Access | Status |
-|-------|-----------|--------|--------|
+| ----- | --------- | ------ | ------ |
 | `/franchise/tenants` | TenantOverview | Franchisor | ✅ |
 | `/franchise/kpis` | KPIDashboard | Franchisor | ✅ |
 | `/franchise/pricing` | PricingControl | Franchisor | ✅ |
@@ -339,7 +339,7 @@ All Franchise Portal components are implemented and functional:
 ### Auth Routes ✅
 
 | Route | Component | Access | Status |
-|-------|-----------|--------|--------|
+| ----- | --------- | ------ | ------ |
 | `/login` | Login | Public | ✅ |
 | `/select-tenant` | TenantSelection | Authenticated | ✅ |
 
@@ -354,7 +354,7 @@ All Franchise Portal components are implemented and functional:
 All API clients are configured with correct service ports:
 
 | Service | Port | Client | Status |
-|---------|------|--------|--------|
+| ------- | ---- | ------ | ------ |
 | Booking | 4110 | `bookingApiClient` | ✅ |
 | POS | 4111 | `posApiClient` | ✅ |
 | Payments | 4112 | `paymentsApiClient` | ✅ |

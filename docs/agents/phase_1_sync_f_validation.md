@@ -415,7 +415,7 @@ email.sent (integration-hub-service via NotificationAdapter)
 ### SYNC F Criteria Status
 
 | Criterion | Status | Notes |
-|-----------|--------|-------|
+| --------- | ------ | ----- |
 | Booking → Visit → Payment → Accounting | ✅ APPROVED | Complete event chain verified |
 | Inventory reservation & deduction | ✅ APPROVED | Inventory decreases on order.created |
 | Notifications sent | ✅ APPROVED | SMS and email notifications working |

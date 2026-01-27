@@ -192,7 +192,7 @@ export class AppModule {}
 ## Environment Variables
 
 | Variable | Description | Default | Required |
-|----------|-------------|---------|----------|
+| -------- | ----------- | ------- | -------- |
 | `DB_AUTO_CREATE` | Enable auto-creation | `true` | No |
 | `DB_HOST` | Database host | `db-server-postgres` | No |
 | `DB_PORT` | Database port | `5432` | No |
