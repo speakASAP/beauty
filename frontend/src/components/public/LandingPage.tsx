@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate, useParams } from 'react-router-dom';
 import { publicApi, type SalonInfo } from '../../api/public';
 import { LoadingSpinner } from '../common/LoadingSpinner';
+import { PlatformAuthLinks } from '../auth/PlatformAuthLinks';
 
 // Simple SVG Icons
 const SpaIcon = () => (
@@ -242,6 +243,10 @@ export function LandingPage() {
   // Otherwise show salon selection form (beautiful version)
   return (
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-accent via-accent to-[#f5c6cb]">
+      {/* Top bar: platform auth (auth-microservice) */}
+      <header className="absolute top-0 right-0 left-0 z-10 flex justify-end items-center px-4 py-3">
+        <PlatformAuthLinks />
+      </header>
       {/* Decorative background elements */}
       <div className="absolute -top-[100px] -right-[100px] w-[400px] h-[400px] rounded-full bg-white/10 blur-[60px]" />
       <div className="absolute -bottom-[150px] -left-[150px] w-[500px] h-[500px] rounded-full bg-white/10 blur-[80px]" />
@@ -401,6 +406,9 @@ function SalonLandingPage({ salonInfo }: { salonInfo: SalonInfo }) {
     <div className="bg-light min-h-screen">
       {/* Hero Section with Background Image */}
       <div className="relative min-h-[60vh] md:min-h-[80vh] flex items-center justify-center overflow-hidden">
+        <header className="absolute top-0 right-0 left-0 z-30 flex justify-end items-center px-4 py-3">
+          <PlatformAuthLinks className="text-white [&_a]:text-white [&_a:hover]:bg-white/20" />
+        </header>
         {/* Background Image */}
         <img
           src="https://yaraspace.cz/wp-content/uploads/2025/05/yaraspace_intro.webp"

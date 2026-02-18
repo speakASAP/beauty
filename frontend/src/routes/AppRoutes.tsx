@@ -9,6 +9,8 @@ import { LoadingSpinner } from '../components/common/LoadingSpinner';
 // Lazy load auth components
 const Login = lazy(() => import('../components/auth/Login').then(m => ({ default: m.Login })));
 const TenantSelection = lazy(() => import('../components/auth/TenantSelection').then(m => ({ default: m.TenantSelection })));
+const PlatformLoginPage = lazy(() => import('../components/auth/PlatformLoginPage').then(m => ({ default: m.PlatformLoginPage })));
+const PlatformRegisterPage = lazy(() => import('../components/auth/PlatformRegisterPage').then(m => ({ default: m.PlatformRegisterPage })));
 
 // Lazy load common components
 const Unauthorized = lazy(() => import('../components/common/Unauthorized').then(m => ({ default: m.Unauthorized })));
@@ -142,6 +144,23 @@ export function AppRoutes() {
                 element={
                   <Suspense fallback={<PageLoader />}>
                     <Login />
+                  </Suspense>
+                }
+              />
+              {/* Platform auth (auth-microservice) */}
+              <Route
+                path="/platform-login"
+                element={
+                  <Suspense fallback={<PageLoader />}>
+                    <PlatformLoginPage />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/platform-register"
+                element={
+                  <Suspense fallback={<PageLoader />}>
+                    <PlatformRegisterPage />
                   </Suspense>
                 }
               />
