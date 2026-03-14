@@ -9,6 +9,7 @@ Shared logger library for beauty platform. Integrates with centralized logging m
 - Fallback to console logging if service unavailable
 - Request-scoped logging with middleware
 - Child loggers for additional context
+- **Timestamps and duration**: Include timestamp (ISO 8601) and, for requests/processes, `duration_ms` (and optionally `started_at`/`finished_at`) in metadata so logs support analysis of timeouts, hanging processes, and request duration (see ecosystem logging standards in shared/README and logging-microservice README).
 
 ## Usage
 
