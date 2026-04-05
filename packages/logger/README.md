@@ -117,6 +117,7 @@ The logger automatically includes tenant context when used with `loggingMiddlewa
 ## Fallback Behavior
 
 If the logging microservice is unavailable:
+
 - Logs automatically fall back to console logging
 - No errors are thrown (non-blocking)
 - Service continues to operate normally
@@ -139,4 +140,3 @@ Logs sent to the logging microservice follow this format:
   }
 }
 ```
-
