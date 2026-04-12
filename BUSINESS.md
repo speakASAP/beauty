@@ -1,5 +1,5 @@
 # Business: beauty
->
+
 > ⚠️ IMMUTABLE BY AI.
 
 ## Goal
