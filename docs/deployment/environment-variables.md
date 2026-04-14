@@ -45,7 +45,7 @@ Complete reference of all environment variables used across the beauty platform.
 | `JWT_REFRESH_EXPIRES_IN` | Refresh token expiration | `30d` | No |
 | `LOG_LEVEL` | Log level | `info` | No |
 | `LOGGING_SERVICE_URL` | Logging service URL | - | Yes |
-| `NOTIFICATIONS_SERVICE_URL` | Notifications service URL | - | Yes |
+| `NOTIFICATION_SERVICE_URL` | Notifications service URL | - | Yes |
 
 ## Database Creation Scripts
 
@@ -79,7 +79,7 @@ All service URLs are configurable via environment variables:
 
 - `AUTH_SERVICE_URL` - Auth service URL
 - `LOGGING_SERVICE_URL` - Logging service URL
-- `NOTIFICATIONS_SERVICE_URL` - Notifications service URL
+- `NOTIFICATION_SERVICE_URL` - Notifications service URL
 - `BOOKING_SERVICE_URL` - Booking service URL
 - `POS_SERVICE_URL` - POS service URL
 - `PAYMENTS_SERVICE_URL` - Payments service URL

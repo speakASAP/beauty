@@ -60,7 +60,7 @@ const logger = createLogger(process.env.SERVICE_NAME || 'booking-service');
 
 // Notification adapter
 const notificationAdapter = new NotificationAdapter({
-  endpoint: process.env.NOTIFICATIONS_MICROSERVICE_URL || process.env.NOTIFICATION_SERVICE_URL || 'http://notifications-microservice:3367'
+  endpoint: process.env.NOTIFICATION_SERVICE_URL || 'http://notifications-microservice:3368'
 });
 
 // Initialize event bus connection

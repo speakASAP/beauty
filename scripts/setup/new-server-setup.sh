@@ -6,7 +6,7 @@
 # It guides through the setup process and validates configuration.
 #
 # Environment Variables:
-#   DOMAIN_SUFFIX - Domain suffix for this server (e.g., yourdomain.com)
+#   DOMAIN_SUFFIX - Domain suffix for this server (e.g., alfares.cz)
 #   ADMIN_EMAIL - Email for Let's Encrypt certificates
 #   DB_ADMIN_PASSWORD - Database admin password (will prompt if not set)
 
@@ -54,7 +54,7 @@ echo ""
 
 DOMAIN_SUFFIX="${DOMAIN_SUFFIX:-}"
 if [ -z "$DOMAIN_SUFFIX" ]; then
-    read -p "Domain suffix (e.g., yourdomain.com): " DOMAIN_SUFFIX
+    read -p "Domain suffix (e.g., alfares.cz): " DOMAIN_SUFFIX
 fi
 
 ADMIN_EMAIL="${ADMIN_EMAIL:-}"

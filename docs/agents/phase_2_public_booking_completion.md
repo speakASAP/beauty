@@ -172,7 +172,7 @@ Vaše rezervace byla potvrzena. Kód: {CODE}. Datum: {DATE} {TIME}.
 
 **Booking Service:**
 - `CUSTOMER_SERVICE_URL`: Customer service URL (default: `http://customer-service:4114`)
-- `NOTIFICATIONS_MICROSERVICE_URL`: Notification service URL
+- `NOTIFICATION_SERVICE_URL`: Notification service URL
 - `NOTIFICATION_SERVICE_URL`: Alternative notification service URL
 - `CORS_ORIGIN`: CORS origin (default: `*`)
 

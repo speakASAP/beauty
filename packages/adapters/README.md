@@ -72,7 +72,7 @@ const exportResult = await accountingAdapter.exportTransaction(
 
 // Use NotificationAdapter
 const notificationAdapter = new NotificationAdapter({
-  endpoint: process.env.NOTIFICATIONS_MICROSERVICE_URL
+  endpoint: process.env.NOTIFICATION_SERVICE_URL
 });
 
 await notificationAdapter.sendSms('+420123456789', 'Your appointment is confirmed', tenantId);

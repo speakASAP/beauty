@@ -56,11 +56,11 @@ EOF
 ```bash
 cd ~/nginx-microservice
 cat > .env << EOF
-DEFAULT_DOMAIN_SUFFIX=yourdomain.com
-CERTBOT_EMAIL=admin@yourdomain.com
+DEFAULT_DOMAIN_SUFFIX=alfares.cz
+CERTBOT_EMAIL=admin@alfares.cz
 CERTBOT_STAGING=false
 NETWORK_NAME=nginx-network
-DOCKER_VOLUMES_BASE_PATH=/srv/storagebox/yourdomain/docker-volumes/nginx-microservice
+DOCKER_VOLUMES_BASE_PATH=/srv/storagebox/alfares.cz/docker-volumes/nginx-microservice
 PRODUCTION_BASE_PATH=/home/user
 DATABASE_SERVER_PATH=/home/user/database-server
 EOF
@@ -72,12 +72,12 @@ EOF
 cd ~/auth-microservice
 cat > .env << EOF
 NODE_ENV=production
-DOMAIN=auth.yourdomain.com
+DOMAIN=auth.alfares.cz
 SERVICE_NAME=auth-microservice
 PORT=3370
 CORS_ORIGIN=*
 
-FRONTEND_URL=https://auth.yourdomain.com
+FRONTEND_URL=https://auth.alfares.cz
 
 # Database Configuration
 DB_HOST=db-server-postgres
@@ -94,10 +94,10 @@ JWT_REFRESH_EXPIRES_IN=30d
 
 # Logging
 LOG_LEVEL=info
-LOGGING_SERVICE_URL=https://logging.yourdomain.com
+LOGGING_SERVICE_URL=https://logging.alfares.cz
 
 # Notifications
-NOTIFICATIONS_SERVICE_URL=https://notifications.yourdomain.com
+NOTIFICATION_SERVICE_URL=https://notifications.alfares.cz
 EOF
 ```
 
@@ -169,20 +169,20 @@ cd ~/nginx-microservice
 
 ### Nginx Microservice
 
-- `DEFAULT_DOMAIN_SUFFIX` - Default domain suffix (e.g., `yourdomain.com`)
+- `DEFAULT_DOMAIN_SUFFIX` - Default domain suffix (e.g., `alfares.cz`)
 - `CERTBOT_EMAIL` - Email for Let's Encrypt certificates
 - `NETWORK_NAME` - Docker network name
 - `DOCKER_VOLUMES_BASE_PATH` - Base path for Docker volumes
 
 ### Microservices (Auth, Logging, etc.)
 
-- `DOMAIN` - Service domain (e.g., `auth.yourdomain.com`)
+- `DOMAIN` - Service domain (e.g., `auth.alfares.cz`)
 - `DB_HOST` - Database container name
 - `DB_NAME` - Database name
 - `DB_USER` - Database user
 - `DB_PASSWORD` - Database password
 - `LOGGING_SERVICE_URL` - Logging service URL
-- `NOTIFICATIONS_SERVICE_URL` - Notifications service URL
+- `NOTIFICATION_SERVICE_URL` - Notifications service URL
 
 ## Multi-Domain Configuration
 

@@ -39,10 +39,9 @@ const accountingAdapter = new AccountingAdapter({
 });
 
 // Notification Adapter (connects to notifications-microservice)
-// BaseAdapter will check NOTIFICATION_SERVICE_URL or NOTIFICATION_MICROSERVICE_URL
-// We also support NOTIFICATIONS_MICROSERVICE_URL for backward compatibility
+// Canonical notifications URL variable
 const notificationAdapter = new NotificationAdapter({
-  endpoint: process.env.NOTIFICATIONS_MICROSERVICE_URL || process.env.NOTIFICATION_MICROSERVICE_URL || process.env.NOTIFICATION_SERVICE_URL || 'http://notifications-microservice:3367',
+  endpoint: process.env.NOTIFICATION_SERVICE_URL || 'http://notifications-microservice:3368',
   timeout: 5000,
   retryAttempts: 3
 });
