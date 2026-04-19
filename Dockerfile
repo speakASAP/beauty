@@ -2,20 +2,22 @@ FROM node:24-slim
 
 WORKDIR /app
 
-# Install curl for health checks
+# Install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
 
-# Copy package files (service and packages)
+# Copy all packages and services
+COPY packages ./packages
+COPY services ./services
+
+# Copy service-specific package files
 COPY services/api-gateway/package*.json ./
 COPY packages/logger/package.json ./packages/logger/
-
-# Copy package source code
 COPY packages/logger/src ./packages/logger/src
 
-# Install dependencies (including local packages)
-RUN npm ci --only=production
+# Install service-specific dependencies
+RUN npm install --prefer-offline --no-audit || npm ci
 
-# Copy application code
+# Copy application source (Express.js, no build step needed)
 COPY services/api-gateway/src ./src
 
 # Expose port
@@ -27,4 +29,3 @@ HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
 
 ENTRYPOINT ["node"]
 CMD ["src/index.js"]
-
